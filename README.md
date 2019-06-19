@@ -21,7 +21,7 @@ keep in mind that OmniXtend is *not* equivalent to TileLink, despite
 their similarity at the moment.
 
 
-See the [specification](specification/OmniXtend-0.1.html)
+See the [specification](specification/OmniXtend-0.1.pdf)
 document for details of the protocol.
 
 License
