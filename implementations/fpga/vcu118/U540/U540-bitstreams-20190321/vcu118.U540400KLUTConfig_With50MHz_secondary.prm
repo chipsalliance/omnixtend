@@ -1,0 +1,11 @@
+===================================
+Configuration Memory information
+===================================
+File Format        MCS
+Interface          SPIX8
+Size               128M
+Start Address      0x00000000
+End Address        0x07FFFFFF
+
+Addr1         Addr2         Date                    File(s)
+0x00000000    0x0144FCE5    Mar 21 15:57:36 2019    /scratch/terpstra/federation/builds/u540_vcu118/mcs/vcu118.U540400KLUTConfig_With50MHz.bit
