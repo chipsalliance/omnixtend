@@ -24,6 +24,9 @@ their similarity at the moment.
 See the [specification](specification/OmniXtend-0.1.pdf)
 document for details of the protocol.
 
+This [short video](https://youtu.be/hmVNTUrJoDM) shows how to set
+up the demo system.
+
 License
 =======
 
