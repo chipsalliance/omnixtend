@@ -1,0 +1,251 @@
+pkg_info {
+  arch: "v1model"
+}
+tables {
+  preamble {
+    id: 33560053
+    name: "MyIngress.mac_lookup"
+    alias: "mac_lookup"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.ethernet.dstAddr"
+    bitwidth: 48
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16814737
+  }
+  action_refs {
+    id: 16826891
+  }
+  action_refs {
+    id: 16805608
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33555043
+    name: "MyIngress.omni_exact"
+    alias: "omni_exact"
+  }
+  match_fields {
+    id: 1
+    name: "hdr.omnixtend.channel"
+    bitwidth: 3
+    match_type: EXACT
+  }
+  match_fields {
+    id: 2
+    name: "hdr.omnixtend.opcode"
+    bitwidth: 3
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16810807
+  }
+  action_refs {
+    id: 16827296
+  }
+  action_refs {
+    id: 16816415
+  }
+  action_refs {
+    id: 16814562
+  }
+  action_refs {
+    id: 16835297
+  }
+  action_refs {
+    id: 16805608
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 1024
+}
+tables {
+  preamble {
+    id: 33569572
+    name: "MyIngress.owner_tbl"
+    alias: "owner_tbl"
+  }
+  match_fields {
+    id: 1
+    name: "meta.cache_owner"
+    bitwidth: 16
+    match_type: EXACT
+  }
+  action_refs {
+    id: 16786257
+  }
+  action_refs {
+    id: 16800567
+  }
+  size: 1024
+}
+actions {
+  preamble {
+    id: 16800567
+    name: "NoAction"
+    alias: "NoAction"
+  }
+}
+actions {
+  preamble {
+    id: 16805608
+    name: "MyIngress.drop"
+    alias: "MyIngress.drop"
+  }
+}
+actions {
+  preamble {
+    id: 16814737
+    name: "MyIngress.broadcast"
+    alias: "broadcast"
+  }
+}
+actions {
+  preamble {
+    id: 16826891
+    name: "MyIngress.mac_forward"
+    alias: "mac_forward"
+  }
+  params {
+    id: 1
+    name: "port"
+    bitwidth: 9
+  }
+}
+actions {
+  preamble {
+    id: 16786257
+    name: "MyIngress.redirect"
+    alias: "redirect"
+  }
+  params {
+    id: 1
+    name: "dst_mac"
+    bitwidth: 48
+  }
+}
+actions {
+  preamble {
+    id: 16827296
+    name: "MyIngress.respond_same_size"
+    alias: "respond_same_size"
+  }
+  params {
+    id: 1
+    name: "new_chan"
+    bitwidth: 3
+  }
+  params {
+    id: 2
+    name: "new_op"
+    bitwidth: 3
+  }
+  params {
+    id: 3
+    name: "new_param"
+    bitwidth: 4
+  }
+}
+actions {
+  preamble {
+    id: 16810807
+    name: "MyIngress.handle_acquire"
+    alias: "handle_acquire"
+  }
+}
+actions {
+  preamble {
+    id: 16816415
+    name: "MyIngress.handle_grant"
+    alias: "handle_grant"
+  }
+}
+actions {
+  preamble {
+    id: 16814562
+    name: "MyIngress.handle_release"
+    alias: "handle_release"
+  }
+}
+actions {
+  preamble {
+    id: 16835297
+    name: "MyIngress.handle_release_data"
+    alias: "handle_release_data"
+  }
+}
+actions {
+  preamble {
+    id: 16816924
+    name: "MyEgress.drop"
+    alias: "MyEgress.drop"
+  }
+}
+registers {
+  preamble {
+    id: 369160673
+    name: "MyIngress.valid_reg"
+    alias: "valid_reg"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 1
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369160875
+    name: "MyIngress.state_reg"
+    alias: "state_reg"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 2
+      }
+    }
+  }
+  size: 2
+}
+registers {
+  preamble {
+    id: 369134596
+    name: "MyIngress.owner_reg"
+    alias: "owner_reg"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 16
+      }
+    }
+  }
+  size: 16
+}
+registers {
+  preamble {
+    id: 369161311
+    name: "MyIngress.src_reg"
+    alias: "src_reg"
+  }
+  type_spec {
+    bitstring {
+      bit {
+        bitwidth: 4
+      }
+    }
+  }
+  size: 16
+}
+type_info {
+}

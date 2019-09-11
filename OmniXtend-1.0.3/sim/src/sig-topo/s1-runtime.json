@@ -1,0 +1,140 @@
+{
+  "target": "bmv2",
+  "p4info": "build/omnixtend.p4.p4info.txt",
+  "bmv2_json": "build/omnixtend.json",
+  "table_entries": [
+    {
+      "table": "MyIngress.mac_lookup",
+      "match": {
+        "hdr.ethernet.dstAddr": "08:00:00:00:01:11"
+      },
+      "action_name": "MyIngress.mac_forward",
+      "action_params": {
+        "port": 1
+      }
+    },
+    {
+      "table": "MyIngress.mac_lookup",
+      "match": {
+        "hdr.ethernet.dstAddr": "08:00:00:00:02:22"
+      },
+      "action_name": "MyIngress.mac_forward",
+      "action_params": {
+        "port": 2
+      }
+    },
+    {
+      "table": "MyIngress.mac_lookup",
+      "match": {
+        "hdr.ethernet.dstAddr": "08:00:00:00:03:33"
+      },
+      "action_name": "MyIngress.mac_forward",
+      "action_params": {
+        "port": 3
+      }
+    },
+    {
+      "table": "MyIngress.mac_lookup",
+      "match": {
+        "hdr.ethernet.dstAddr": "08:00:00:00:04:44"
+      },
+      "action_name": "MyIngress.mac_forward",
+      "action_params": {
+        "port": 4
+      }
+    },
+    {
+      "table": "MyIngress.omni_exact",
+      "match": {
+        "hdr.omnixtend.channel": 4,
+        "hdr.omnixtend.opcode": 4
+      },
+      "action_name": "MyIngress.handle_grant",
+      "action_params": {
+      }
+    },
+    {
+      "table": "MyIngress.omni_exact",
+      "match": {
+        "hdr.omnixtend.channel": 1,
+        "hdr.omnixtend.opcode": 6
+      },
+      "action_name": "MyIngress.handle_acquire",
+      "action_params": {
+      }
+    },
+    {
+      "table": "MyIngress.omni_exact",
+      "match": {
+        "hdr.omnixtend.channel": 4,
+        "hdr.omnixtend.opcode": 5
+      },
+      "action_name": "MyIngress.handle_grant",
+      "action_params": {
+      }
+    },
+    {
+      "table": "MyIngress.owner_tbl",
+      "match": {
+        "meta.cache_owner": 1
+      },
+      "action_name": "MyIngress.redirect",
+      "action_params": {
+        "dst_mac": "08:00:00:00:01:11"
+      }
+    },
+    {
+      "table": "MyIngress.owner_tbl",
+      "match": {
+        "meta.cache_owner": 2
+      },
+      "action_name": "MyIngress.redirect",
+      "action_params": {
+        "dst_mac": "08:00:00:00:02:22"
+      }
+    },
+    {
+      "table": "MyIngress.owner_tbl",
+      "match": {
+        "meta.cache_owner": 3
+      },
+      "action_name": "MyIngress.redirect",
+      "action_params": {
+        "dst_mac": "08:00:00:00:03:33"
+      }
+    },
+    {
+      "table": "MyIngress.owner_tbl",
+      "match": {
+        "meta.cache_owner": 4
+      },
+      "action_name": "MyIngress.redirect",
+      "action_params": {
+        "dst_mac": "08:00:00:00:04:44"
+      }
+    }
+  ],
+  "multicast_group_entries" : [
+    {
+      "multicast_group_id" : 1,
+      "replicas" : [
+        {
+          "egress_port" : 1,
+          "instance" : 1
+        },
+        {
+          "egress_port" : 2,
+          "instance" : 1
+        },
+        {
+          "egress_port" : 3,
+          "instance" : 1
+        },
+        {
+          "egress_port" : 4,
+          "instance" : 1
+        }
+      ]
+    }
+  ]
+}

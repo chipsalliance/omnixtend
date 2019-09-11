@@ -1,0 +1,43 @@
+unless Vagrant.has_plugin?("vagrant-disksize")
+  puts 'Installing vagrant-disksize Plugin...'
+  system('vagrant plugin install vagrant-disksize')
+end
+
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  puts 'Installing vagrant-vbguest Plugin...'
+  system('vagrant plugin install vagrant-vbguest')
+end
+
+unless Vagrant.has_plugin?("vagrant-reload")
+  puts 'Installing vagrant-reload Plugin...'
+  system('vagrant plugin install vagrant-reload')
+end
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.box_check_update = false
+  config.vm.box_version = "20190909.1.0"
+  config.vm.hostname = "omnixtend"
+  config.disksize.size = '50GB'
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.name = "omnixtend" + Time.now.strftime(" %Y-%m-%d")
+    vb.memory = 4096
+    vb.cpus = 4
+    vb.customize ["modifyvm", :id, "--cableconnected1", "on"]
+    vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
+    vb.customize ["storageattach", :id,
+            "--storagectl", "IDE",
+            "--port", "0", "--device", "0",
+            "--type", "dvddrive",
+            "--medium", "emptydrive"]
+  end
+
+  config.vm.provision "file", source: "p4.vim", destination: "/home/vagrant/p4.vim"
+  config.vm.provision "shell", path: "scripts/root-bootstrap.sh"
+  config.vm.provision :reload
+  config.vm.provision "shell", privileged: false, path: "scripts/user-bootstrap.sh"
+  config.vm.provision :reload
+  config.ssh.forward_x11  = true
+  config.vm.synced_folder "../", "/home/vagrant/omnixtend"
+end
