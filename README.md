@@ -15,9 +15,12 @@ with off-the-shelf Ethernet switches. Programmable-dataplane Ethernet
 switches, such as Barefoot Tofino, enable greatly improved performance
 and protocol/architectural innovation.
 
-See the current [specification](specification/1.0.3/OmniXtend-1.0.3.pdf)
+See the current [specification](OmniXtend-1.0.3/spec/OmniXtend-1.0.3.pdf)
 document for details of the protocol. OmniXtend 1.0.3 is based on
-[TileLink version 1.8.0](specification/1.0.3/TileLink-1.8.0.pdf).
+[TileLink version 1.8.0](OmniXtend-1.0.3/spec/TileLink-1.8.0.pdf).
+[This document](OmniXtend-1.0.3/spec/StateTransitionTables-1.8.0.pdf)
+can help with the creation of state machines for caches, accelerators
+and memory controllers.
 
 This [short video](https://youtu.be/hmVNTUrJoDM) shows how to set
 up the demo system.
