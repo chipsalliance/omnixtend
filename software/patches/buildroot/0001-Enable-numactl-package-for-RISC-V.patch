@@ -1,0 +1,27 @@
+From ecd00316bd075ca3aee9d717f2c9be4ab52232db Mon Sep 17 00:00:00 2001
+From: Atish Patra <atish.patra@wdc.com>
+Date: Fri, 6 Dec 2019 20:36:28 -0800
+Subject: [PATCH] Enable numactl package for RISC-V
+
+Signed-off-by: Atish Patra <atish.patra@wdc.com>
+---
+ package/numactl/Config.in | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/package/numactl/Config.in b/package/numactl/Config.in
+index 8ea07bb856e8..e240beddd16b 100644
+--- a/package/numactl/Config.in
++++ b/package/numactl/Config.in
+@@ -3,7 +3,8 @@ config BR2_PACKAGE_NUMACTL
+ 	# numactl uses some system calls that are not available on all
+ 	# architectures.
+ 	depends on BR2_aarch64 || BR2_i386 || BR2_mips || BR2_mipsel || \
+-		BR2_mips64 || BR2_mips64el || BR2_powerpc || BR2_x86_64
++		BR2_mips64 || BR2_mips64el || BR2_powerpc || BR2_x86_64 || \
++		BR2_riscv
+ 	help
+ 	  numactl allows you to run your application on specific cpus
+ 	  and memory nodes. It does this by supplying a NUMA memory
+-- 
+2.24.0
+
