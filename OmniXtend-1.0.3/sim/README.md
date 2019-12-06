@@ -10,7 +10,7 @@ To build the virtual machine:
 1. Install [Vagrant 2.2.5](https://vagrantup.com) and [VirtualBox 6.0](https://virtualbox.org)
 2. Clone the repository `git clone https://github.com/chipsalliance/omnixtend.git`
 3. make sure you have [enabled virtualization in your environment](https://stackoverflow.com/questions/33304393/vt-x-is-disabled-in-the-bios-for-both-all-cpu-modes-verr-vmx-msr-all-vmx-disabl)
-4. `cd omnixtend/tutorial`
+4. `cd omnixtend/OmniXtend-1.0.3/sim`
 5. `vagrant up`
 6. `vagrant ssh`
 

@@ -2,7 +2,7 @@
 # Copyright(c) 2010-2015 Intel Corporation
 
 # binary name
-APP = omnixtend
+APP = omnix-emulator
 
 # all source are stored in SRCS-y
 SRCS-y := main.c

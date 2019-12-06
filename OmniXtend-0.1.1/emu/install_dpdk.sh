@@ -16,7 +16,7 @@ git clone git://dpdk.org/dpdk
 cd dpdk
 export RTE_SDK=$HOME/dpdk
 export RTE_TARGET=x86_64-native-linuxapp-gcc
-git checkout v19.08
+git checkout v19.11
 make config T=$RTE_TARGET O=$RTE_TARGET
 sed -i 's/HPET=n/HPET=y/g' $RTE_SDK/$RTE_TARGET/.config
 sed -i 's/VECTOR=y/VECTOR=n/g' $RTE_SDK/$RTE_TARGET/.config
@@ -25,3 +25,4 @@ cat <<EOF >> $HOME/.bashrc
 export RTE_SDK=$HOME/dpdk
 export RTE_TARGET=x86_64-native-linuxapp-gcc
 EOF
+source $HOME/.bashrc
