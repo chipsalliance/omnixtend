@@ -1,0 +1,1246 @@
+From b8242bac1b90fd818cb14b422aa04d9ccb4e447d Mon Sep 17 00:00:00 2001
+From: Zong Li <zong.li@sifive.com>
+Date: Sun, 15 Sep 2019 23:49:05 -0700
+Subject: [PATCH 1/6] platform: Add new platform VCU118 for Hawksbill
+
+Build command:
+make PLATFORM=sifive/vcu118 FW_PAYLOAD_PATH=<kernel_image>
+
+Signed-off-by: Zong Li <zong.li@sifive.com>
+---
+ platform/sifive/vcu118/clint.c       | 171 +++++++++
+ platform/sifive/vcu118/clint.h       |  33 ++
+ platform/sifive/vcu118/config.mk     |  19 +
+ platform/sifive/vcu118/hawksbill.dts | 544 +++++++++++++++++++++++++++
+ platform/sifive/vcu118/objects.mk    |  11 +
+ platform/sifive/vcu118/platform.c    | 205 ++++++++++
+ platform/sifive/vcu118/platform.h    |  27 ++
+ platform/sifive/vcu118/plic.c        | 126 +++++++
+ platform/sifive/vcu118/plic.h        |  23 ++
+ 9 files changed, 1159 insertions(+)
+ create mode 100644 platform/sifive/vcu118/clint.c
+ create mode 100644 platform/sifive/vcu118/clint.h
+ create mode 100644 platform/sifive/vcu118/config.mk
+ create mode 100644 platform/sifive/vcu118/hawksbill.dts
+ create mode 100644 platform/sifive/vcu118/objects.mk
+ create mode 100644 platform/sifive/vcu118/platform.c
+ create mode 100644 platform/sifive/vcu118/platform.h
+ create mode 100644 platform/sifive/vcu118/plic.c
+ create mode 100644 platform/sifive/vcu118/plic.h
+
+diff --git a/platform/sifive/vcu118/clint.c b/platform/sifive/vcu118/clint.c
+new file mode 100644
+index 000000000000..929978189ebb
+--- /dev/null
++++ b/platform/sifive/vcu118/clint.c
+@@ -0,0 +1,171 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 SiFive Corporation.
++ *
++ * Authors:
++ *   Zong Li <zong.li@sifive.com>
++ */
++
++#include <sbi/riscv_io.h>
++#include <sbi/riscv_atomic.h>
++#include <sbi/sbi_hart.h>
++#include <sbi/sbi_console.h>
++
++#include "platform.h"
++#include "clint.h"
++
++static u32 clint_ipi_hart_count;
++static volatile void *clint_ipi_base[HAWKSBILL_NODE_NUM];
++static volatile u32 *clint_ipi[HAWKSBILL_NODE_NUM];
++
++void vcu118_clint_ipi_send(u32 target_hart)
++{
++	u32 node_idx   = hawksbill_get_node_idx_by_target(target_hart);
++	u32 target_idx = hawksbill_get_node_target_idx(target_hart);
++
++	if (clint_ipi_hart_count <= target_idx)
++		return;
++
++	/* Set CLINT IPI */
++	writel(1, &clint_ipi[node_idx][target_idx]);
++}
++
++void vcu118_clint_ipi_clear(u32 target_hart)
++{
++	u32 node_idx   = hawksbill_get_node_idx_by_target(target_hart);
++	u32 target_idx = hawksbill_get_node_target_idx(target_hart);
++
++	if (clint_ipi_hart_count <= target_idx)
++		return;
++
++	/* Clear CLINT IPI */
++	writel(0, &clint_ipi[node_idx][target_idx]);
++}
++
++int vcu118_clint_warm_ipi_init(void)
++{
++	u32 hartid = sbi_current_hartid();
++
++	if (!clint_ipi_base[hawksbill_get_node_idx_by_target(hartid)])
++		return -1;
++
++	/* Clear CLINT IPI */
++	vcu118_clint_ipi_clear(hartid);
++
++	return 0;
++}
++
++int vcu118_clint_cold_ipi_init(unsigned long base, u32 hart_count)
++{
++	/* Figure-out CLINT IPI register address */
++	clint_ipi_hart_count = hart_count;
++	clint_ipi_base[0]    = (void *)base;
++	clint_ipi[0]	 = (u32 *)clint_ipi_base[0];
++	clint_ipi_base[1]    = (void *)(base + HAWKSBILL_NODE2_BASE);
++	clint_ipi[1]	 = (u32 *)clint_ipi_base[1];
++
++	return 0;
++}
++
++static u32 clint_time_hart_count;
++static volatile void *clint_time_base[HAWKSBILL_NODE_NUM];
++static volatile u64 *clint_time_val[HAWKSBILL_NODE_NUM];
++static volatile u64 *clint_time_cmp[HAWKSBILL_NODE_NUM];
++
++static inline u32 vcu118_clint_time_read_hi(u32 idx)
++{
++	return readl_relaxed((u32 *)clint_time_val[idx] + 1);
++}
++
++u64 vcu118_clint_timer_value(void)
++{
++	u32 node_idx = hawksbill_get_node_idx_by_target(sbi_current_hartid());
++#if __riscv_xlen == 64
++	return readq_relaxed(clint_time_val[node_idx]);
++#else
++	u32 lo, hi;
++
++	do {
++		hi = vcu118_clint_time_read_hi(node_idx);
++		lo = readl_relaxed(clint_time_val[node_idx]);
++	} while (hi != vcu118_clint_time_read_hi(node_idx));
++
++	return ((u64)hi << 32) | (u64)lo;
++#endif
++}
++
++void vcu118_clint_timer_event_stop(void)
++{
++	u32 target_hart = sbi_current_hartid();
++	u32 node_idx   = hawksbill_get_node_idx_by_target(sbi_current_hartid());
++	u32 target_idx = hawksbill_get_node_target_idx(target_hart);
++
++	if (clint_time_hart_count <= target_idx)
++		return;
++
++		/* Clear CLINT Time Compare */
++#if __riscv_xlen == 64
++	writeq_relaxed(-1ULL, &clint_time_cmp[node_idx][target_idx]);
++#else
++	writel_relaxed(-1UL, &clint_time_cmp[node_idx][target_idx]);
++	writel_relaxed(-1UL,
++		       (void *)(&clint_time_cmp[node_idx][target_idx]) + 0x04);
++#endif
++}
++
++void vcu118_clint_timer_event_start(u64 next_event)
++{
++	u32 target_hart = sbi_current_hartid();
++	u32 node_idx   = hawksbill_get_node_idx_by_target(sbi_current_hartid());
++	u32 target_idx = hawksbill_get_node_target_idx(target_hart);
++
++	if (clint_time_hart_count <= target_idx)
++		return;
++
++		/* Program CLINT Time Compare */
++#if __riscv_xlen == 64
++	writeq_relaxed(next_event, &clint_time_cmp[node_idx][target_idx]);
++#else
++	u32 mask = -1UL;
++	writel_relaxed(next_event & mask,
++		       &clint_time_cmp[node_idx][target_idx]);
++	writel_relaxed(next_event >> 32,
++		       (void *)(&clint_time_cmp[node_idx][target_idx]) + 0x04);
++#endif
++}
++
++int vcu118_clint_warm_timer_init(void)
++{
++	u32 target_hart = sbi_current_hartid();
++	u32 node_idx   = hawksbill_get_node_idx_by_target(sbi_current_hartid());
++	u32 target_idx = hawksbill_get_node_target_idx(target_hart);
++
++	if (clint_time_hart_count <= target_idx || !clint_time_base[node_idx])
++		return -1;
++
++		/* Clear CLINT Time Compare */
++#if __riscv_xlen == 64
++	writeq_relaxed(-1ULL, &clint_time_cmp[node_idx][target_idx]);
++#else
++	writel_relaxed(-1UL, &clint_time_cmp[node_idx][target_idx]);
++	writel_relaxed(-1UL,
++		       (void *)(&clint_time_cmp[node_idx][target_idx]) + 0x04);
++#endif
++
++	return 0;
++}
++
++int vcu118_clint_cold_timer_init(unsigned long base, u32 hart_count)
++{
++	/* Figure-out CLINT Time register address */
++	clint_time_hart_count = hart_count;
++	clint_time_base[0]    = (void *)base;
++	clint_time_val[0]     = (u64 *)(clint_time_base[0] + 0xbff8);
++	clint_time_cmp[0]     = (u64 *)(clint_time_base[0] + 0x4000);
++	clint_time_base[1]    = (void *)(base + HAWKSBILL_NODE2_BASE);
++	clint_time_val[1]     = (u64 *)(clint_time_base[0] + 0xbff8);
++	clint_time_cmp[1]     = (u64 *)(clint_time_base[1] + 0x4000);
++
++	return 0;
++}
+diff --git a/platform/sifive/vcu118/clint.h b/platform/sifive/vcu118/clint.h
+new file mode 100644
+index 000000000000..65d5833fef4b
+--- /dev/null
++++ b/platform/sifive/vcu118/clint.h
+@@ -0,0 +1,33 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 SiFive Corporation.
++ *
++ * Authors:
++ *   Zong Li <zong.li@sifive.com>
++ */
++
++#ifndef __SYS_CLINT_H__
++#define __SYS_CLINT_H__
++
++#include <sbi/sbi_types.h>
++
++void vcu118_clint_ipi_send(u32 target_hart);
++
++void vcu118_clint_ipi_clear(u32 target_hart);
++
++int vcu118_clint_warm_ipi_init(void);
++
++int vcu118_clint_cold_ipi_init(unsigned long base, u32 hart_count);
++
++u64 vcu118_clint_timer_value(void);
++
++void vcu118_clint_timer_event_stop(void);
++
++void vcu118_clint_timer_event_start(u64 next_event);
++
++int vcu118_clint_warm_timer_init(void);
++
++int vcu118_clint_cold_timer_init(unsigned long base, u32 hart_count);
++
++#endif
+diff --git a/platform/sifive/vcu118/config.mk b/platform/sifive/vcu118/config.mk
+new file mode 100644
+index 000000000000..fdf4dde9965c
+--- /dev/null
++++ b/platform/sifive/vcu118/config.mk
+@@ -0,0 +1,19 @@
++#
++# SPDX-License-Identifier: BSD-2-Clause
++#
++# Copyright (c) 2019 SiFive Corporation.
++#
++# Authors:
++#   Zong Li <zong.li@sifive.com>
++#
++
++# Blobs to build
++FW_TEXT_START=0x80000000
++FW_DYNAMIC=y
++FW_JUMP=y
++FW_JUMP_ADDR=0x80200000
++FW_JUMP_FDT_ADDR=0x88000000
++FW_PAYLOAD=y
++FW_PAYLOAD_OFFSET=0x200000
++FW_PAYLOAD_FDT_ADDR=0x88000000
++FW_PAYLOAD_FDT=hawksbill.dtb
+diff --git a/platform/sifive/vcu118/hawksbill.dts b/platform/sifive/vcu118/hawksbill.dts
+new file mode 100644
+index 000000000000..3e515ff995eb
+--- /dev/null
++++ b/platform/sifive/vcu118/hawksbill.dts
+@@ -0,0 +1,544 @@
++/dts-v1/;
++
++/ {
++	#address-cells = <2>;
++	#size-cells = <2>;
++	compatible = "freechips,rocketchip-unknown-dev", "sifive,hifive-unleashed-a00", "sifive,fu540-c000";
++	model = "freechips,rocketchip-unknown";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		bootargs = "earlycon=sifive,0x10010000 console=ttySIF0,115200";
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		timebase-frequency = <1000000>;
++
++		cpu0: cpu@0 {
++			compatible = "sifive,e51", "sifive,rocket0", "riscv";
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x80>;
++			i-cache-size = <0x4000>;
++			next-level-cache = <&l2_cache>;
++			reg = <0x0>;
++			riscv,isa = "rv64imac";
++			status = "disabled";
++
++			cpu0_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu1: cpu@1 {
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0x1>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu1_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu2: cpu@2 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0x2>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu2_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu3: cpu@3 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0x3>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu3_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu4: cpu@4 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0x4>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu4_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu8: cpu@8 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,e51", "sifive,rocket0", "riscv";
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x80>;
++			i-cache-size = <0x4000>;
++			next-level-cache = <&l2_cache>;
++			reg = <0x8>;
++			riscv,isa = "rv64imac";
++			status = "disabled";
++
++			cpu8_intc:  interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu9: cpu@9 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0x9>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu9_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu10: cpu@10 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0xa>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu10_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu11: cpu@11 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0xb>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu11_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++
++		cpu12: cpu@12 {
++			clock-frequency = <0x0>;
++			compatible = "sifive,u54-mc", "sifive,rocket0", "riscv";
++			d-cache-block-size = <0x40>;
++			d-cache-sets = <0x40>;
++			d-cache-size = <0x8000>;
++			d-tlb-sets = <0x1>;
++			d-tlb-size = <0x20>;
++			device_type = "cpu";
++			i-cache-block-size = <0x40>;
++			i-cache-sets = <0x40>;
++			i-cache-size = <0x8000>;
++			i-tlb-sets = <0x1>;
++			i-tlb-size = <0x20>;
++			mmu-type = "riscv,sv39";
++			next-level-cache = <&l2_cache>;
++			reg = <0xc>;
++			riscv,isa = "rv64imafdc";
++			status = "okay";
++			tlb-split;
++
++			cpu12_intc: interrupt-controller {
++				#interrupt-cells = <0x1>;
++				compatible = "riscv,cpu-intc";
++				interrupt-controller;
++			};
++		};
++	};
++
++	soc {
++		#address-cells = <0x2>;
++		#size-cells = <0x2>;
++		compatible = "sifive,fu540-c000", "sifive,fu540", "freechips,rocketchip-unknown-soc", "simple-bus";
++		ranges;
++
++		l2_cache: cache-controller@2010000 {
++			cache-block-size = <0x40>;
++			cache-level = <0x2>;
++			cache-sets = <0x400>;
++			cache-size = <0x100000>;
++			cache-unified;
++			compatible = "sifive,ccache0", "cache";
++			interrupt-parent = <&plic0>;
++			interrupts = <0x9 0xa 0xb 0xc>;
++			next-level-cache = <&err_dev &mem0 &stl0 &mem1>;
++			reg = <0x0 0x2010000 0x0 0x1000 0x0 0x8000000 0x0 0x100000>;
++			reg-names = "control", "sideband";
++			sifive,ecc-granularity = <0x8>;
++			sifive,mshr-count = <0xa>;
++		};
++
++		clint@2000000 {
++			compatible = "riscv,clint0";
++			interrupts-extended = <&cpu1_intc 0x3 &cpu1_intc 0x7
++                                               &cpu2_intc 0x3 &cpu2_intc 0x7
++                                               &cpu3_intc 0x3 &cpu3_intc 0x7
++                                               &cpu4_intc 0x3 &cpu4_intc 0x7>;
++			reg = <0x0 0x2000000 0x0 0x10000>;
++			reg-names = "control";
++		};
++
++		clint@202000000 {
++			compatible = "riscv,clint0";
++			interrupts-extended = <&cpu1_intc 0x3 &cpu1_intc 0x7
++                                               &cpu2_intc 0x3 &cpu2_intc 0x7
++                                               &cpu3_intc 0x3 &cpu3_intc 0x7
++                                               &cpu4_intc 0x3 &cpu4_intc 0x7>;
++			reg = <0x2 0x2000000 0x0 0x10000>;
++			reg-names = "control";
++		};
++
++		debug-controller@0 {
++			compatible = "sifive,debug-013", "riscv,debug-013";
++			interrupts-extended = <&cpu0_intc 0xffff
++                                               &cpu1_intc 0xffff
++                                               &cpu2_intc 0xffff
++                                               &cpu3_intc 0xffff
++                                               &cpu4_intc 0xffff>;
++			reg = <0x0 0x0 0x0 0x1000>;
++			reg-names = "control";
++		};
++
++		dma@3000000 {
++			#dma-cells = <0x1>;
++			compatible = "riscv,dma0";
++			dma-channels = <0x4>;
++			dma-requests = <0x0>;
++			interrupt-parent = <&plic0>;
++			interrupts = <0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8>;
++			reg = <0x0 0x3000000 0x0 0x100000>;
++			reg-names = "control";
++			riscv,dma-pools = <0x1>;
++		};
++
++		dtim0: dtim@1000000 {
++			compatible = "sifive,dtim0";
++			reg = <0x0 0x1000000 0x0 0x2000>;
++			reg-names = "mem";
++		};
++
++		error-device@18000000 {
++			compatible = "sifive,error0";
++			reg = <0x0 0x2000 0x0 0x2000 0x0 0x5000 0x0 0xb000
++                               0x0 0x18000 0x0 0xfe8000 0x0 0x1002000 0x0 0x7fe000
++                               0x0 0x1804000 0x0 0x4000 0x0 0x1828000 0x0 0x7d8000
++                               0x0 0x2011000 0x0 0xfef000 0x0 0x3100000 0x0 0x4f00000
++                               0x0 0x8100000 0x0 0x3f00000 0x0 0x10000000 0x0 0x10000
++                               0x0 0x10011000 0x0 0x3f000 0x0 0x10051000 0x0 0xf000
++                               0x0 0x10061000 0x0 0xff9f000 0x0 0x24000000 0x0 0x1c000000
++                               0x1 0x0 0x0 0x80000000>;
++		};
++
++		err_dev: error-device@180000000 {
++			compatible = "sifive,error0";
++			reg = <0x1 0x80000000 0x0 0x80000000>;
++		};
++
++		gpio0: gpio@10060000 {
++			#gpio-cells = <0x2>;
++			#interrupt-cells = <0x2>;
++			compatible = "sifive,gpio0", "sifive,gpio1";
++			gpio-controller;
++			interrupt-controller;
++			interrupt-parent = <&plic0>;
++			interrupts = <0x12 0x13 0x14 0x15>;
++			reg = <0x0 0x10060000 0x0 0x1000>;
++			reg-names = "control";
++		};
++
++		plic0: interrupt-controller@c000000 {
++			#interrupt-cells = <0x1>;
++			compatible = "sifive,plic-1.0.0";
++			reg = <0x0 0xc000000 0x0 0x4000000>;
++			riscv,ndev = <0x15>;
++			interrupt-controller;
++			interrupts-extended = <&cpu0_intc 0xffffffff
++                                               &cpu1_intc 0xffffffff &cpu1_intc 0x9
++                                               &cpu2_intc 0xffffffff &cpu2_intc 0x9
++                                               &cpu3_intc 0xffffffff &cpu3_intc 0x9
++                                               &cpu4_intc 0xffffffff &cpu4_intc 0x9>;
++			reg-names = "control";
++			riscv,max-priority = <0x7>;
++		};
++
++		plic1: interrupt-controller@20c000000 {
++			#interrupt-cells = <0x1>;
++			compatible = "sifive,plic-1.0.0";
++			reg = <0x2 0xc000000 0x0 0x4000000>;
++			riscv,ndev = <0x15>;
++			interrupt-controller;
++			interrupts-extended = <&cpu8_intc 0xffffffff
++                                               &cpu9_intc 0xffffffff &cpu9_intc 0x9
++                                               &cpu10_intc 0xffffffff &cpu10_intc 0x9
++                                               &cpu11_intc 0xffffffff &cpu11_intc 0x9
++                                               &cpu12_intc 0xffffffff &cpu12_intc 0x9>;
++			reg-names = "control";
++			riscv,max-priority = <0x7>;
++		};
++
++		pci@20000000 {
++			#address-cells = <0x3>;
++			#interrupt-cells = <0x1>;
++			#size-cells = <0x2>;
++			compatible = "xlnx,xdma-host-3.00";
++			device_type = "pci";
++			interrupt-map = <0x0 0x0 0x0 0x1
++                                         &pci_intc0 0x1 0x0 0x0 0x0 0x2
++                                         &pci_intc0 0x2 0x0 0x0 0x0 0x3
++                                         &pci_intc0 0x3 0x0 0x0 0x0 0x4
++                                         &pci_intc0 0x4>;
++			interrupt-map-mask = <0x0 0x0 0x0 0x7>;
++			interrupt-names = "misc", "msi0", "msi1";
++			interrupt-parent = <&plic0>;
++			interrupts = <0xf 0x10 0x11>;
++			ranges = <0x2000000 0x0 0x40000000 0x0 0x40000000 0x0 0x40000000>;
++			reg = <0x0 0x20000000 0x0 0x4000000>;
++			reg-names = "control";
++
++			pci_intc0: interrupt-controller {
++				#address-cells = <0x0>;
++				#interrupt-cells = <0x1>;
++				interrupt-controller;
++			};
++		};
++
++		pci@220000000 {
++			#address-cells = <0x3>;
++			#interrupt-cells = <0x1>;
++			#size-cells = <0x2>;
++			compatible = "xlnx,xdma-host-3.00";
++			device_type = "pci";
++			interrupt-map = <0x0 0x0 0x0 0x1
++                                         &pci_intc1 0x1 0x0 0x0 0x0 0x2
++                                         &pci_intc1 0x2 0x0 0x0 0x0 0x3
++                                         &pci_intc1 0x3 0x0 0x0 0x0 0x4
++                                         &pci_intc1 0x4>;
++			interrupt-map-mask = <0x0 0x0 0x0 0x7>;
++			interrupt-names = "misc", "msi0", "msi1";
++			interrupt-parent = <&gpio0>;
++			interrupts = <0x0 0x4 0x1 0x4 0x2 0x4>;
++			ranges = <0x2000000 0x2 0x40000000 0x2 0x40000000 0x0 0x40000000>;
++			reg = <0x2 0x20000000 0x0 0x4000000>;
++			reg-names = "control";
++
++			pci_intc1: interrupt-controller {
++				#address-cells = <0x0>;
++				#interrupt-cells = <0x1>;
++				interrupt-controller;
++			};
++		};
++
++		rom@1000 {
++			compatible = "sifive,modeselect0";
++			reg = <0x0 0x1000 0x0 0x1000>;
++			reg-names = "mem";
++		};
++
++		rom@10000 {
++			compatible = "sifive,maskrom0";
++			reg = <0x0 0x10000 0x0 0x8000>;
++			reg-names = "mem";
++		};
++
++		uart0: serial@10010000 {
++			compatible = "sifive,fu540-c000-uart", "sifive,uart0";
++			reg = <0x0 0x10010000 0x0 0x1000>;
++			interrupt-parent = <&plic0>;
++			clocks = <&tlclk0>;
++			status = "okay";
++			interrupts = <0xd>;
++		};
++
++		uart1: serial@2010010000 {
++			compatible = "sifive,fu540-c000-uart", "sifive,uart0";
++			reg = <0x20 0x10010000 0x0 0x1000>;
++			interrupt-parent = <&plic1>;
++			clocks = <&tlclk0>;
++			status = "okay";
++			interrupts = <0xd>;
++		};
++
++		spi@10050000 {
++			compatible = "sifive,fu540-c000-spi", "sifive,spi0";
++			reg = <0x0 0x10050000 0x0 0x1000>;
++			interrupt-parent = <&plic0>;
++			interrupts = <0xe>;
++			clocks = <&tlclk0>;
++			#address-cells = <0x1>;
++			#size-cells = <0x0>;
++		};
++
++		mmc@0 {
++			compatible = "mmc-spi-slot";
++			reg = <0x0 0x0 0x0 0x0>;
++			spi-max-frequency = <5000000>;
++			voltage-ranges = <0xce4 0xce4>;
++			disable-wp;
++		};
++
++		stl0: stl@200000000 {
++			#address-cells = <0x2>;
++			#size-cells = <0x2>;
++			compatible = "sifive,stl", "simple-bus";
++			ranges = <0x2 0x0 0x2 0x0 0x0 0x80000000 0x3 0x0 0x3 0x0 0x0 0x80000000 0x2 0x80000000 0x2 0x80000000 0x0 0x80000000 0x3 0x80000000 0x3 0x80000000 0x0 0x80000000>;
++		};
++
++		teststatus@4000 {
++			compatible = "sifive,test0";
++			reg = <0x0 0x4000 0x0 0x1000>;
++			reg-names = "control";
++		};
++
++	};
++
++	mem0: memory@80000000 {
++		device_type = "memory";
++		reg = <0x0 0x80000000 0x0 0x80000000>;
++	};
++
++	mem1: memory@280000000 {
++		device_type = "memory";
++		reg = <0x2 0x80000000 0x0 0x80000000>;
++	};
++
++	tlclk0: tlclk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <50000000>;
++		clock-output-names = "tlclk";
++	};
++};
+diff --git a/platform/sifive/vcu118/objects.mk b/platform/sifive/vcu118/objects.mk
+new file mode 100644
+index 000000000000..730c0ac005a3
+--- /dev/null
++++ b/platform/sifive/vcu118/objects.mk
+@@ -0,0 +1,11 @@
++#
++# SPDX-License-Identifier: BSD-2-Clause
++#
++# Copyright (c) 2019 SiFive Corporation.
++#
++# Authors:
++#   Zong Li <zong.li@sifive.com>
++#
++
++platform-objs-y += plic.o clint.o platform.o
++platform-dtb-y += hawksbill.dtb
+diff --git a/platform/sifive/vcu118/platform.c b/platform/sifive/vcu118/platform.c
+new file mode 100644
+index 000000000000..3b91062d00d7
+--- /dev/null
++++ b/platform/sifive/vcu118/platform.c
+@@ -0,0 +1,205 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 Western Digital Corporation or its affiliates.
++ *
++ * Authors:
++ *   Atish Patra <atish.patra@wdc.com>
++ */
++
++#include <libfdt.h>
++#include <fdt.h>
++#include <sbi/riscv_encoding.h>
++#include <sbi/sbi_const.h>
++#include <sbi/sbi_hart.h>
++#include <sbi/sbi_console.h>
++#include <sbi/sbi_platform.h>
++#include <sbi/riscv_io.h>
++#include <sbi_utils/serial/sifive-uart.h>
++#include "plic.h"
++#include "clint.h"
++
++/* clang-format off */
++
++#define VCU118_TLCLK				50000000
++
++#define VCU118_CLINT_ADDR			0x2000000
++
++#define VCU118_PLIC_ADDR			0xc000000
++#define VCU118_PLIC_NUM_SOURCES			0x15
++#define VCU118_PLIC_NUM_PRIORITIES		7
++
++#define VCU118_UART0_ADDR			0x10010000
++#define VCU118_UART_BAUDRATE			115200
++
++/**
++ * Hawksbill project consist ofs two VCU118 boards.
++ * Each VCU118 has 5 HARTs but HART ID 0 doesn't have S mode.
++ */
++#define VCU118_ENABLED_HART_MASK		\
++	(1 << 1 | 1 << 2 | 1 << 3 | 1 << 4 | 	\
++	 1 << 9 | 1 << 10 | 1 << 11 | 1 << 12)
++#define VCU118_HARITD_DISABLED			~(VCU118_ENABLED_HART_MASK)
++#define VCU118_HART_COUNT			16
++#define VCU118_HART_STACK_SIZE			8192
++
++/* clang-format on */
++
++static void vcu118_modify_dt(void *fdt)
++{
++	u32 i, size;
++	int chosen_offset, err;
++	int cpu_offset;
++	char cpu_node[32] = "";
++	const char *mmu_type;
++
++	size = fdt_totalsize(fdt);
++	err  = fdt_open_into(fdt, fdt, size + 256);
++	if (err < 0)
++		sbi_printf(
++			"Device Tree can't be expanded to accmodate new node");
++
++	for (i = 0; i < VCU118_HART_COUNT; i++) {
++		sbi_sprintf(cpu_node, "/cpus/cpu@%d", i);
++		cpu_offset = fdt_path_offset(fdt, cpu_node);
++		mmu_type   = fdt_getprop(fdt, cpu_offset, "mmu-type", NULL);
++		if (mmu_type && (!strcmp(mmu_type, "riscv,sv39") ||
++				 !strcmp(mmu_type, "riscv,sv48")))
++			continue;
++		else
++			fdt_setprop_string(fdt, cpu_offset, "status",
++					   "disabled");
++		memset(cpu_node, 0, sizeof(cpu_node));
++	}
++
++	chosen_offset = fdt_path_offset(fdt, "/chosen");
++	fdt_setprop_string(fdt, chosen_offset, "serial0",
++			   "/soc/serial@10010000:115200");
++
++	vcu118_plic_fdt_fixup(fdt, "riscv,plic0");
++}
++
++static int vcu118_final_init(bool cold_boot)
++{
++	void *fdt;
++
++	if (!cold_boot)
++		return 0;
++
++	fdt = sbi_scratch_thishart_arg1_ptr();
++	vcu118_modify_dt(fdt);
++
++	return 0;
++}
++
++static u32 vcu118_pmp_region_count(u32 hartid)
++{
++	return 1;
++}
++
++static int vcu118_pmp_region_info(u32 hartid, u32 index, ulong *prot,
++				  ulong *addr, ulong *log2size)
++{
++	int ret = 0;
++
++	switch (index) {
++	case 0:
++		*prot     = PMP_R | PMP_W | PMP_X;
++		*addr     = 0;
++		*log2size = __riscv_xlen;
++		break;
++	default:
++		ret = -1;
++		break;
++	};
++
++	return ret;
++}
++
++static int vcu118_console_init(void)
++{
++	return sifive_uart_init(VCU118_UART0_ADDR, VCU118_TLCLK,
++				VCU118_UART_BAUDRATE);
++}
++
++static int vcu118_irqchip_init(bool cold_boot)
++{
++	int rc;
++	u32 hartid = sbi_current_hartid();
++
++	if (cold_boot) {
++		rc = vcu118_plic_cold_irqchip_init(VCU118_PLIC_ADDR,
++						   VCU118_PLIC_NUM_SOURCES,
++						   VCU118_HART_COUNT);
++		if (rc)
++			return rc;
++	}
++
++	return vcu118_plic_warm_irqchip_init(hartid,
++					     (hartid) ? (2 * hartid - 1) : 0,
++					     (hartid) ? (2 * hartid) : -1);
++}
++
++static int vcu118_ipi_init(bool cold_boot)
++{
++	int rc;
++
++	if (cold_boot) {
++		rc = vcu118_clint_cold_ipi_init(VCU118_CLINT_ADDR,
++						VCU118_HART_COUNT);
++		if (rc)
++			return rc;
++	}
++
++	return vcu118_clint_warm_ipi_init();
++}
++
++static int vcu118_timer_init(bool cold_boot)
++{
++	int rc;
++
++	if (cold_boot) {
++		rc = vcu118_clint_cold_timer_init(VCU118_CLINT_ADDR,
++						  VCU118_HART_COUNT);
++		if (rc)
++			return rc;
++	}
++
++	return vcu118_clint_warm_timer_init();
++}
++
++static int vcu118_system_down(u32 type)
++{
++	/* For now nothing to do. */
++	return 0;
++}
++
++const struct sbi_platform_operations platform_ops = {
++	.pmp_region_count  = vcu118_pmp_region_count,
++	.pmp_region_info   = vcu118_pmp_region_info,
++	.final_init	   = vcu118_final_init,
++	.console_putc      = sifive_uart_putc,
++	.console_getc      = sifive_uart_getc,
++	.console_init      = vcu118_console_init,
++	.irqchip_init      = vcu118_irqchip_init,
++	.ipi_send	   = vcu118_clint_ipi_send,
++	.ipi_clear	   = vcu118_clint_ipi_clear,
++	.ipi_init	   = vcu118_ipi_init,
++	.timer_value       = vcu118_clint_timer_value,
++	.timer_event_stop  = vcu118_clint_timer_event_stop,
++	.timer_event_start = vcu118_clint_timer_event_start,
++	.timer_init	   = vcu118_timer_init,
++	.system_reboot     = vcu118_system_down,
++	.system_shutdown   = vcu118_system_down
++};
++
++const struct sbi_platform platform = {
++	.opensbi_version    = OPENSBI_VERSION,
++	.platform_version   = SBI_PLATFORM_VERSION(0x0, 0x01),
++	.name		    = "SiFive VCU118",
++	.features	    = SBI_PLATFORM_DEFAULT_FEATURES,
++	.hart_count	    = VCU118_HART_COUNT,
++	.hart_stack_size    = VCU118_HART_STACK_SIZE,
++	.disabled_hart_mask = VCU118_HARITD_DISABLED,
++	.platform_ops_addr  = (unsigned long)&platform_ops
++};
+diff --git a/platform/sifive/vcu118/platform.h b/platform/sifive/vcu118/platform.h
+new file mode 100644
+index 000000000000..af90890b9c94
+--- /dev/null
++++ b/platform/sifive/vcu118/platform.h
+@@ -0,0 +1,27 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 SiFive Corporation.
++ *
++ * Authors:
++ *   Zong Li <zong.li@sifive.com>
++ */
++
++#ifndef _VCU118_PLATFORM_H_
++#define _VCU118_PLATFORM_H_
++
++#define HAWKSBILL_NODE_NUM 		2
++#define HAWKSBILL_MAX_HART_PER_NODE	8
++#define HAWKSBILL_NODE2_BASE		0x200000000
++
++#define hawksbill_get_node_idx() \
++	(sbi_current_hartid() / HAWKSBILL_MAX_HART_PER_NODE)
++
++#define hawksbill_get_node_idx_by_target(target_hart) \
++	(target_hart / HAWKSBILL_MAX_HART_PER_NODE)
++
++#define hawksbill_get_node_target_idx(target_hart) \
++	(target_hart % HAWKSBILL_MAX_HART_PER_NODE)
++
++#endif
++
+diff --git a/platform/sifive/vcu118/plic.c b/platform/sifive/vcu118/plic.c
+new file mode 100644
+index 000000000000..0360fffc2645
+--- /dev/null
++++ b/platform/sifive/vcu118/plic.c
+@@ -0,0 +1,126 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 SiFive Corporation.
++ *
++ * Authors:
++ *   Zong Li <zong.li@sifive.com>
++ */
++
++#include <sbi/riscv_io.h>
++#include <sbi/riscv_encoding.h>
++#include <sbi/sbi_console.h>
++#include <sbi/sbi_string.h>
++#include <libfdt.h>
++#include <fdt.h>
++#include <sbi/sbi_hart.h>
++
++#include "platform.h"
++#include "plic.h"
++
++#define PLIC_PRIORITY_BASE 0x0
++#define PLIC_PENDING_BASE 0x1000
++#define PLIC_ENABLE_BASE 0x2000
++#define PLIC_ENABLE_STRIDE 0x80
++#define PLIC_CONTEXT_BASE 0x200000
++#define PLIC_CONTEXT_STRIDE 0x1000
++
++static u32 plic_hart_count;
++static u32 plic_num_sources;
++static volatile void *plic_base[HAWKSBILL_NODE_NUM];
++
++static void vcu118_plic_set_priority(u32 source, u32 val, u32 idx)
++{
++	volatile void *plic_priority =
++		plic_base[idx] + PLIC_PRIORITY_BASE + 4 * source;
++	writel(val, plic_priority);
++}
++
++static void vcu118_plic_set_thresh(u32 cntxid, u32 val, u32 idx)
++{
++	volatile void *plic_thresh = plic_base[idx] + PLIC_CONTEXT_BASE +
++				     PLIC_CONTEXT_STRIDE * cntxid;
++	writel(val, plic_thresh);
++}
++
++static void vcu118_plic_set_ie(u32 cntxid, u32 word_index, u32 val, u32 idx)
++{
++	volatile void *plic_ie =
++		plic_base[idx] + PLIC_ENABLE_BASE + PLIC_ENABLE_STRIDE * cntxid;
++	writel(val, plic_ie + word_index * 4);
++}
++
++void vcu118_plic_fdt_fixup(void *fdt, const char *compat)
++{
++	u32 *cells;
++	int i, cells_count;
++	int plic_off;
++
++	plic_off = fdt_node_offset_by_compatible(fdt, 0, compat);
++	if (plic_off < 0)
++		return;
++
++	cells = (u32 *)fdt_getprop(fdt, plic_off, "interrupts-extended",
++				   &cells_count);
++	if (!cells)
++		return;
++
++	cells_count = cells_count / sizeof(u32);
++	if (!cells_count)
++		return;
++
++	for (i = 0; i < (cells_count / 2); i++) {
++		if (fdt32_to_cpu(cells[2 * i + 1]) == IRQ_M_EXT)
++			cells[2 * i + 1] = cpu_to_fdt32(0xffffffff);
++	}
++}
++
++int vcu118_plic_warm_irqchip_init(u32 target_hart, int m_cntx_id, int s_cntx_id)
++{
++	u32 idx = hawksbill_get_node_idx();
++	size_t i, ie_words = plic_num_sources / 32 + 1;
++
++	if (plic_hart_count <= target_hart)
++		return -1;
++
++	/* By default, disable all IRQs for M-mode of target HART */
++	if (m_cntx_id > -1) {
++		for (i = 0; i < ie_words; i++)
++			vcu118_plic_set_ie(m_cntx_id, i, 0, idx);
++	}
++
++	/* By default, disable all IRQs for S-mode of target HART */
++	if (s_cntx_id > -1) {
++		for (i = 0; i < ie_words; i++)
++			vcu118_plic_set_ie(s_cntx_id, i, 0, idx);
++	}
++
++	/* By default, enable M-mode threshold */
++	if (m_cntx_id > -1)
++		vcu118_plic_set_thresh(m_cntx_id, 1, idx);
++
++	/* By default, disable S-mode threshold */
++	if (s_cntx_id > -1)
++		vcu118_plic_set_thresh(s_cntx_id, 0, idx);
++
++	return 0;
++}
++
++int vcu118_plic_cold_irqchip_init(unsigned long base, u32 num_sources,
++				  u32 hart_count)
++{
++	int i;
++
++	plic_hart_count  = hart_count;
++	plic_num_sources = num_sources;
++	plic_base[0]     = (void *)base;
++	plic_base[1]     = (void *)(base + HAWKSBILL_NODE2_BASE);
++
++	/* Configure default priorities of all IRQs */
++	for (i = 1; i <= plic_num_sources; i++) {
++		vcu118_plic_set_priority(i, 1, 0);
++		vcu118_plic_set_priority(i, 1, 1);
++	}
++
++	return 0;
++}
+diff --git a/platform/sifive/vcu118/plic.h b/platform/sifive/vcu118/plic.h
+new file mode 100644
+index 000000000000..cd5f4608630e
+--- /dev/null
++++ b/platform/sifive/vcu118/plic.h
+@@ -0,0 +1,23 @@
++/*
++ * SPDX-License-Identifier: BSD-2-Clause
++ *
++ * Copyright (c) 2019 SiFive Corporation.
++ *
++ * Authors:
++ *   Zong Li <zong.li@sifive.com>
++ */
++
++#ifndef __VCU118_PLIC_H__
++#define __VCU118_PLIC_H__
++
++#include <sbi/sbi_types.h>
++
++void vcu118_plic_fdt_fixup(void *fdt, const char *compat);
++
++int vcu118_plic_warm_irqchip_init(u32 target_hart, int m_cntx_id,
++				  int s_cntx_id);
++
++int vcu118_plic_cold_irqchip_init(unsigned long base, u32 num_sources,
++				  u32 hart_count);
++
++#endif
+-- 
+2.24.0
+
