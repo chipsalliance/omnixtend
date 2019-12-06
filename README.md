@@ -1,28 +1,23 @@
-Welcome to the OmniXtend future!
+OmniXtend version 1.0.3 released!
 ================================
 
 OmniXtend is a fully open networking protocol for exchanging
-coherence messages directly with processor caches.
+coherence messages directly with processor caches, memory
+controllers and various accelerators.
 
 OmniXtend is the most efficient way of attaching new
 accelerators, storage and memory devices to RISC-V SoCs.
 
 OmniXtend can be used to create multi-socket RISC-V systems.
 
-OmniXtend uses Ethernet L1 for framing, and so can be switched
-with off-the-shelf programmable Ethernet switches such as
-Barefoot Tofino.
+OmniXtend uses Ethernet L2 for framing, and so can be switched
+with off-the-shelf Ethernet switches. Programmable-dataplane Ethernet
+switches, such as Barefoot Tofino, enable greatly improved performance
+and protocol/architectural innovation.
 
-This initial release of OmniXtend is based on a simple serialization
-of the TileLink coherence protocol created for the RISC-V ecosystem.
-Future evolution may diverge from the on-chip coherence protocol to
-tackle issues of scalability and heterogeneity. It is important to
-keep in mind that OmniXtend is *not* equivalent to TileLink, despite 
-their similarity at the moment.
-
-
-See the [specification](specification/OmniXtend-0.1.pdf)
-document for details of the protocol.
+See the current [specification](specification/1.0.3/OmniXtend-1.0.3.pdf)
+document for details of the protocol. OmniXtend 1.0.3 is based on
+[TileLink version 1.8.0](specification/1.0.3/TileLink-1.8.0.pdf).
 
 This [short video](https://youtu.be/hmVNTUrJoDM) shows how to set
 up the demo system.
