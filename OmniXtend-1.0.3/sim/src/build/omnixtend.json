@@ -1,0 +1,1644 @@
+{
+  "header_types" : [
+    {
+      "name" : "scalars_0",
+      "id" : 0,
+      "fields" : [
+        ["tmp", 32, false],
+        ["tmp_0", 32, false],
+        ["tmp_1", 32, false],
+        ["tmp_2", 32, false],
+        ["tmp_3", 32, false],
+        ["tmp_4", 16, false],
+        ["tmp_5", 32, false],
+        ["tmp_6", 32, false],
+        ["metadata.cache_valid", 1, false],
+        ["metadata.cache_index", 4, false],
+        ["metadata.cache_state", 2, false],
+        ["metadata.cache_owner", 16, false],
+        ["_padding_0", 1, false]
+      ]
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "fields" : [
+        ["ingress_port", 9, false],
+        ["egress_spec", 9, false],
+        ["egress_port", 9, false],
+        ["instance_type", 32, false],
+        ["packet_length", 32, false],
+        ["enq_timestamp", 32, false],
+        ["enq_qdepth", 19, false],
+        ["deq_timedelta", 32, false],
+        ["deq_qdepth", 19, false],
+        ["ingress_global_timestamp", 48, false],
+        ["egress_global_timestamp", 48, false],
+        ["mcast_grp", 16, false],
+        ["egress_rid", 16, false],
+        ["checksum_error", 1, false],
+        ["parser_error", 32, false],
+        ["priority", 3, false],
+        ["_padding", 3, false]
+      ]
+    },
+    {
+      "name" : "ethernet_t",
+      "id" : 2,
+      "fields" : [
+        ["dstAddr", 48, false],
+        ["srcAddr", 48, false],
+        ["etherType", 16, false]
+      ]
+    },
+    {
+      "name" : "arp_t",
+      "id" : 3,
+      "fields" : [
+        ["arp_hardware", 16, false],
+        ["arp_protocol", 16, false],
+        ["arp_hlen", 8, false],
+        ["arp_plen", 8, false],
+        ["arp_opcode", 16, false],
+        ["sender_ha", 48, false],
+        ["sender_ip", 32, false],
+        ["target_ha", 48, false],
+        ["target_ip", 32, false]
+      ]
+    },
+    {
+      "name" : "flow_control_t",
+      "id" : 4,
+      "fields" : [
+        ["vc", 3, false],
+        ["r1", 7, false],
+        ["seq", 22, false],
+        ["seq_ack", 22, false],
+        ["ack", 1, false],
+        ["r2", 1, false],
+        ["chan", 3, false],
+        ["credit", 5, false]
+      ]
+    },
+    {
+      "name" : "omnixtend_t",
+      "id" : 5,
+      "fields" : [
+        ["r1", 1, false],
+        ["channel", 3, false],
+        ["opcode", 3, false],
+        ["r2", 1, false],
+        ["param", 4, false],
+        ["msg_size", 4, false],
+        ["domain", 8, false],
+        ["r3", 6, false],
+        ["err", 2, false],
+        ["r4", 6, false],
+        ["source", 26, false]
+      ]
+    },
+    {
+      "name" : "sink_t",
+      "id" : 6,
+      "fields" : [
+        ["sink", 26, false],
+        ["r5", 38, false]
+      ]
+    },
+    {
+      "name" : "mem_address_t",
+      "id" : 7,
+      "fields" : [
+        ["hi_addr", 32, false],
+        ["lo_addr", 32, false]
+      ]
+    },
+    {
+      "name" : "data_mask_t",
+      "id" : 8,
+      "fields" : [
+        ["hi_mask", 32, false],
+        ["lo_mask", 32, false]
+      ]
+    },
+    {
+      "name" : "data_t",
+      "id" : 9,
+      "fields" : [
+        ["w0", 32, false],
+        ["w1", 32, false],
+        ["w2", 32, false],
+        ["w3", 32, false],
+        ["w4", 32, false],
+        ["w5", 32, false],
+        ["w6", 32, false],
+        ["w7", 32, false],
+        ["w8", 32, false],
+        ["w9", 32, false],
+        ["w10", 32, false],
+        ["w11", 32, false],
+        ["w12", 32, false],
+        ["w13", 32, false],
+        ["w14", 32, false],
+        ["w15", 32, false]
+      ]
+    }
+  ],
+  "headers" : [
+    {
+      "name" : "scalars",
+      "id" : 0,
+      "header_type" : "scalars_0",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "standard_metadata",
+      "id" : 1,
+      "header_type" : "standard_metadata",
+      "metadata" : true,
+      "pi_omit" : true
+    },
+    {
+      "name" : "ethernet",
+      "id" : 2,
+      "header_type" : "ethernet_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "arp",
+      "id" : 3,
+      "header_type" : "arp_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "flow_control",
+      "id" : 4,
+      "header_type" : "flow_control_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "omnixtend",
+      "id" : 5,
+      "header_type" : "omnixtend_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "sink",
+      "id" : 6,
+      "header_type" : "sink_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "address",
+      "id" : 7,
+      "header_type" : "mem_address_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "data_mask",
+      "id" : 8,
+      "header_type" : "data_mask_t",
+      "metadata" : false,
+      "pi_omit" : true
+    },
+    {
+      "name" : "data",
+      "id" : 9,
+      "header_type" : "data_t",
+      "metadata" : false,
+      "pi_omit" : true
+    }
+  ],
+  "header_stacks" : [],
+  "header_union_types" : [],
+  "header_unions" : [],
+  "header_union_stacks" : [],
+  "field_lists" : [],
+  "errors" : [
+    ["NoError", 1],
+    ["PacketTooShort", 2],
+    ["NoMatch", 3],
+    ["StackOutOfBounds", 4],
+    ["HeaderTooShort", 5],
+    ["ParserTimeout", 6],
+    ["ParserInvalidArgument", 7]
+  ],
+  "enums" : [],
+  "parsers" : [
+    {
+      "name" : "parser",
+      "id" : 0,
+      "init_state" : "start",
+      "parse_states" : [
+        {
+          "name" : "start",
+          "id" : 0,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "ethernet"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0806",
+              "mask" : null,
+              "next_state" : "parse_arp"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0870",
+              "mask" : null,
+              "next_state" : "parse_omnixtend"
+            },
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "etherType"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_arp",
+          "id" : 1,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "arp"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_omnixtend",
+          "id" : 2,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "flow_control"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "omnixtend"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "type" : "hexstr",
+              "value" : "0x0106",
+              "mask" : null,
+              "next_state" : "parse_address"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0404",
+              "mask" : null,
+              "next_state" : "parse_sink"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0405",
+              "mask" : null,
+              "next_state" : "parse_sink_data"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0206",
+              "mask" : null,
+              "next_state" : "parse_address"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0304",
+              "mask" : null,
+              "next_state" : "parse_address"
+            },
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : [
+            {
+              "type" : "field",
+              "value" : ["omnixtend", "channel"]
+            },
+            {
+              "type" : "field",
+              "value" : ["omnixtend", "opcode"]
+            }
+          ]
+        },
+        {
+          "name" : "parse_address",
+          "id" : 3,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "address"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_sink",
+          "id" : 4,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "sink"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        },
+        {
+          "name" : "parse_sink_data",
+          "id" : 5,
+          "parser_ops" : [
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "sink"
+                }
+              ],
+              "op" : "extract"
+            },
+            {
+              "parameters" : [
+                {
+                  "type" : "regular",
+                  "value" : "data"
+                }
+              ],
+              "op" : "extract"
+            }
+          ],
+          "transitions" : [
+            {
+              "value" : "default",
+              "mask" : null,
+              "next_state" : null
+            }
+          ],
+          "transition_key" : []
+        }
+      ]
+    }
+  ],
+  "parse_vsets" : [],
+  "deparsers" : [
+    {
+      "name" : "deparser",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 392,
+        "column" : 8,
+        "source_fragment" : "MyDeparser"
+      },
+      "order" : ["ethernet", "arp", "flow_control", "omnixtend", "sink", "address", "data_mask", "data"]
+    }
+  ],
+  "meter_arrays" : [],
+  "counter_arrays" : [],
+  "register_arrays" : [
+    {
+      "name" : "MyIngress.valid_reg",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 224,
+        "column" : 44,
+        "source_fragment" : "valid_reg"
+      },
+      "size" : 16,
+      "bitwidth" : 1
+    },
+    {
+      "name" : "MyIngress.state_reg",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 225,
+        "column" : 44,
+        "source_fragment" : "state_reg"
+      },
+      "size" : 2,
+      "bitwidth" : 2
+    },
+    {
+      "name" : "MyIngress.owner_reg",
+      "id" : 2,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 226,
+        "column" : 45,
+        "source_fragment" : "owner_reg"
+      },
+      "size" : 16,
+      "bitwidth" : 16
+    },
+    {
+      "name" : "MyIngress.src_reg",
+      "id" : 3,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 227,
+        "column" : 43,
+        "source_fragment" : "src_reg"
+      },
+      "size" : 16,
+      "bitwidth" : 4
+    }
+  ],
+  "calculations" : [
+    {
+      "name" : "calc",
+      "id" : 0,
+      "algo" : "crc16",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["address", "hi_addr"]
+        },
+        {
+          "type" : "field",
+          "value" : ["address", "lo_addr"]
+        }
+      ]
+    },
+    {
+      "name" : "calc_0",
+      "id" : 1,
+      "algo" : "crc16",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["address", "hi_addr"]
+        },
+        {
+          "type" : "field",
+          "value" : ["address", "lo_addr"]
+        }
+      ]
+    },
+    {
+      "name" : "calc_1",
+      "id" : 2,
+      "algo" : "crc16",
+      "input" : [
+        {
+          "type" : "field",
+          "value" : ["address", "hi_addr"]
+        },
+        {
+          "type" : "field",
+          "value" : ["address", "lo_addr"]
+        }
+      ]
+    }
+  ],
+  "learn_lists" : [],
+  "actions" : [
+    {
+      "name" : "NoAction",
+      "id" : 0,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "NoAction",
+      "id" : 1,
+      "runtime_data" : [],
+      "primitives" : []
+    },
+    {
+      "name" : "MyIngress.drop",
+      "id" : 2,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 230,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.drop",
+      "id" : 3,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 230,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.broadcast",
+      "id" : 4,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "mcast_grp"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0001"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 234,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.mcast_grp = 1"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.mac_forward",
+      "id" : 5,
+      "runtime_data" : [
+        {
+          "name" : "port",
+          "bitwidth" : 9
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["standard_metadata", "egress_spec"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 238,
+            "column" : 8,
+            "source_fragment" : "standard_metadata.egress_spec = port"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.redirect",
+      "id" : 6,
+      "runtime_data" : [
+        {
+          "name" : "dst_mac",
+          "bitwidth" : 48
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["ethernet", "dstAddr"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 242,
+            "column" : 8,
+            "source_fragment" : "hdr.ethernet.dstAddr = dst_mac"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.respond_same_size",
+      "id" : 7,
+      "runtime_data" : [
+        {
+          "name" : "new_chan",
+          "bitwidth" : 3
+        },
+        {
+          "name" : "new_op",
+          "bitwidth" : 3
+        },
+        {
+          "name" : "new_param",
+          "bitwidth" : 4
+        }
+      ],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["omnixtend", "channel"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 0
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 291,
+            "column" : 8,
+            "source_fragment" : "hdr.omnixtend.channel = new_chan"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["omnixtend", "opcode"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 1
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 292,
+            "column" : 8,
+            "source_fragment" : "hdr.omnixtend.opcode = new_op"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["omnixtend", "param"]
+            },
+            {
+              "type" : "runtime_data",
+              "value" : 2
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 293,
+            "column" : 8,
+            "source_fragment" : "hdr.omnixtend.param = new_param"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.handle_acquire",
+      "id" : 8,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_index"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 259,
+            "column" : 8,
+            "source_fragment" : "hash(meta.cache_index, ..."
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["omnixtend", "source"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 271,
+            "column" : 22,
+            "source_fragment" : "(bit<32>)hdr.omnixtend.source"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.src_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_index"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 271,
+            "column" : 8,
+            "source_fragment" : "src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_0"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.cache_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 41,
+            "source_fragment" : "(bit<32>) meta.cache_index"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_valid"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.valid_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_0"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 8,
+            "source_fragment" : "valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_1"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.cache_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 283,
+            "column" : 41,
+            "source_fragment" : "(bit<32>) meta.cache_index"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_owner"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.owner_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_1"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 283,
+            "column" : 8,
+            "source_fragment" : "owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.handle_grant",
+      "id" : 9,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_2"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["omnixtend", "source"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 267,
+            "column" : 39,
+            "source_fragment" : "(bit<32>)hdr.omnixtend.source"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_index"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.src_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_2"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 267,
+            "column" : 8,
+            "source_fragment" : "src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_3"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.cache_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 287,
+            "column" : 24,
+            "source_fragment" : "(bit<32>) meta.cache_index"
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_4"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["omnixtend", "source"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 287,
+            "column" : 52,
+            "source_fragment" : "(owner_t)hdr.omnixtend.source"
+          }
+        },
+        {
+          "op" : "register_write",
+          "parameters" : [
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.owner_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_3"]
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_4"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 287,
+            "column" : 8,
+            "source_fragment" : "owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.handle_release",
+      "id" : 10,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_index"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc_0"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 259,
+            "column" : 8,
+            "source_fragment" : "hash(meta.cache_index, ..."
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_5"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.cache_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 41,
+            "source_fragment" : "(bit<32>) meta.cache_index"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_valid"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.valid_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_5"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 8,
+            "source_fragment" : "valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyIngress.handle_release_data",
+      "id" : 11,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "modify_field_with_hash_based_offset",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_index"]
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x00"
+            },
+            {
+              "type" : "calculation",
+              "value" : "calc_1"
+            },
+            {
+              "type" : "hexstr",
+              "value" : "0x0f"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 259,
+            "column" : 8,
+            "source_fragment" : "hash(meta.cache_index, ..."
+          }
+        },
+        {
+          "op" : "assign",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_6"]
+            },
+            {
+              "type" : "expression",
+              "value" : {
+                "type" : "expression",
+                "value" : {
+                  "op" : "&",
+                  "left" : {
+                    "type" : "field",
+                    "value" : ["scalars", "metadata.cache_index"]
+                  },
+                  "right" : {
+                    "type" : "hexstr",
+                    "value" : "0xffffffff"
+                  }
+                }
+              }
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 41,
+            "source_fragment" : "(bit<32>) meta.cache_index"
+          }
+        },
+        {
+          "op" : "register_read",
+          "parameters" : [
+            {
+              "type" : "field",
+              "value" : ["scalars", "metadata.cache_valid"]
+            },
+            {
+              "type" : "register_array",
+              "value" : "MyIngress.valid_reg"
+            },
+            {
+              "type" : "field",
+              "value" : ["scalars", "tmp_6"]
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 275,
+            "column" : 8,
+            "source_fragment" : "valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)"
+          }
+        }
+      ]
+    },
+    {
+      "name" : "MyEgress.drop",
+      "id" : 12,
+      "runtime_data" : [],
+      "primitives" : [
+        {
+          "op" : "mark_to_drop",
+          "parameters" : [
+            {
+              "type" : "header",
+              "value" : "standard_metadata"
+            }
+          ],
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 368,
+            "column" : 8,
+            "source_fragment" : "mark_to_drop(standard_metadata)"
+          }
+        }
+      ]
+    }
+  ],
+  "pipelines" : [
+    {
+      "name" : "ingress",
+      "id" : 0,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 220,
+        "column" : 8,
+        "source_fragment" : "MyIngress"
+      },
+      "init_table" : "node_2",
+      "tables" : [
+        {
+          "name" : "MyIngress.omni_exact",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 318,
+            "column" : 10,
+            "source_fragment" : "omni_exact"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.omnixtend.channel",
+              "target" : ["omnixtend", "channel"],
+              "mask" : null
+            },
+            {
+              "match_type" : "exact",
+              "name" : "hdr.omnixtend.opcode",
+              "target" : ["omnixtend", "opcode"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [8, 7, 9, 10, 11, 3, 0],
+          "actions" : ["MyIngress.handle_acquire", "MyIngress.respond_same_size", "MyIngress.handle_grant", "MyIngress.handle_release", "MyIngress.handle_release_data", "MyIngress.drop", "NoAction"],
+          "base_default_next" : "MyIngress.owner_tbl",
+          "next_tables" : {
+            "MyIngress.handle_acquire" : "MyIngress.owner_tbl",
+            "MyIngress.respond_same_size" : "MyIngress.owner_tbl",
+            "MyIngress.handle_grant" : "MyIngress.owner_tbl",
+            "MyIngress.handle_release" : "MyIngress.owner_tbl",
+            "MyIngress.handle_release_data" : "MyIngress.owner_tbl",
+            "MyIngress.drop" : "MyIngress.owner_tbl",
+            "NoAction" : "MyIngress.owner_tbl"
+          },
+          "default_entry" : {
+            "action_id" : 0,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.owner_tbl",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 337,
+            "column" : 10,
+            "source_fragment" : "owner_tbl"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "meta.cache_owner",
+              "target" : ["scalars", "metadata.cache_owner"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [6, 1],
+          "actions" : ["MyIngress.redirect", "NoAction"],
+          "base_default_next" : "node_5",
+          "next_tables" : {
+            "MyIngress.redirect" : "node_5",
+            "NoAction" : "node_5"
+          },
+          "default_entry" : {
+            "action_id" : 1,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        },
+        {
+          "name" : "MyIngress.mac_lookup",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 245,
+            "column" : 10,
+            "source_fragment" : "mac_lookup"
+          },
+          "key" : [
+            {
+              "match_type" : "exact",
+              "name" : "hdr.ethernet.dstAddr",
+              "target" : ["ethernet", "dstAddr"],
+              "mask" : null
+            }
+          ],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [4, 5, 2],
+          "actions" : ["MyIngress.broadcast", "MyIngress.mac_forward", "MyIngress.drop"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyIngress.broadcast" : null,
+            "MyIngress.mac_forward" : null,
+            "MyIngress.drop" : null
+          },
+          "default_entry" : {
+            "action_id" : 4,
+            "action_const" : false,
+            "action_data" : [],
+            "action_entry_const" : false
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_2",
+          "id" : 0,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 350,
+            "column" : 12,
+            "source_fragment" : "hdr.omnixtend.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["omnixtend", "$valid$"]
+              }
+            }
+          },
+          "true_next" : "MyIngress.omni_exact",
+          "false_next" : "node_5"
+        },
+        {
+          "name" : "node_5",
+          "id" : 1,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 354,
+            "column" : 12,
+            "source_fragment" : "hdr.ethernet.isValid()"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "d2b",
+              "left" : null,
+              "right" : {
+                "type" : "field",
+                "value" : ["ethernet", "$valid$"]
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "MyIngress.mac_lookup"
+        }
+      ]
+    },
+    {
+      "name" : "egress",
+      "id" : 1,
+      "source_info" : {
+        "filename" : "omnixtend.p4",
+        "line" : 363,
+        "column" : 8,
+        "source_fragment" : "MyEgress"
+      },
+      "init_table" : "node_9",
+      "tables" : [
+        {
+          "name" : "tbl_drop",
+          "id" : 3,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 373,
+            "column" : 12,
+            "source_fragment" : "drop()"
+          },
+          "key" : [],
+          "match_type" : "exact",
+          "type" : "simple",
+          "max_size" : 1024,
+          "with_counters" : false,
+          "support_timeout" : false,
+          "direct_meters" : null,
+          "action_ids" : [12],
+          "actions" : ["MyEgress.drop"],
+          "base_default_next" : null,
+          "next_tables" : {
+            "MyEgress.drop" : null
+          },
+          "default_entry" : {
+            "action_id" : 12,
+            "action_const" : true,
+            "action_data" : [],
+            "action_entry_const" : true
+          }
+        }
+      ],
+      "action_profiles" : [],
+      "conditionals" : [
+        {
+          "name" : "node_9",
+          "id" : 2,
+          "source_info" : {
+            "filename" : "omnixtend.p4",
+            "line" : 372,
+            "column" : 12,
+            "source_fragment" : "standard_metadata.egress_port == standard_metadata.ingress_port"
+          },
+          "expression" : {
+            "type" : "expression",
+            "value" : {
+              "op" : "==",
+              "left" : {
+                "type" : "field",
+                "value" : ["standard_metadata", "egress_port"]
+              },
+              "right" : {
+                "type" : "field",
+                "value" : ["standard_metadata", "ingress_port"]
+              }
+            }
+          },
+          "false_next" : null,
+          "true_next" : "tbl_drop"
+        }
+      ]
+    }
+  ],
+  "checksums" : [],
+  "force_arith" : [],
+  "extern_instances" : [],
+  "field_aliases" : [
+    [
+      "queueing_metadata.enq_timestamp",
+      ["standard_metadata", "enq_timestamp"]
+    ],
+    [
+      "queueing_metadata.enq_qdepth",
+      ["standard_metadata", "enq_qdepth"]
+    ],
+    [
+      "queueing_metadata.deq_timedelta",
+      ["standard_metadata", "deq_timedelta"]
+    ],
+    [
+      "queueing_metadata.deq_qdepth",
+      ["standard_metadata", "deq_qdepth"]
+    ],
+    [
+      "intrinsic_metadata.ingress_global_timestamp",
+      ["standard_metadata", "ingress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.egress_global_timestamp",
+      ["standard_metadata", "egress_global_timestamp"]
+    ],
+    [
+      "intrinsic_metadata.mcast_grp",
+      ["standard_metadata", "mcast_grp"]
+    ],
+    [
+      "intrinsic_metadata.egress_rid",
+      ["standard_metadata", "egress_rid"]
+    ],
+    [
+      "intrinsic_metadata.priority",
+      ["standard_metadata", "priority"]
+    ]
+  ],
+  "program" : "omnixtend.p4",
+  "__meta__" : {
+    "version" : [2, 18],
+    "compiler" : "https://github.com/p4lang/p4c"
+  }
+}

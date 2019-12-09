@@ -1,0 +1,2413 @@
+Calling target program-options parser
+[22:43:28.201] [bmv2] [D] [thread 8374] Set default default entry for table 'MyIngress.omni_exact': NoAction - 
+[22:43:28.201] [bmv2] [D] [thread 8374] Set default default entry for table 'MyIngress.owner_tbl': NoAction - 
+[22:43:28.201] [bmv2] [D] [thread 8374] Set default default entry for table 'MyIngress.mac_lookup': MyIngress.broadcast - 
+[22:43:28.201] [bmv2] [D] [thread 8374] Set default default entry for table 'tbl_drop': MyEgress.drop - 
+Adding interface s1-eth1 as port 1
+[22:43:28.203] [bmv2] [D] [thread 8374] Adding interface s1-eth1 as port 1
+Adding interface s1-eth2 as port 2
+[22:43:28.229] [bmv2] [D] [thread 8374] Adding interface s1-eth2 as port 2
+Adding interface s1-eth3 as port 3
+[22:43:28.261] [bmv2] [D] [thread 8374] Adding interface s1-eth3 as port 3
+Adding interface s1-eth4 as port 4
+[22:43:28.284] [bmv2] [D] [thread 8374] Adding interface s1-eth4 as port 4
+I0912 22:43:28.309423863    8374 server_builder.cc:247]      Synchronous server. Num CQs: 1, Min pollers: 1, Max Pollers: 2147483647, CQ timeout (msec): 1000
+Server listening on 0.0.0.0:50051
+[22:43:28.312] [bmv2] [I] [thread 8374] Starting Thrift server on port 9090
+[22:43:28.313] [bmv2] [I] [thread 8374] Thrift server was started
+[22:43:28.387] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Processing packet received on port 1
+[22:43:28.387] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Parser 'parser': start
+[22:43:28.387] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:28.388] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Extracting header 'ethernet'
+[22:43:28.388] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:28.388] [bmv2] [T] [thread 8381] [0.0] [cxt 0] Bytes parsed: 14
+[22:43:28.388] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Parser 'parser': end
+[22:43:28.388] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Pipeline 'ingress': start
+[22:43:28.389] [bmv2] [T] [thread 8381] [0.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:28.389] [bmv2] [T] [thread 8381] [0.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:28.389] [bmv2] [T] [thread 8381] [0.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:28.389] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:28.390] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:28.390] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:28.390] [bmv2] [T] [thread 8381] [0.0] [cxt 0] Action MyIngress.broadcast
+[22:43:28.390] [bmv2] [T] [thread 8381] [0.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:28.390] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Pipeline 'ingress': end
+[22:43:28.390] [bmv2] [D] [thread 8381] [0.0] [cxt 0] Multicast requested for packet
+[22:43:28.391] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:28.460] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Processing packet received on port 3
+[22:43:28.460] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Parser 'parser': start
+[22:43:28.461] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:28.461] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Extracting header 'ethernet'
+[22:43:28.461] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:28.461] [bmv2] [T] [thread 8381] [1.0] [cxt 0] Bytes parsed: 14
+[22:43:28.462] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Parser 'parser': end
+[22:43:28.462] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Pipeline 'ingress': start
+[22:43:28.462] [bmv2] [T] [thread 8381] [1.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:28.462] [bmv2] [T] [thread 8381] [1.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:28.463] [bmv2] [T] [thread 8381] [1.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:28.463] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 3333ff25fc67
+
+[22:43:28.463] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:28.463] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:28.463] [bmv2] [T] [thread 8381] [1.0] [cxt 0] Action MyIngress.broadcast
+[22:43:28.463] [bmv2] [T] [thread 8381] [1.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:28.464] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Pipeline 'ingress': end
+[22:43:28.464] [bmv2] [D] [thread 8381] [1.0] [cxt 0] Multicast requested for packet
+[22:43:28.464] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:28.727] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Processing packet received on port 2
+[22:43:28.727] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Parser 'parser': start
+[22:43:28.728] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:28.728] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Extracting header 'ethernet'
+[22:43:28.728] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:28.729] [bmv2] [T] [thread 8381] [2.0] [cxt 0] Bytes parsed: 14
+[22:43:28.729] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Parser 'parser': end
+[22:43:28.729] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Pipeline 'ingress': start
+[22:43:28.729] [bmv2] [T] [thread 8381] [2.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:28.730] [bmv2] [T] [thread 8381] [2.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:28.730] [bmv2] [T] [thread 8381] [2.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:28.730] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:28.730] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:28.731] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:28.731] [bmv2] [T] [thread 8381] [2.0] [cxt 0] Action MyIngress.broadcast
+[22:43:28.731] [bmv2] [T] [thread 8381] [2.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:28.731] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Pipeline 'ingress': end
+[22:43:28.731] [bmv2] [D] [thread 8381] [2.0] [cxt 0] Multicast requested for packet
+[22:43:28.732] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:28.945] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Processing packet received on port 4
+[22:43:28.945] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Parser 'parser': start
+[22:43:28.946] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:28.946] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Extracting header 'ethernet'
+[22:43:28.946] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:28.947] [bmv2] [T] [thread 8381] [3.0] [cxt 0] Bytes parsed: 14
+[22:43:28.947] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Parser 'parser': end
+[22:43:28.947] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Pipeline 'ingress': start
+[22:43:28.947] [bmv2] [T] [thread 8381] [3.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:28.948] [bmv2] [T] [thread 8381] [3.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:28.948] [bmv2] [T] [thread 8381] [3.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:28.948] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 3333ff2dd769
+
+[22:43:28.949] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:28.949] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:28.949] [bmv2] [T] [thread 8381] [3.0] [cxt 0] Action MyIngress.broadcast
+[22:43:28.949] [bmv2] [T] [thread 8381] [3.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:28.949] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Pipeline 'ingress': end
+[22:43:28.949] [bmv2] [D] [thread 8381] [3.0] [cxt 0] Multicast requested for packet
+[22:43:28.950] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.064] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Processing packet received on port 3
+[22:43:29.064] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Parser 'parser': start
+[22:43:29.064] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.065] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.065] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.065] [bmv2] [T] [thread 8381] [4.0] [cxt 0] Bytes parsed: 14
+[22:43:29.065] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Parser 'parser': end
+[22:43:29.066] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.066] [bmv2] [T] [thread 8381] [4.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.066] [bmv2] [T] [thread 8381] [4.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.066] [bmv2] [T] [thread 8381] [4.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.067] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.067] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.067] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.067] [bmv2] [T] [thread 8381] [4.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.067] [bmv2] [T] [thread 8381] [4.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.068] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.068] [bmv2] [D] [thread 8381] [4.0] [cxt 0] Multicast requested for packet
+[22:43:29.068] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.109] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Processing packet received on port 1
+[22:43:29.110] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Parser 'parser': start
+[22:43:29.110] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.110] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.110] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.111] [bmv2] [T] [thread 8381] [5.0] [cxt 0] Bytes parsed: 14
+[22:43:29.111] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Parser 'parser': end
+[22:43:29.111] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.111] [bmv2] [T] [thread 8381] [5.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.111] [bmv2] [T] [thread 8381] [5.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.112] [bmv2] [T] [thread 8381] [5.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.112] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.112] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.112] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.112] [bmv2] [T] [thread 8381] [5.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.113] [bmv2] [T] [thread 8381] [5.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.113] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.113] [bmv2] [D] [thread 8381] [5.0] [cxt 0] Multicast requested for packet
+[22:43:29.113] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Processing packet received on port 1
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Parser 'parser': start
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.113] [bmv2] [T] [thread 8381] [6.0] [cxt 0] Bytes parsed: 14
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Parser 'parser': end
+[22:43:29.113] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.113] [bmv2] [T] [thread 8381] [6.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.113] [bmv2] [T] [thread 8381] [6.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.113] [bmv2] [T] [thread 8381] [6.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.114] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:29.114] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.114] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.114] [bmv2] [T] [thread 8381] [6.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.114] [bmv2] [T] [thread 8381] [6.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.114] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.114] [bmv2] [D] [thread 8381] [6.0] [cxt 0] Multicast requested for packet
+[22:43:29.114] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.177] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Processing packet received on port 2
+[22:43:29.177] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Parser 'parser': start
+[22:43:29.177] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.178] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.178] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.178] [bmv2] [T] [thread 8381] [7.0] [cxt 0] Bytes parsed: 14
+[22:43:29.178] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Parser 'parser': end
+[22:43:29.178] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.179] [bmv2] [T] [thread 8381] [7.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.179] [bmv2] [T] [thread 8381] [7.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.179] [bmv2] [T] [thread 8381] [7.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.179] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.180] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.180] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.180] [bmv2] [T] [thread 8381] [7.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.180] [bmv2] [T] [thread 8381] [7.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.180] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.181] [bmv2] [D] [thread 8381] [7.0] [cxt 0] Multicast requested for packet
+[22:43:29.181] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.181] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Processing packet received on port 2
+[22:43:29.181] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Parser 'parser': start
+[22:43:29.181] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.181] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] Bytes parsed: 14
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Parser 'parser': end
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.182] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.182] [bmv2] [T] [thread 8381] [8.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.183] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.183] [bmv2] [D] [thread 8381] [8.0] [cxt 0] Multicast requested for packet
+[22:43:29.183] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.467] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Processing packet received on port 3
+[22:43:29.468] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Parser 'parser': start
+[22:43:29.468] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.468] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.469] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.469] [bmv2] [T] [thread 8381] [9.0] [cxt 0] Bytes parsed: 14
+[22:43:29.469] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Parser 'parser': end
+[22:43:29.469] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.470] [bmv2] [T] [thread 8381] [9.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.470] [bmv2] [T] [thread 8381] [9.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.470] [bmv2] [T] [thread 8381] [9.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.470] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.470] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.471] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.471] [bmv2] [T] [thread 8381] [9.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.471] [bmv2] [T] [thread 8381] [9.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.471] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.471] [bmv2] [D] [thread 8381] [9.0] [cxt 0] Multicast requested for packet
+[22:43:29.472] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Processing packet received on port 3
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Parser 'parser': start
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.472] [bmv2] [T] [thread 8381] [10.0] [cxt 0] Bytes parsed: 14
+[22:43:29.472] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Parser 'parser': end
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.473] [bmv2] [T] [thread 8381] [10.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.473] [bmv2] [T] [thread 8381] [10.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.473] [bmv2] [T] [thread 8381] [10.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.473] [bmv2] [T] [thread 8381] [10.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.473] [bmv2] [T] [thread 8381] [10.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.473] [bmv2] [D] [thread 8381] [10.0] [cxt 0] Multicast requested for packet
+[22:43:29.473] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+New connection
+P4Runtime SetForwardingPipelineConfig
+[22:43:29.737] [bmv2] [W] [thread 8397] [P4Runtime] p4::tmp::P4DeviceConfig is deprecated
+[22:43:29.740] [bmv2] [D] [thread 8397] Set default default entry for table 'MyIngress.omni_exact': NoAction - 
+[22:43:29.740] [bmv2] [D] [thread 8397] Set default default entry for table 'MyIngress.owner_tbl': NoAction - 
+[22:43:29.741] [bmv2] [D] [thread 8397] Set default default entry for table 'MyIngress.mac_lookup': MyIngress.broadcast - 
+[22:43:29.741] [bmv2] [D] [thread 8397] Set default default entry for table 'tbl_drop': MyEgress.drop - 
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33560053
+      match {
+        field_id: 1
+        exact {
+          value: "\010\000\000\000\001\021"
+        }
+      }
+      action {
+        action {
+          action_id: 16826891
+          params {
+            param_id: 1
+            value: "\000\001"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.748] [bmv2] [D] [thread 8397] Entry 0 added to table 'MyIngress.mac_lookup'
+[22:43:29.749] [bmv2] [D] [thread 8397] Dumping entry 0
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000111
+Action entry: MyIngress.mac_forward - 1,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33560053
+      match {
+        field_id: 1
+        exact {
+          value: "\010\000\000\000\002\""
+        }
+      }
+      action {
+        action {
+          action_id: 16826891
+          params {
+            param_id: 1
+            value: "\000\002"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.752] [bmv2] [D] [thread 8397] Entry 1 added to table 'MyIngress.mac_lookup'
+[22:43:29.752] [bmv2] [D] [thread 8397] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33560053
+      match {
+        field_id: 1
+        exact {
+          value: "\010\000\000\000\0033"
+        }
+      }
+      action {
+        action {
+          action_id: 16826891
+          params {
+            param_id: 1
+            value: "\000\003"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.755] [bmv2] [D] [thread 8397] Entry 2 added to table 'MyIngress.mac_lookup'
+[22:43:29.755] [bmv2] [D] [thread 8397] Dumping entry 2
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000333
+Action entry: MyIngress.mac_forward - 3,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33560053
+      match {
+        field_id: 1
+        exact {
+          value: "\010\000\000\000\004D"
+        }
+      }
+      action {
+        action {
+          action_id: 16826891
+          params {
+            param_id: 1
+            value: "\000\004"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.759] [bmv2] [D] [thread 8397] Entry 3 added to table 'MyIngress.mac_lookup'
+[22:43:29.759] [bmv2] [D] [thread 8397] Dumping entry 3
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000444
+Action entry: MyIngress.mac_forward - 4,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33555043
+      match {
+        field_id: 1
+        exact {
+          value: "\004"
+        }
+      }
+      match {
+        field_id: 2
+        exact {
+          value: "\004"
+        }
+      }
+      action {
+        action {
+          action_id: 16816415
+        }
+      }
+    }
+  }
+}
+[22:43:29.762] [bmv2] [D] [thread 8398] Entry 0 added to table 'MyIngress.omni_exact'
+[22:43:29.762] [bmv2] [D] [thread 8398] Dumping entry 0
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     04
+Action entry: MyIngress.handle_grant - 
+
+[22:43:29.763] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Processing packet received on port 2
+[22:43:29.763] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Parser 'parser': start
+[22:43:29.763] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.764] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.764] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.764] [bmv2] [T] [thread 8381] [11.0] [cxt 0] Bytes parsed: 14
+[22:43:29.764] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Parser 'parser': end
+[22:43:29.764] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.764] [bmv2] [T] [thread 8381] [11.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.765] [bmv2] [T] [thread 8381] [11.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.765] [bmv2] [T] [thread 8381] [11.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.765] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.765] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.765] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.765] [bmv2] [T] [thread 8381] [11.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.765] [bmv2] [T] [thread 8381] [11.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.765] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.765] [bmv2] [D] [thread 8381] [11.0] [cxt 0] Multicast requested for packet
+P4Runtime Write
+[22:43:29.766] [bmv2] [W] [thread 8381] Replication requested for mgid 1, which is not known to the PRE
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33555043
+      match {
+        field_id: 1
+        exact {
+          value: "\001"
+        }
+      }
+      match {
+        field_id: 2
+        exact {
+          value: "\006"
+        }
+      }
+      action {
+        action {
+          action_id: 16810807
+        }
+      }
+    }
+  }
+}
+[22:43:29.766] [bmv2] [D] [thread 8398] Entry 1 added to table 'MyIngress.omni_exact'
+[22:43:29.766] [bmv2] [D] [thread 8398] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33555043
+      match {
+        field_id: 1
+        exact {
+          value: "\004"
+        }
+      }
+      match {
+        field_id: 2
+        exact {
+          value: "\005"
+        }
+      }
+      action {
+        action {
+          action_id: 16816415
+        }
+      }
+    }
+  }
+}
+[22:43:29.769] [bmv2] [D] [thread 8398] Entry 2 added to table 'MyIngress.omni_exact'
+[22:43:29.769] [bmv2] [D] [thread 8398] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33569572
+      match {
+        field_id: 1
+        exact {
+          value: "\000\001"
+        }
+      }
+      action {
+        action {
+          action_id: 16786257
+          params {
+            param_id: 1
+            value: "\010\000\000\000\001\021"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.772] [bmv2] [D] [thread 8398] Entry 0 added to table 'MyIngress.owner_tbl'
+[22:43:29.772] [bmv2] [D] [thread 8398] Dumping entry 0
+Match key:
+* meta.cache_owner    : EXACT     0001
+Action entry: MyIngress.redirect - 80000000111,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33569572
+      match {
+        field_id: 1
+        exact {
+          value: "\000\002"
+        }
+      }
+      action {
+        action {
+          action_id: 16786257
+          params {
+            param_id: 1
+            value: "\010\000\000\000\002\""
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.775] [bmv2] [D] [thread 8398] Entry 1 added to table 'MyIngress.owner_tbl'
+[22:43:29.775] [bmv2] [D] [thread 8398] Dumping entry 1
+Match key:
+* meta.cache_owner    : EXACT     0002
+Action entry: MyIngress.redirect - 80000000222,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33569572
+      match {
+        field_id: 1
+        exact {
+          value: "\000\003"
+        }
+      }
+      action {
+        action {
+          action_id: 16786257
+          params {
+            param_id: 1
+            value: "\010\000\000\000\0033"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.778] [bmv2] [D] [thread 8398] Entry 2 added to table 'MyIngress.owner_tbl'
+[22:43:29.778] [bmv2] [D] [thread 8398] Dumping entry 2
+Match key:
+* meta.cache_owner    : EXACT     0003
+Action entry: MyIngress.redirect - 80000000333,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    table_entry {
+      table_id: 33569572
+      match {
+        field_id: 1
+        exact {
+          value: "\000\004"
+        }
+      }
+      action {
+        action {
+          action_id: 16786257
+          params {
+            param_id: 1
+            value: "\010\000\000\000\004D"
+          }
+        }
+      }
+    }
+  }
+}
+[22:43:29.780] [bmv2] [D] [thread 8398] Entry 3 added to table 'MyIngress.owner_tbl'
+[22:43:29.781] [bmv2] [D] [thread 8398] Dumping entry 3
+Match key:
+* meta.cache_owner    : EXACT     0004
+Action entry: MyIngress.redirect - 80000000444,
+
+P4Runtime Write
+election_id {
+  low: 1
+}
+updates {
+  type: INSERT
+  entity {
+    packet_replication_engine_entry {
+      multicast_group_entry {
+        multicast_group_id: 1
+        replicas {
+          egress_port: 1
+          instance: 1
+        }
+        replicas {
+          egress_port: 2
+          instance: 1
+        }
+        replicas {
+          egress_port: 3
+          instance: 1
+        }
+        replicas {
+          egress_port: 4
+          instance: 1
+        }
+      }
+    }
+  }
+}
+[22:43:29.783] [bmv2] [D] [thread 8398] mgrp node created for mgid 1
+[22:43:29.783] [bmv2] [D] [thread 8398] node created for rid 1
+[22:43:29.783] [bmv2] [D] [thread 8398] node associated with mgid 1
+Connection removed
+[22:43:29.944] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Processing packet received on port 4
+[22:43:29.944] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Parser 'parser': start
+[22:43:29.945] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.945] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.945] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.945] [bmv2] [T] [thread 8381] [12.0] [cxt 0] Bytes parsed: 14
+[22:43:29.945] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Parser 'parser': end
+[22:43:29.946] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.946] [bmv2] [T] [thread 8381] [12.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.946] [bmv2] [T] [thread 8381] [12.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.946] [bmv2] [T] [thread 8381] [12.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.947] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.947] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.947] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.947] [bmv2] [T] [thread 8381] [12.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.947] [bmv2] [T] [thread 8381] [12.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.948] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.948] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Multicast requested for packet
+[22:43:29.948] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:29.948] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Replicating packet on port 1
+[22:43:29.948] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Replicating packet on port 2
+[22:43:29.949] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Replicating packet on port 3
+[22:43:29.949] [bmv2] [D] [thread 8381] [12.0] [cxt 0] Replicating packet on port 4
+[22:43:29.949] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Processing packet received on port 4
+[22:43:29.949] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Parser 'parser': start
+[22:43:29.950] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.950] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.950] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.950] [bmv2] [T] [thread 8381] [13.0] [cxt 0] Bytes parsed: 14
+[22:43:29.949] [bmv2] [D] [thread 8384] [12.2] [cxt 0] Pipeline 'egress': start
+[22:43:29.949] [bmv2] [D] [thread 8385] [12.3] [cxt 0] Pipeline 'egress': start
+[22:43:29.950] [bmv2] [T] [thread 8385] [12.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.950] [bmv2] [D] [thread 8385] [12.3] [cxt 0] Pipeline 'egress': end
+[22:43:29.950] [bmv2] [D] [thread 8385] [12.3] [cxt 0] Deparser 'deparser': start
+[22:43:29.950] [bmv2] [D] [thread 8385] [12.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.950] [bmv2] [D] [thread 8385] [12.3] [cxt 0] Deparser 'deparser': end
+[22:43:29.950] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Parser 'parser': end
+[22:43:29.951] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.951] [bmv2] [T] [thread 8381] [13.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.951] [bmv2] [T] [thread 8381] [13.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.951] [bmv2] [T] [thread 8381] [13.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.951] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:29.950] [bmv2] [T] [thread 8384] [12.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.951] [bmv2] [D] [thread 8384] [12.2] [cxt 0] Pipeline 'egress': end
+[22:43:29.949] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Pipeline 'egress': start
+[22:43:29.951] [bmv2] [T] [thread 8382] [12.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:29.951] [bmv2] [T] [thread 8382] [12.4] [cxt 0] Applying table 'tbl_drop'
+[22:43:29.951] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Looking up key:
+
+[22:43:29.951] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Table 'tbl_drop': miss
+[22:43:29.951] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:29.951] [bmv2] [T] [thread 8382] [12.4] [cxt 0] Action MyEgress.drop
+[22:43:29.951] [bmv2] [T] [thread 8382] [12.4] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:29.951] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Pipeline 'egress': end
+[22:43:29.951] [bmv2] [D] [thread 8382] [12.4] [cxt 0] Dropping packet at the end of egress
+[22:43:29.948] [bmv2] [D] [thread 8383] [12.1] [cxt 0] Pipeline 'egress': start
+[22:43:29.952] [bmv2] [T] [thread 8383] [12.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.952] [bmv2] [D] [thread 8383] [12.1] [cxt 0] Pipeline 'egress': end
+[22:43:29.952] [bmv2] [D] [thread 8383] [12.1] [cxt 0] Deparser 'deparser': start
+[22:43:29.952] [bmv2] [D] [thread 8383] [12.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.952] [bmv2] [D] [thread 8383] [12.1] [cxt 0] Deparser 'deparser': end
+[22:43:29.951] [bmv2] [D] [thread 8384] [12.2] [cxt 0] Deparser 'deparser': start
+[22:43:29.952] [bmv2] [D] [thread 8384] [12.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.952] [bmv2] [D] [thread 8384] [12.2] [cxt 0] Deparser 'deparser': end
+[22:43:29.951] [bmv2] [D] [thread 8386] [12.3] [cxt 0] Transmitting packet of size 90 out of port 3
+[22:43:29.951] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.952] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.952] [bmv2] [T] [thread 8381] [13.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.952] [bmv2] [T] [thread 8381] [13.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.952] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.952] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Multicast requested for packet
+[22:43:29.952] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:29.953] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Replicating packet on port 1
+[22:43:29.952] [bmv2] [D] [thread 8386] [12.1] [cxt 0] Transmitting packet of size 90 out of port 1
+[22:43:29.953] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Replicating packet on port 2
+[22:43:29.953] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Replicating packet on port 3
+[22:43:29.953] [bmv2] [D] [thread 8384] [13.2] [cxt 0] Pipeline 'egress': start
+[22:43:29.953] [bmv2] [T] [thread 8384] [13.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.953] [bmv2] [D] [thread 8384] [13.2] [cxt 0] Pipeline 'egress': end
+[22:43:29.953] [bmv2] [D] [thread 8384] [13.2] [cxt 0] Deparser 'deparser': start
+[22:43:29.953] [bmv2] [D] [thread 8384] [13.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.953] [bmv2] [D] [thread 8384] [13.2] [cxt 0] Deparser 'deparser': end
+[22:43:29.953] [bmv2] [D] [thread 8386] [12.2] [cxt 0] Transmitting packet of size 90 out of port 2
+[22:43:29.953] [bmv2] [D] [thread 8381] [13.0] [cxt 0] Replicating packet on port 4
+[22:43:29.953] [bmv2] [D] [thread 8383] [13.1] [cxt 0] Pipeline 'egress': start
+[22:43:29.953] [bmv2] [T] [thread 8383] [13.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.954] [bmv2] [D] [thread 8383] [13.1] [cxt 0] Pipeline 'egress': end
+[22:43:29.954] [bmv2] [D] [thread 8383] [13.1] [cxt 0] Deparser 'deparser': start
+[22:43:29.954] [bmv2] [D] [thread 8383] [13.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.954] [bmv2] [D] [thread 8383] [13.1] [cxt 0] Deparser 'deparser': end
+[22:43:29.953] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Pipeline 'egress': start
+[22:43:29.954] [bmv2] [T] [thread 8382] [13.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:29.954] [bmv2] [T] [thread 8382] [13.4] [cxt 0] Applying table 'tbl_drop'
+[22:43:29.954] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Looking up key:
+
+[22:43:29.954] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Table 'tbl_drop': miss
+[22:43:29.954] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:29.954] [bmv2] [T] [thread 8382] [13.4] [cxt 0] Action MyEgress.drop
+[22:43:29.954] [bmv2] [T] [thread 8382] [13.4] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:29.954] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Pipeline 'egress': end
+[22:43:29.954] [bmv2] [D] [thread 8382] [13.4] [cxt 0] Dropping packet at the end of egress
+[22:43:29.953] [bmv2] [D] [thread 8386] [13.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:29.953] [bmv2] [D] [thread 8385] [13.3] [cxt 0] Pipeline 'egress': start
+[22:43:29.955] [bmv2] [D] [thread 8386] [13.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:29.955] [bmv2] [T] [thread 8385] [13.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.955] [bmv2] [D] [thread 8385] [13.3] [cxt 0] Pipeline 'egress': end
+[22:43:29.955] [bmv2] [D] [thread 8385] [13.3] [cxt 0] Deparser 'deparser': start
+[22:43:29.955] [bmv2] [D] [thread 8385] [13.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.955] [bmv2] [D] [thread 8385] [13.3] [cxt 0] Deparser 'deparser': end
+[22:43:29.955] [bmv2] [D] [thread 8386] [13.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:29.975] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Processing packet received on port 1
+[22:43:29.976] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Parser 'parser': start
+[22:43:29.976] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:29.976] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Extracting header 'ethernet'
+[22:43:29.976] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:29.977] [bmv2] [T] [thread 8381] [14.0] [cxt 0] Bytes parsed: 14
+[22:43:29.977] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Parser 'parser': end
+[22:43:29.977] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Pipeline 'ingress': start
+[22:43:29.977] [bmv2] [T] [thread 8381] [14.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:29.978] [bmv2] [T] [thread 8381] [14.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:29.978] [bmv2] [T] [thread 8381] [14.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:29.978] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:29.978] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:29.978] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:29.978] [bmv2] [T] [thread 8381] [14.0] [cxt 0] Action MyIngress.broadcast
+[22:43:29.979] [bmv2] [T] [thread 8381] [14.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:29.979] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Pipeline 'ingress': end
+[22:43:29.979] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Multicast requested for packet
+[22:43:29.979] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:29.979] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Replicating packet on port 1
+[22:43:29.980] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Replicating packet on port 2
+[22:43:29.980] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Replicating packet on port 3
+[22:43:29.980] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Pipeline 'egress': start
+[22:43:29.980] [bmv2] [T] [thread 8383] [14.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:29.980] [bmv2] [T] [thread 8383] [14.1] [cxt 0] Applying table 'tbl_drop'
+[22:43:29.980] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Looking up key:
+
+[22:43:29.980] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Table 'tbl_drop': miss
+[22:43:29.981] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:29.981] [bmv2] [T] [thread 8383] [14.1] [cxt 0] Action MyEgress.drop
+[22:43:29.981] [bmv2] [T] [thread 8383] [14.1] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:29.981] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Pipeline 'egress': end
+[22:43:29.981] [bmv2] [D] [thread 8383] [14.1] [cxt 0] Dropping packet at the end of egress
+[22:43:29.980] [bmv2] [D] [thread 8384] [14.2] [cxt 0] Pipeline 'egress': start
+[22:43:29.980] [bmv2] [D] [thread 8385] [14.3] [cxt 0] Pipeline 'egress': start
+[22:43:29.981] [bmv2] [T] [thread 8385] [14.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.981] [bmv2] [D] [thread 8385] [14.3] [cxt 0] Pipeline 'egress': end
+[22:43:29.981] [bmv2] [D] [thread 8385] [14.3] [cxt 0] Deparser 'deparser': start
+[22:43:29.981] [bmv2] [D] [thread 8385] [14.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.981] [bmv2] [D] [thread 8385] [14.3] [cxt 0] Deparser 'deparser': end
+[22:43:29.980] [bmv2] [D] [thread 8381] [14.0] [cxt 0] Replicating packet on port 4
+[22:43:29.981] [bmv2] [D] [thread 8386] [14.3] [cxt 0] Transmitting packet of size 90 out of port 3
+[22:43:29.982] [bmv2] [D] [thread 8382] [14.4] [cxt 0] Pipeline 'egress': start
+[22:43:29.982] [bmv2] [T] [thread 8382] [14.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.982] [bmv2] [D] [thread 8382] [14.4] [cxt 0] Pipeline 'egress': end
+[22:43:29.982] [bmv2] [D] [thread 8382] [14.4] [cxt 0] Deparser 'deparser': start
+[22:43:29.982] [bmv2] [D] [thread 8382] [14.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.982] [bmv2] [D] [thread 8382] [14.4] [cxt 0] Deparser 'deparser': end
+[22:43:29.981] [bmv2] [T] [thread 8384] [14.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:29.982] [bmv2] [D] [thread 8384] [14.2] [cxt 0] Pipeline 'egress': end
+[22:43:29.982] [bmv2] [D] [thread 8384] [14.2] [cxt 0] Deparser 'deparser': start
+[22:43:29.982] [bmv2] [D] [thread 8384] [14.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:29.982] [bmv2] [D] [thread 8384] [14.2] [cxt 0] Deparser 'deparser': end
+[22:43:29.982] [bmv2] [D] [thread 8386] [14.4] [cxt 0] Transmitting packet of size 90 out of port 4
+[22:43:29.982] [bmv2] [D] [thread 8386] [14.2] [cxt 0] Transmitting packet of size 90 out of port 2
+[22:43:30.056] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Processing packet received on port 3
+[22:43:30.057] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Parser 'parser': start
+[22:43:30.057] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:30.058] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Extracting header 'ethernet'
+[22:43:30.058] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:30.058] [bmv2] [T] [thread 8381] [15.0] [cxt 0] Bytes parsed: 14
+[22:43:30.059] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Parser 'parser': end
+[22:43:30.059] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Pipeline 'ingress': start
+[22:43:30.060] [bmv2] [T] [thread 8381] [15.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:30.060] [bmv2] [T] [thread 8381] [15.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:30.061] [bmv2] [T] [thread 8381] [15.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:30.061] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:30.061] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:30.061] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:30.061] [bmv2] [T] [thread 8381] [15.0] [cxt 0] Action MyIngress.broadcast
+[22:43:30.062] [bmv2] [T] [thread 8381] [15.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:30.062] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Pipeline 'ingress': end
+[22:43:30.062] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Multicast requested for packet
+[22:43:30.062] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:30.062] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Replicating packet on port 1
+[22:43:30.063] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Replicating packet on port 2
+[22:43:30.063] [bmv2] [D] [thread 8383] [15.1] [cxt 0] Pipeline 'egress': start
+[22:43:30.063] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Replicating packet on port 3
+[22:43:30.063] [bmv2] [D] [thread 8384] [15.2] [cxt 0] Pipeline 'egress': start
+[22:43:30.063] [bmv2] [T] [thread 8384] [15.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.064] [bmv2] [D] [thread 8384] [15.2] [cxt 0] Pipeline 'egress': end
+[22:43:30.064] [bmv2] [D] [thread 8384] [15.2] [cxt 0] Deparser 'deparser': start
+[22:43:30.064] [bmv2] [D] [thread 8384] [15.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.064] [bmv2] [D] [thread 8384] [15.2] [cxt 0] Deparser 'deparser': end
+[22:43:30.063] [bmv2] [D] [thread 8381] [15.0] [cxt 0] Replicating packet on port 4
+[22:43:30.064] [bmv2] [D] [thread 8382] [15.4] [cxt 0] Pipeline 'egress': start
+[22:43:30.064] [bmv2] [T] [thread 8382] [15.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.064] [bmv2] [D] [thread 8382] [15.4] [cxt 0] Pipeline 'egress': end
+[22:43:30.064] [bmv2] [D] [thread 8382] [15.4] [cxt 0] Deparser 'deparser': start
+[22:43:30.064] [bmv2] [D] [thread 8382] [15.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.064] [bmv2] [D] [thread 8382] [15.4] [cxt 0] Deparser 'deparser': end
+[22:43:30.063] [bmv2] [T] [thread 8383] [15.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.065] [bmv2] [D] [thread 8383] [15.1] [cxt 0] Pipeline 'egress': end
+[22:43:30.065] [bmv2] [D] [thread 8383] [15.1] [cxt 0] Deparser 'deparser': start
+[22:43:30.065] [bmv2] [D] [thread 8383] [15.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.065] [bmv2] [D] [thread 8383] [15.1] [cxt 0] Deparser 'deparser': end
+[22:43:30.063] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Pipeline 'egress': start
+[22:43:30.065] [bmv2] [T] [thread 8385] [15.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:30.065] [bmv2] [T] [thread 8385] [15.3] [cxt 0] Applying table 'tbl_drop'
+[22:43:30.065] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Looking up key:
+
+[22:43:30.064] [bmv2] [D] [thread 8386] [15.2] [cxt 0] Transmitting packet of size 90 out of port 2
+[22:43:30.065] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Table 'tbl_drop': miss
+[22:43:30.065] [bmv2] [D] [thread 8386] [15.4] [cxt 0] Transmitting packet of size 90 out of port 4
+[22:43:30.065] [bmv2] [D] [thread 8386] [15.1] [cxt 0] Transmitting packet of size 90 out of port 1
+[22:43:30.065] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:30.066] [bmv2] [T] [thread 8385] [15.3] [cxt 0] Action MyEgress.drop
+[22:43:30.066] [bmv2] [T] [thread 8385] [15.3] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:30.066] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Pipeline 'egress': end
+[22:43:30.066] [bmv2] [D] [thread 8385] [15.3] [cxt 0] Dropping packet at the end of egress
+[22:43:30.283] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Processing packet received on port 4
+[22:43:30.283] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Parser 'parser': start
+[22:43:30.284] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:30.284] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Extracting header 'ethernet'
+[22:43:30.284] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:30.284] [bmv2] [T] [thread 8381] [16.0] [cxt 0] Bytes parsed: 14
+[22:43:30.284] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Parser 'parser': end
+[22:43:30.285] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Pipeline 'ingress': start
+[22:43:30.285] [bmv2] [T] [thread 8381] [16.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:30.285] [bmv2] [T] [thread 8381] [16.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:30.285] [bmv2] [T] [thread 8381] [16.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:30.286] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000016
+
+[22:43:30.286] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:30.286] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:30.286] [bmv2] [T] [thread 8381] [16.0] [cxt 0] Action MyIngress.broadcast
+[22:43:30.287] [bmv2] [T] [thread 8381] [16.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:30.287] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Pipeline 'ingress': end
+[22:43:30.287] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Multicast requested for packet
+[22:43:30.287] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:30.287] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Replicating packet on port 1
+[22:43:30.288] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Replicating packet on port 2
+[22:43:30.288] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Replicating packet on port 3
+[22:43:30.288] [bmv2] [D] [thread 8385] [16.3] [cxt 0] Pipeline 'egress': start
+[22:43:30.288] [bmv2] [T] [thread 8385] [16.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.288] [bmv2] [D] [thread 8385] [16.3] [cxt 0] Pipeline 'egress': end
+[22:43:30.289] [bmv2] [D] [thread 8385] [16.3] [cxt 0] Deparser 'deparser': start
+[22:43:30.289] [bmv2] [D] [thread 8385] [16.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.289] [bmv2] [D] [thread 8385] [16.3] [cxt 0] Deparser 'deparser': end
+[22:43:30.288] [bmv2] [D] [thread 8381] [16.0] [cxt 0] Replicating packet on port 4
+[22:43:30.288] [bmv2] [D] [thread 8384] [16.2] [cxt 0] Pipeline 'egress': start
+[22:43:30.289] [bmv2] [T] [thread 8384] [16.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.290] [bmv2] [D] [thread 8384] [16.2] [cxt 0] Pipeline 'egress': end
+[22:43:30.290] [bmv2] [D] [thread 8384] [16.2] [cxt 0] Deparser 'deparser': start
+[22:43:30.290] [bmv2] [D] [thread 8384] [16.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.290] [bmv2] [D] [thread 8384] [16.2] [cxt 0] Deparser 'deparser': end
+[22:43:30.289] [bmv2] [D] [thread 8386] [16.3] [cxt 0] Transmitting packet of size 90 out of port 3
+[22:43:30.289] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Pipeline 'egress': start
+[22:43:30.290] [bmv2] [T] [thread 8382] [16.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:30.291] [bmv2] [T] [thread 8382] [16.4] [cxt 0] Applying table 'tbl_drop'
+[22:43:30.291] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Looking up key:
+
+[22:43:30.291] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Table 'tbl_drop': miss
+[22:43:30.291] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:30.291] [bmv2] [T] [thread 8382] [16.4] [cxt 0] Action MyEgress.drop
+[22:43:30.291] [bmv2] [T] [thread 8382] [16.4] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:30.291] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Pipeline 'egress': end
+[22:43:30.291] [bmv2] [D] [thread 8382] [16.4] [cxt 0] Dropping packet at the end of egress
+[22:43:30.290] [bmv2] [D] [thread 8386] [16.2] [cxt 0] Transmitting packet of size 90 out of port 2
+[22:43:30.288] [bmv2] [D] [thread 8383] [16.1] [cxt 0] Pipeline 'egress': start
+[22:43:30.292] [bmv2] [T] [thread 8383] [16.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:30.292] [bmv2] [D] [thread 8383] [16.1] [cxt 0] Pipeline 'egress': end
+[22:43:30.292] [bmv2] [D] [thread 8383] [16.1] [cxt 0] Deparser 'deparser': start
+[22:43:30.292] [bmv2] [D] [thread 8383] [16.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:30.292] [bmv2] [D] [thread 8383] [16.1] [cxt 0] Deparser 'deparser': end
+[22:43:30.292] [bmv2] [D] [thread 8386] [16.1] [cxt 0] Transmitting packet of size 90 out of port 1
+[22:43:33.206] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Processing packet received on port 1
+[22:43:33.206] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Parser 'parser': start
+[22:43:33.206] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:33.206] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Extracting header 'ethernet'
+[22:43:33.207] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:33.207] [bmv2] [T] [thread 8381] [17.0] [cxt 0] Bytes parsed: 14
+[22:43:33.207] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Parser 'parser': end
+[22:43:33.207] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Pipeline 'ingress': start
+[22:43:33.207] [bmv2] [T] [thread 8381] [17.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:33.207] [bmv2] [T] [thread 8381] [17.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:33.208] [bmv2] [T] [thread 8381] [17.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:33.208] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:33.208] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:33.208] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:33.208] [bmv2] [T] [thread 8381] [17.0] [cxt 0] Action MyIngress.broadcast
+[22:43:33.209] [bmv2] [T] [thread 8381] [17.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:33.209] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Pipeline 'ingress': end
+[22:43:33.209] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Multicast requested for packet
+[22:43:33.209] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:33.210] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Replicating packet on port 1
+[22:43:33.210] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Replicating packet on port 2
+[22:43:33.210] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Pipeline 'egress': start
+[22:43:33.210] [bmv2] [T] [thread 8383] [17.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:33.210] [bmv2] [T] [thread 8383] [17.1] [cxt 0] Applying table 'tbl_drop'
+[22:43:33.210] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Looking up key:
+
+[22:43:33.211] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Table 'tbl_drop': miss
+[22:43:33.211] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:33.211] [bmv2] [T] [thread 8383] [17.1] [cxt 0] Action MyEgress.drop
+[22:43:33.211] [bmv2] [T] [thread 8383] [17.1] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:33.211] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Pipeline 'egress': end
+[22:43:33.211] [bmv2] [D] [thread 8383] [17.1] [cxt 0] Dropping packet at the end of egress
+[22:43:33.210] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Replicating packet on port 3
+[22:43:33.211] [bmv2] [D] [thread 8385] [17.3] [cxt 0] Pipeline 'egress': start
+[22:43:33.211] [bmv2] [T] [thread 8385] [17.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.211] [bmv2] [D] [thread 8385] [17.3] [cxt 0] Pipeline 'egress': end
+[22:43:33.211] [bmv2] [D] [thread 8385] [17.3] [cxt 0] Deparser 'deparser': start
+[22:43:33.212] [bmv2] [D] [thread 8385] [17.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.212] [bmv2] [D] [thread 8385] [17.3] [cxt 0] Deparser 'deparser': end
+[22:43:33.211] [bmv2] [D] [thread 8381] [17.0] [cxt 0] Replicating packet on port 4
+[22:43:33.212] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Processing packet received on port 2
+[22:43:33.212] [bmv2] [D] [thread 8382] [17.4] [cxt 0] Pipeline 'egress': start
+[22:43:33.212] [bmv2] [T] [thread 8382] [17.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.212] [bmv2] [D] [thread 8382] [17.4] [cxt 0] Pipeline 'egress': end
+[22:43:33.212] [bmv2] [D] [thread 8382] [17.4] [cxt 0] Deparser 'deparser': start
+[22:43:33.212] [bmv2] [D] [thread 8382] [17.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.212] [bmv2] [D] [thread 8382] [17.4] [cxt 0] Deparser 'deparser': end
+[22:43:33.212] [bmv2] [D] [thread 8386] [17.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:33.212] [bmv2] [D] [thread 8386] [17.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:33.210] [bmv2] [D] [thread 8384] [17.2] [cxt 0] Pipeline 'egress': start
+[22:43:33.213] [bmv2] [T] [thread 8384] [17.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.213] [bmv2] [D] [thread 8384] [17.2] [cxt 0] Pipeline 'egress': end
+[22:43:33.213] [bmv2] [D] [thread 8384] [17.2] [cxt 0] Deparser 'deparser': start
+[22:43:33.213] [bmv2] [D] [thread 8384] [17.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.213] [bmv2] [D] [thread 8384] [17.2] [cxt 0] Deparser 'deparser': end
+[22:43:33.213] [bmv2] [D] [thread 8386] [17.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:33.212] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Parser 'parser': start
+[22:43:33.213] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:33.213] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Extracting header 'ethernet'
+[22:43:33.213] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:33.213] [bmv2] [T] [thread 8381] [18.0] [cxt 0] Bytes parsed: 14
+[22:43:33.213] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Parser 'parser': end
+[22:43:33.213] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Pipeline 'ingress': start
+[22:43:33.213] [bmv2] [T] [thread 8381] [18.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:33.213] [bmv2] [T] [thread 8381] [18.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:33.213] [bmv2] [T] [thread 8381] [18.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:33.214] [bmv2] [T] [thread 8381] [18.0] [cxt 0] Action MyIngress.broadcast
+[22:43:33.214] [bmv2] [T] [thread 8381] [18.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Pipeline 'ingress': end
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Multicast requested for packet
+[22:43:33.214] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Replicating packet on port 1
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Replicating packet on port 2
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Replicating packet on port 3
+[22:43:33.214] [bmv2] [D] [thread 8383] [18.1] [cxt 0] Pipeline 'egress': start
+[22:43:33.214] [bmv2] [T] [thread 8383] [18.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.214] [bmv2] [D] [thread 8383] [18.1] [cxt 0] Pipeline 'egress': end
+[22:43:33.214] [bmv2] [D] [thread 8383] [18.1] [cxt 0] Deparser 'deparser': start
+[22:43:33.214] [bmv2] [D] [thread 8383] [18.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.214] [bmv2] [D] [thread 8383] [18.1] [cxt 0] Deparser 'deparser': end
+[22:43:33.214] [bmv2] [D] [thread 8381] [18.0] [cxt 0] Replicating packet on port 4
+[22:43:33.214] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Pipeline 'egress': start
+[22:43:33.215] [bmv2] [T] [thread 8384] [18.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:33.215] [bmv2] [T] [thread 8384] [18.2] [cxt 0] Applying table 'tbl_drop'
+[22:43:33.215] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Looking up key:
+
+[22:43:33.215] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Table 'tbl_drop': miss
+[22:43:33.215] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:33.215] [bmv2] [T] [thread 8384] [18.2] [cxt 0] Action MyEgress.drop
+[22:43:33.215] [bmv2] [T] [thread 8384] [18.2] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:33.215] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Pipeline 'egress': end
+[22:43:33.215] [bmv2] [D] [thread 8384] [18.2] [cxt 0] Dropping packet at the end of egress
+[22:43:33.214] [bmv2] [D] [thread 8386] [18.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:33.215] [bmv2] [D] [thread 8382] [18.4] [cxt 0] Pipeline 'egress': start
+[22:43:33.215] [bmv2] [T] [thread 8382] [18.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.215] [bmv2] [D] [thread 8382] [18.4] [cxt 0] Pipeline 'egress': end
+[22:43:33.215] [bmv2] [D] [thread 8382] [18.4] [cxt 0] Deparser 'deparser': start
+[22:43:33.216] [bmv2] [D] [thread 8382] [18.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.216] [bmv2] [D] [thread 8382] [18.4] [cxt 0] Deparser 'deparser': end
+[22:43:33.214] [bmv2] [D] [thread 8385] [18.3] [cxt 0] Pipeline 'egress': start
+[22:43:33.216] [bmv2] [T] [thread 8385] [18.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.216] [bmv2] [D] [thread 8385] [18.3] [cxt 0] Pipeline 'egress': end
+[22:43:33.216] [bmv2] [D] [thread 8385] [18.3] [cxt 0] Deparser 'deparser': start
+[22:43:33.216] [bmv2] [D] [thread 8385] [18.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.216] [bmv2] [D] [thread 8386] [18.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:33.216] [bmv2] [D] [thread 8385] [18.3] [cxt 0] Deparser 'deparser': end
+[22:43:33.216] [bmv2] [D] [thread 8386] [18.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:33.468] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Processing packet received on port 3
+[22:43:33.468] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Parser 'parser': start
+[22:43:33.468] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:33.469] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Extracting header 'ethernet'
+[22:43:33.469] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:33.469] [bmv2] [T] [thread 8381] [19.0] [cxt 0] Bytes parsed: 14
+[22:43:33.470] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Parser 'parser': end
+[22:43:33.470] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Pipeline 'ingress': start
+[22:43:33.470] [bmv2] [T] [thread 8381] [19.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:33.470] [bmv2] [T] [thread 8381] [19.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:33.470] [bmv2] [T] [thread 8381] [19.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:33.471] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:33.471] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:33.471] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:33.471] [bmv2] [T] [thread 8381] [19.0] [cxt 0] Action MyIngress.broadcast
+[22:43:33.472] [bmv2] [T] [thread 8381] [19.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:33.472] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Pipeline 'ingress': end
+[22:43:33.472] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Multicast requested for packet
+[22:43:33.472] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:33.472] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Replicating packet on port 1
+[22:43:33.472] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Replicating packet on port 2
+[22:43:33.473] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Replicating packet on port 3
+[22:43:33.473] [bmv2] [D] [thread 8383] [19.1] [cxt 0] Pipeline 'egress': start
+[22:43:33.473] [bmv2] [T] [thread 8383] [19.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.473] [bmv2] [D] [thread 8383] [19.1] [cxt 0] Pipeline 'egress': end
+[22:43:33.473] [bmv2] [D] [thread 8383] [19.1] [cxt 0] Deparser 'deparser': start
+[22:43:33.473] [bmv2] [D] [thread 8383] [19.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.473] [bmv2] [D] [thread 8383] [19.1] [cxt 0] Deparser 'deparser': end
+[22:43:33.473] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Pipeline 'egress': start
+[22:43:33.473] [bmv2] [T] [thread 8385] [19.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:33.474] [bmv2] [T] [thread 8385] [19.3] [cxt 0] Applying table 'tbl_drop'
+[22:43:33.474] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Looking up key:
+
+[22:43:33.474] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Table 'tbl_drop': miss
+[22:43:33.474] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:33.474] [bmv2] [T] [thread 8385] [19.3] [cxt 0] Action MyEgress.drop
+[22:43:33.474] [bmv2] [T] [thread 8385] [19.3] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:33.473] [bmv2] [D] [thread 8386] [19.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:33.473] [bmv2] [D] [thread 8381] [19.0] [cxt 0] Replicating packet on port 4
+[22:43:33.473] [bmv2] [D] [thread 8384] [19.2] [cxt 0] Pipeline 'egress': start
+[22:43:33.474] [bmv2] [T] [thread 8384] [19.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.474] [bmv2] [D] [thread 8382] [19.4] [cxt 0] Pipeline 'egress': start
+[22:43:33.474] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Pipeline 'egress': end
+[22:43:33.474] [bmv2] [D] [thread 8385] [19.3] [cxt 0] Dropping packet at the end of egress
+[22:43:33.474] [bmv2] [D] [thread 8384] [19.2] [cxt 0] Pipeline 'egress': end
+[22:43:33.475] [bmv2] [D] [thread 8384] [19.2] [cxt 0] Deparser 'deparser': start
+[22:43:33.475] [bmv2] [D] [thread 8384] [19.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.475] [bmv2] [D] [thread 8384] [19.2] [cxt 0] Deparser 'deparser': end
+[22:43:33.475] [bmv2] [T] [thread 8382] [19.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.475] [bmv2] [D] [thread 8382] [19.4] [cxt 0] Pipeline 'egress': end
+[22:43:33.475] [bmv2] [D] [thread 8382] [19.4] [cxt 0] Deparser 'deparser': start
+[22:43:33.475] [bmv2] [D] [thread 8382] [19.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.476] [bmv2] [D] [thread 8382] [19.4] [cxt 0] Deparser 'deparser': end
+[22:43:33.475] [bmv2] [D] [thread 8386] [19.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:33.476] [bmv2] [D] [thread 8386] [19.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:33.956] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Processing packet received on port 4
+[22:43:33.956] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Parser 'parser': start
+[22:43:33.957] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:33.957] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Extracting header 'ethernet'
+[22:43:33.957] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:33.958] [bmv2] [T] [thread 8381] [20.0] [cxt 0] Bytes parsed: 14
+[22:43:33.958] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Parser 'parser': end
+[22:43:33.958] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Pipeline 'ingress': start
+[22:43:33.959] [bmv2] [T] [thread 8381] [20.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:33.959] [bmv2] [T] [thread 8381] [20.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:33.959] [bmv2] [T] [thread 8381] [20.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:33.959] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:33.960] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:33.960] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:33.960] [bmv2] [T] [thread 8381] [20.0] [cxt 0] Action MyIngress.broadcast
+[22:43:33.960] [bmv2] [T] [thread 8381] [20.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Pipeline 'ingress': end
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Multicast requested for packet
+[22:43:33.961] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Replicating packet on port 1
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Replicating packet on port 2
+[22:43:33.961] [bmv2] [D] [thread 8383] [20.1] [cxt 0] Pipeline 'egress': start
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Replicating packet on port 3
+[22:43:33.961] [bmv2] [T] [thread 8383] [20.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.962] [bmv2] [D] [thread 8383] [20.1] [cxt 0] Pipeline 'egress': end
+[22:43:33.962] [bmv2] [D] [thread 8383] [20.1] [cxt 0] Deparser 'deparser': start
+[22:43:33.962] [bmv2] [D] [thread 8383] [20.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.962] [bmv2] [D] [thread 8383] [20.1] [cxt 0] Deparser 'deparser': end
+[22:43:33.962] [bmv2] [D] [thread 8386] [20.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:33.961] [bmv2] [D] [thread 8385] [20.3] [cxt 0] Pipeline 'egress': start
+[22:43:33.962] [bmv2] [T] [thread 8385] [20.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.962] [bmv2] [D] [thread 8385] [20.3] [cxt 0] Pipeline 'egress': end
+[22:43:33.962] [bmv2] [D] [thread 8385] [20.3] [cxt 0] Deparser 'deparser': start
+[22:43:33.962] [bmv2] [D] [thread 8385] [20.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.962] [bmv2] [D] [thread 8385] [20.3] [cxt 0] Deparser 'deparser': end
+[22:43:33.961] [bmv2] [D] [thread 8381] [20.0] [cxt 0] Replicating packet on port 4
+[22:43:33.961] [bmv2] [D] [thread 8384] [20.2] [cxt 0] Pipeline 'egress': start
+[22:43:33.963] [bmv2] [T] [thread 8384] [20.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:33.963] [bmv2] [D] [thread 8384] [20.2] [cxt 0] Pipeline 'egress': end
+[22:43:33.963] [bmv2] [D] [thread 8384] [20.2] [cxt 0] Deparser 'deparser': start
+[22:43:33.963] [bmv2] [D] [thread 8384] [20.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:33.963] [bmv2] [D] [thread 8384] [20.2] [cxt 0] Deparser 'deparser': end
+[22:43:33.962] [bmv2] [D] [thread 8386] [20.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:33.963] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Pipeline 'egress': start
+[22:43:33.963] [bmv2] [T] [thread 8382] [20.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:33.963] [bmv2] [T] [thread 8382] [20.4] [cxt 0] Applying table 'tbl_drop'
+[22:43:33.963] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Looking up key:
+
+[22:43:33.963] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Table 'tbl_drop': miss
+[22:43:33.963] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:33.963] [bmv2] [T] [thread 8382] [20.4] [cxt 0] Action MyEgress.drop
+[22:43:33.964] [bmv2] [T] [thread 8382] [20.4] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:33.964] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Pipeline 'egress': end
+[22:43:33.964] [bmv2] [D] [thread 8382] [20.4] [cxt 0] Dropping packet at the end of egress
+[22:43:33.963] [bmv2] [D] [thread 8386] [20.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:37.216] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Processing packet received on port 1
+[22:43:37.216] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Parser 'parser': start
+[22:43:37.216] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:37.217] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Extracting header 'ethernet'
+[22:43:37.217] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:37.217] [bmv2] [T] [thread 8381] [21.0] [cxt 0] Bytes parsed: 14
+[22:43:37.217] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Parser 'parser': end
+[22:43:37.217] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Pipeline 'ingress': start
+[22:43:37.218] [bmv2] [T] [thread 8381] [21.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:37.218] [bmv2] [T] [thread 8381] [21.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:37.218] [bmv2] [T] [thread 8381] [21.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:37.218] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:37.218] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:37.218] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:37.219] [bmv2] [T] [thread 8381] [21.0] [cxt 0] Action MyIngress.broadcast
+[22:43:37.219] [bmv2] [T] [thread 8381] [21.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Pipeline 'ingress': end
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Multicast requested for packet
+[22:43:37.219] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Replicating packet on port 1
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Replicating packet on port 2
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Replicating packet on port 3
+[22:43:37.219] [bmv2] [D] [thread 8381] [21.0] [cxt 0] Replicating packet on port 4
+[22:43:37.219] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Processing packet received on port 2
+[22:43:37.219] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Parser 'parser': start
+[22:43:37.219] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:37.219] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Extracting header 'ethernet'
+[22:43:37.219] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] Bytes parsed: 14
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Parser 'parser': end
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Pipeline 'ingress': start
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] Action MyIngress.broadcast
+[22:43:37.220] [bmv2] [T] [thread 8381] [22.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:37.219] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Pipeline 'egress': start
+[22:43:37.220] [bmv2] [T] [thread 8383] [21.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:37.220] [bmv2] [T] [thread 8383] [21.1] [cxt 0] Applying table 'tbl_drop'
+[22:43:37.220] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Looking up key:
+
+[22:43:37.220] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Table 'tbl_drop': miss
+[22:43:37.220] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:37.220] [bmv2] [T] [thread 8383] [21.1] [cxt 0] Action MyEgress.drop
+[22:43:37.220] [bmv2] [T] [thread 8383] [21.1] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:37.221] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Pipeline 'egress': end
+[22:43:37.221] [bmv2] [D] [thread 8383] [21.1] [cxt 0] Dropping packet at the end of egress
+[22:43:37.219] [bmv2] [D] [thread 8382] [21.4] [cxt 0] Pipeline 'egress': start
+[22:43:37.221] [bmv2] [T] [thread 8382] [21.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.221] [bmv2] [D] [thread 8382] [21.4] [cxt 0] Pipeline 'egress': end
+[22:43:37.221] [bmv2] [D] [thread 8382] [21.4] [cxt 0] Deparser 'deparser': start
+[22:43:37.221] [bmv2] [D] [thread 8382] [21.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.221] [bmv2] [D] [thread 8382] [21.4] [cxt 0] Deparser 'deparser': end
+[22:43:37.219] [bmv2] [D] [thread 8384] [21.2] [cxt 0] Pipeline 'egress': start
+[22:43:37.221] [bmv2] [T] [thread 8384] [21.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.221] [bmv2] [D] [thread 8384] [21.2] [cxt 0] Pipeline 'egress': end
+[22:43:37.221] [bmv2] [D] [thread 8384] [21.2] [cxt 0] Deparser 'deparser': start
+[22:43:37.221] [bmv2] [D] [thread 8384] [21.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.221] [bmv2] [D] [thread 8384] [21.2] [cxt 0] Deparser 'deparser': end
+[22:43:37.219] [bmv2] [D] [thread 8385] [21.3] [cxt 0] Pipeline 'egress': start
+[22:43:37.221] [bmv2] [T] [thread 8385] [21.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.222] [bmv2] [D] [thread 8385] [21.3] [cxt 0] Pipeline 'egress': end
+[22:43:37.222] [bmv2] [D] [thread 8385] [21.3] [cxt 0] Deparser 'deparser': start
+[22:43:37.222] [bmv2] [D] [thread 8385] [21.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.222] [bmv2] [D] [thread 8385] [21.3] [cxt 0] Deparser 'deparser': end
+[22:43:37.221] [bmv2] [D] [thread 8386] [21.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:37.220] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Pipeline 'ingress': end
+[22:43:37.222] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Multicast requested for packet
+[22:43:37.222] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:37.222] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Replicating packet on port 1
+[22:43:37.222] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Replicating packet on port 2
+[22:43:37.223] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Replicating packet on port 3
+[22:43:37.223] [bmv2] [D] [thread 8381] [22.0] [cxt 0] Replicating packet on port 4
+[22:43:37.223] [bmv2] [D] [thread 8383] [22.1] [cxt 0] Pipeline 'egress': start
+[22:43:37.223] [bmv2] [T] [thread 8383] [22.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.223] [bmv2] [D] [thread 8383] [22.1] [cxt 0] Pipeline 'egress': end
+[22:43:37.223] [bmv2] [D] [thread 8383] [22.1] [cxt 0] Deparser 'deparser': start
+[22:43:37.223] [bmv2] [D] [thread 8383] [22.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.223] [bmv2] [D] [thread 8383] [22.1] [cxt 0] Deparser 'deparser': end
+[22:43:37.223] [bmv2] [D] [thread 8385] [22.3] [cxt 0] Pipeline 'egress': start
+[22:43:37.223] [bmv2] [T] [thread 8385] [22.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.223] [bmv2] [D] [thread 8385] [22.3] [cxt 0] Pipeline 'egress': end
+[22:43:37.223] [bmv2] [D] [thread 8385] [22.3] [cxt 0] Deparser 'deparser': start
+[22:43:37.223] [bmv2] [D] [thread 8385] [22.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.223] [bmv2] [D] [thread 8385] [22.3] [cxt 0] Deparser 'deparser': end
+[22:43:37.223] [bmv2] [D] [thread 8382] [22.4] [cxt 0] Pipeline 'egress': start
+[22:43:37.223] [bmv2] [T] [thread 8382] [22.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.223] [bmv2] [D] [thread 8382] [22.4] [cxt 0] Pipeline 'egress': end
+[22:43:37.223] [bmv2] [D] [thread 8382] [22.4] [cxt 0] Deparser 'deparser': start
+[22:43:37.223] [bmv2] [D] [thread 8382] [22.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.224] [bmv2] [D] [thread 8382] [22.4] [cxt 0] Deparser 'deparser': end
+[22:43:37.223] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Pipeline 'egress': start
+[22:43:37.224] [bmv2] [T] [thread 8384] [22.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:37.224] [bmv2] [T] [thread 8384] [22.2] [cxt 0] Applying table 'tbl_drop'
+[22:43:37.224] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Looking up key:
+
+[22:43:37.224] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Table 'tbl_drop': miss
+[22:43:37.224] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:37.224] [bmv2] [T] [thread 8384] [22.2] [cxt 0] Action MyEgress.drop
+[22:43:37.224] [bmv2] [T] [thread 8384] [22.2] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:37.224] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Pipeline 'egress': end
+[22:43:37.224] [bmv2] [D] [thread 8384] [22.2] [cxt 0] Dropping packet at the end of egress
+[22:43:37.222] [bmv2] [D] [thread 8386] [21.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:37.224] [bmv2] [D] [thread 8386] [21.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:37.224] [bmv2] [D] [thread 8386] [22.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:37.224] [bmv2] [D] [thread 8386] [22.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:37.224] [bmv2] [D] [thread 8386] [22.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:37.476] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Processing packet received on port 3
+[22:43:37.476] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Parser 'parser': start
+[22:43:37.477] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:37.477] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Extracting header 'ethernet'
+[22:43:37.477] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:37.477] [bmv2] [T] [thread 8381] [23.0] [cxt 0] Bytes parsed: 14
+[22:43:37.477] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Parser 'parser': end
+[22:43:37.478] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Pipeline 'ingress': start
+[22:43:37.478] [bmv2] [T] [thread 8381] [23.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:37.478] [bmv2] [T] [thread 8381] [23.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:37.478] [bmv2] [T] [thread 8381] [23.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:37.478] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:37.478] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:37.478] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:37.478] [bmv2] [T] [thread 8381] [23.0] [cxt 0] Action MyIngress.broadcast
+[22:43:37.478] [bmv2] [T] [thread 8381] [23.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:37.479] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Pipeline 'ingress': end
+[22:43:37.479] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Multicast requested for packet
+[22:43:37.479] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:37.479] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Replicating packet on port 1
+[22:43:37.479] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Replicating packet on port 2
+[22:43:37.479] [bmv2] [D] [thread 8383] [23.1] [cxt 0] Pipeline 'egress': start
+[22:43:37.479] [bmv2] [T] [thread 8383] [23.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.479] [bmv2] [D] [thread 8383] [23.1] [cxt 0] Pipeline 'egress': end
+[22:43:37.479] [bmv2] [D] [thread 8383] [23.1] [cxt 0] Deparser 'deparser': start
+[22:43:37.480] [bmv2] [D] [thread 8383] [23.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.480] [bmv2] [D] [thread 8383] [23.1] [cxt 0] Deparser 'deparser': end
+[22:43:37.480] [bmv2] [D] [thread 8386] [23.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:37.479] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Replicating packet on port 3
+[22:43:37.480] [bmv2] [D] [thread 8381] [23.0] [cxt 0] Replicating packet on port 4
+[22:43:37.479] [bmv2] [D] [thread 8384] [23.2] [cxt 0] Pipeline 'egress': start
+[22:43:37.480] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Pipeline 'egress': start
+[22:43:37.481] [bmv2] [T] [thread 8385] [23.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:37.481] [bmv2] [T] [thread 8385] [23.3] [cxt 0] Applying table 'tbl_drop'
+[22:43:37.481] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Looking up key:
+
+[22:43:37.481] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Table 'tbl_drop': miss
+[22:43:37.481] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:37.481] [bmv2] [T] [thread 8385] [23.3] [cxt 0] Action MyEgress.drop
+[22:43:37.481] [bmv2] [T] [thread 8385] [23.3] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:37.481] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Pipeline 'egress': end
+[22:43:37.481] [bmv2] [D] [thread 8385] [23.3] [cxt 0] Dropping packet at the end of egress
+[22:43:37.481] [bmv2] [D] [thread 8382] [23.4] [cxt 0] Pipeline 'egress': start
+[22:43:37.481] [bmv2] [T] [thread 8382] [23.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.481] [bmv2] [D] [thread 8382] [23.4] [cxt 0] Pipeline 'egress': end
+[22:43:37.481] [bmv2] [D] [thread 8382] [23.4] [cxt 0] Deparser 'deparser': start
+[22:43:37.481] [bmv2] [D] [thread 8382] [23.4] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.482] [bmv2] [D] [thread 8382] [23.4] [cxt 0] Deparser 'deparser': end
+[22:43:37.482] [bmv2] [D] [thread 8386] [23.4] [cxt 0] Transmitting packet of size 70 out of port 4
+[22:43:37.481] [bmv2] [T] [thread 8384] [23.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.482] [bmv2] [D] [thread 8384] [23.2] [cxt 0] Pipeline 'egress': end
+[22:43:37.482] [bmv2] [D] [thread 8384] [23.2] [cxt 0] Deparser 'deparser': start
+[22:43:37.482] [bmv2] [D] [thread 8384] [23.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.482] [bmv2] [D] [thread 8384] [23.2] [cxt 0] Deparser 'deparser': end
+[22:43:37.482] [bmv2] [D] [thread 8386] [23.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:37.964] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Processing packet received on port 4
+[22:43:37.964] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Parser 'parser': start
+[22:43:37.964] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:37.965] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Extracting header 'ethernet'
+[22:43:37.965] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Parser state 'start': key is 86dd
+[22:43:37.965] [bmv2] [T] [thread 8381] [24.0] [cxt 0] Bytes parsed: 14
+[22:43:37.965] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Parser 'parser': end
+[22:43:37.965] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Pipeline 'ingress': start
+[22:43:37.966] [bmv2] [T] [thread 8381] [24.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is false
+[22:43:37.966] [bmv2] [T] [thread 8381] [24.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:37.966] [bmv2] [T] [thread 8381] [24.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:37.966] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 333300000002
+
+[22:43:37.966] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Table 'MyIngress.mac_lookup': miss
+[22:43:37.966] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Action entry is MyIngress.broadcast - 
+[22:43:37.967] [bmv2] [T] [thread 8381] [24.0] [cxt 0] Action MyIngress.broadcast
+[22:43:37.967] [bmv2] [T] [thread 8381] [24.0] [cxt 0] omnixtend.p4(234) Primitive standard_metadata.mcast_grp = 1
+[22:43:37.967] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Pipeline 'ingress': end
+[22:43:37.967] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Multicast requested for packet
+[22:43:37.967] [bmv2] [D] [thread 8381] number of packets replicated : 4
+[22:43:37.968] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Replicating packet on port 1
+[22:43:37.968] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Replicating packet on port 2
+[22:43:37.968] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Replicating packet on port 3
+[22:43:37.968] [bmv2] [D] [thread 8381] [24.0] [cxt 0] Replicating packet on port 4
+[22:43:37.968] [bmv2] [D] [thread 8384] [24.2] [cxt 0] Pipeline 'egress': start
+[22:43:37.968] [bmv2] [T] [thread 8384] [24.2] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.969] [bmv2] [D] [thread 8384] [24.2] [cxt 0] Pipeline 'egress': end
+[22:43:37.969] [bmv2] [D] [thread 8384] [24.2] [cxt 0] Deparser 'deparser': start
+[22:43:37.969] [bmv2] [D] [thread 8384] [24.2] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.969] [bmv2] [D] [thread 8384] [24.2] [cxt 0] Deparser 'deparser': end
+[22:43:37.969] [bmv2] [D] [thread 8386] [24.2] [cxt 0] Transmitting packet of size 70 out of port 2
+[22:43:37.968] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Pipeline 'egress': start
+[22:43:37.969] [bmv2] [T] [thread 8382] [24.4] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is true
+[22:43:37.969] [bmv2] [T] [thread 8382] [24.4] [cxt 0] Applying table 'tbl_drop'
+[22:43:37.969] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Looking up key:
+
+[22:43:37.969] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Table 'tbl_drop': miss
+[22:43:37.969] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Action entry is MyEgress.drop - 
+[22:43:37.969] [bmv2] [T] [thread 8382] [24.4] [cxt 0] Action MyEgress.drop
+[22:43:37.969] [bmv2] [T] [thread 8382] [24.4] [cxt 0] omnixtend.p4(368) Primitive mark_to_drop(standard_metadata)
+[22:43:37.969] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Pipeline 'egress': end
+[22:43:37.970] [bmv2] [D] [thread 8382] [24.4] [cxt 0] Dropping packet at the end of egress
+[22:43:37.968] [bmv2] [D] [thread 8383] [24.1] [cxt 0] Pipeline 'egress': start
+[22:43:37.970] [bmv2] [T] [thread 8383] [24.1] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.970] [bmv2] [D] [thread 8383] [24.1] [cxt 0] Pipeline 'egress': end
+[22:43:37.970] [bmv2] [D] [thread 8383] [24.1] [cxt 0] Deparser 'deparser': start
+[22:43:37.970] [bmv2] [D] [thread 8383] [24.1] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.970] [bmv2] [D] [thread 8383] [24.1] [cxt 0] Deparser 'deparser': end
+[22:43:37.968] [bmv2] [D] [thread 8385] [24.3] [cxt 0] Pipeline 'egress': start
+[22:43:37.970] [bmv2] [D] [thread 8386] [24.1] [cxt 0] Transmitting packet of size 70 out of port 1
+[22:43:37.970] [bmv2] [T] [thread 8385] [24.3] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:37.970] [bmv2] [D] [thread 8385] [24.3] [cxt 0] Pipeline 'egress': end
+[22:43:37.970] [bmv2] [D] [thread 8385] [24.3] [cxt 0] Deparser 'deparser': start
+[22:43:37.970] [bmv2] [D] [thread 8385] [24.3] [cxt 0] Deparsing header 'ethernet'
+[22:43:37.970] [bmv2] [D] [thread 8385] [24.3] [cxt 0] Deparser 'deparser': end
+[22:43:37.970] [bmv2] [D] [thread 8386] [24.3] [cxt 0] Transmitting packet of size 70 out of port 3
+[22:43:46.828] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Processing packet received on port 2
+[22:43:46.829] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser 'parser': start
+[22:43:46.829] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:46.829] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Extracting header 'ethernet'
+[22:43:46.829] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:46.830] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Bytes parsed: 14
+[22:43:46.830] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:46.830] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Extracting header 'flow_control'
+[22:43:46.830] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:46.830] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser state 'parse_omnixtend': key is 0106
+[22:43:46.831] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Bytes parsed: 30
+[22:43:46.831] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser 'parser' entering state 'parse_address'
+[22:43:46.831] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Extracting header 'address'
+[22:43:46.831] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser state 'parse_address' has no switch, going to default next state
+[22:43:46.831] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Bytes parsed: 38
+[22:43:46.831] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Parser 'parser': end
+[22:43:46.831] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Pipeline 'ingress': start
+[22:43:46.831] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:46.831] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:46.832] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 01
+* hdr.omnixtend.opcode : 06
+
+[22:43:46.832] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 1
+[22:43:46.832] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+[22:43:46.832] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Action entry is MyIngress.handle_acquire - 
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Action MyIngress.handle_acquire
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(259) Primitive hash(meta.cache_index, ...
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] hash(base=0, max=15) = 9
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(271) Primitive (bit<32>)hdr.omnixtend.source
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(271) Primitive src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Wrote register 'MyIngress.src_reg' at index 2 with value 9
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(275) Primitive (bit<32>) meta.cache_index
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(275) Primitive valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Read register 'MyIngress.valid_reg' at index 9 read value 0
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(283) Primitive (bit<32>) meta.cache_index
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(283) Primitive owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Read register 'MyIngress.owner_reg' at index 9 read value 0
+[22:43:46.832] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:46.832] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Action entry is NoAction - 
+[22:43:46.833] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Action NoAction
+[22:43:46.833] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:46.833] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000111
+
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 0
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000111
+Action entry: MyIngress.mac_forward - 1,
+
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Action entry is MyIngress.mac_forward - 1,
+[22:43:46.833] [bmv2] [T] [thread 8381] [25.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:46.833] [bmv2] [T] [thread 8381] [25.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Pipeline 'ingress': end
+[22:43:46.833] [bmv2] [D] [thread 8381] [25.0] [cxt 0] Egress port is 1
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Pipeline 'egress': start
+[22:43:46.833] [bmv2] [T] [thread 8383] [25.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Pipeline 'egress': end
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparser 'deparser': start
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparsing header 'address'
+[22:43:46.833] [bmv2] [D] [thread 8383] [25.0] [cxt 0] Deparser 'deparser': end
+[22:43:46.833] [bmv2] [D] [thread 8386] [25.0] [cxt 0] Transmitting packet of size 38 out of port 1
+[22:43:47.291] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Processing packet received on port 1
+[22:43:47.291] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser 'parser': start
+[22:43:47.291] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:47.291] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Extracting header 'ethernet'
+[22:43:47.292] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:47.292] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Bytes parsed: 14
+[22:43:47.292] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:47.292] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Extracting header 'flow_control'
+[22:43:47.292] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:47.293] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser state 'parse_omnixtend': key is 0405
+[22:43:47.293] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Bytes parsed: 30
+[22:43:47.293] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser 'parser' entering state 'parse_sink_data'
+[22:43:47.293] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Extracting header 'sink'
+[22:43:47.293] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Extracting header 'data'
+[22:43:47.294] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser state 'parse_sink_data' has no switch, going to default next state
+[22:43:47.294] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Bytes parsed: 102
+[22:43:47.294] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Parser 'parser': end
+[22:43:47.294] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Pipeline 'ingress': start
+[22:43:47.294] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:47.295] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:47.295] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 04
+* hdr.omnixtend.opcode : 05
+
+[22:43:47.295] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 2
+[22:43:47.295] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+[22:43:47.295] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Action entry is MyIngress.handle_grant - 
+[22:43:47.295] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Action MyIngress.handle_grant
+[22:43:47.295] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(267) Primitive (bit<32>)hdr.omnixtend.source
+[22:43:47.295] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(267) Primitive src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Read register 'MyIngress.src_reg' at index 2 read value 9
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(287) Primitive (bit<32>) meta.cache_index
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(287) Primitive (owner_t)hdr.omnixtend.source
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(287) Primitive owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Wrote register 'MyIngress.owner_reg' at index 9 with value 2
+[22:43:47.296] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:47.296] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Action entry is NoAction - 
+[22:43:47.297] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Action NoAction
+[22:43:47.297] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:47.297] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000222
+
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 1
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Action entry is MyIngress.mac_forward - 2,
+[22:43:47.297] [bmv2] [T] [thread 8381] [26.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:47.297] [bmv2] [T] [thread 8381] [26.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:47.297] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Pipeline 'ingress': end
+[22:43:47.298] [bmv2] [D] [thread 8381] [26.0] [cxt 0] Egress port is 2
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Pipeline 'egress': start
+[22:43:47.298] [bmv2] [T] [thread 8384] [26.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Pipeline 'egress': end
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparser 'deparser': start
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparsing header 'sink'
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparsing header 'data'
+[22:43:47.298] [bmv2] [D] [thread 8384] [26.0] [cxt 0] Deparser 'deparser': end
+[22:43:47.298] [bmv2] [D] [thread 8386] [26.0] [cxt 0] Transmitting packet of size 102 out of port 2
+[22:43:47.335] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Processing packet received on port 2
+[22:43:47.335] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser 'parser': start
+[22:43:47.336] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:47.336] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Extracting header 'ethernet'
+[22:43:47.336] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:47.336] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Bytes parsed: 14
+[22:43:47.336] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:47.337] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Extracting header 'flow_control'
+[22:43:47.337] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:47.337] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser state 'parse_omnixtend': key is 0500
+[22:43:47.337] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Bytes parsed: 30
+[22:43:47.338] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Parser 'parser': end
+[22:43:47.338] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Pipeline 'ingress': start
+[22:43:47.338] [bmv2] [T] [thread 8381] [27.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:47.338] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:47.338] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 05
+* hdr.omnixtend.opcode : 00
+
+[22:43:47.339] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Table 'MyIngress.omni_exact': miss
+[22:43:47.339] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Action entry is NoAction - 
+[22:43:47.339] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Action NoAction
+[22:43:47.339] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:47.339] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:43:47.339] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Action entry is NoAction - 
+[22:43:47.340] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Action NoAction
+[22:43:47.340] [bmv2] [T] [thread 8381] [27.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:47.340] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000111
+
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 0
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Dumping entry 0
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000111
+Action entry: MyIngress.mac_forward - 1,
+
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Action entry is MyIngress.mac_forward - 1,
+[22:43:47.340] [bmv2] [T] [thread 8381] [27.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:47.340] [bmv2] [T] [thread 8381] [27.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Pipeline 'ingress': end
+[22:43:47.340] [bmv2] [D] [thread 8381] [27.0] [cxt 0] Egress port is 1
+[22:43:47.340] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Pipeline 'egress': start
+[22:43:47.341] [bmv2] [T] [thread 8383] [27.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Pipeline 'egress': end
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Deparser 'deparser': start
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:47.341] [bmv2] [D] [thread 8383] [27.0] [cxt 0] Deparser 'deparser': end
+[22:43:47.341] [bmv2] [D] [thread 8386] [27.0] [cxt 0] Transmitting packet of size 34 out of port 1
+[22:43:56.567] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Processing packet received on port 3
+[22:43:56.567] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser 'parser': start
+[22:43:56.568] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:56.568] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Extracting header 'ethernet'
+[22:43:56.568] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:56.569] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Bytes parsed: 14
+[22:43:56.569] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:56.569] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Extracting header 'flow_control'
+[22:43:56.569] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:56.569] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser state 'parse_omnixtend': key is 0106
+[22:43:56.570] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Bytes parsed: 30
+[22:43:56.570] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser 'parser' entering state 'parse_address'
+[22:43:56.570] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Extracting header 'address'
+[22:43:56.570] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser state 'parse_address' has no switch, going to default next state
+[22:43:56.570] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Bytes parsed: 38
+[22:43:56.571] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Parser 'parser': end
+[22:43:56.571] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Pipeline 'ingress': start
+[22:43:56.571] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:56.571] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:56.571] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 01
+* hdr.omnixtend.opcode : 06
+
+[22:43:56.571] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 1
+[22:43:56.571] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+[22:43:56.572] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Action entry is MyIngress.handle_acquire - 
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Action MyIngress.handle_acquire
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(259) Primitive hash(meta.cache_index, ...
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] hash(base=0, max=15) = 9
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(271) Primitive (bit<32>)hdr.omnixtend.source
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(271) Primitive src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)
+[22:43:56.572] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Wrote register 'MyIngress.src_reg' at index 3 with value 9
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(275) Primitive (bit<32>) meta.cache_index
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(275) Primitive valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Read register 'MyIngress.valid_reg' at index 9 read value 0
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(283) Primitive (bit<32>) meta.cache_index
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(283) Primitive owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)
+[22:43:56.573] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Read register 'MyIngress.owner_reg' at index 9 read value 2
+[22:43:56.574] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:56.574] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0002
+
+[22:43:56.574] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Table 'MyIngress.owner_tbl': hit with handle 1
+[22:43:56.574] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.cache_owner    : EXACT     0002
+Action entry: MyIngress.redirect - 80000000222,
+
+[22:43:56.574] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Action entry is MyIngress.redirect - 80000000222,
+[22:43:56.574] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Action MyIngress.redirect
+[22:43:56.574] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(242) Primitive hdr.ethernet.dstAddr = dst_mac
+[22:43:56.575] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:56.575] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000222
+
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 1
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Action entry is MyIngress.mac_forward - 2,
+[22:43:56.575] [bmv2] [T] [thread 8381] [28.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:56.575] [bmv2] [T] [thread 8381] [28.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Pipeline 'ingress': end
+[22:43:56.575] [bmv2] [D] [thread 8381] [28.0] [cxt 0] Egress port is 2
+[22:43:56.575] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Pipeline 'egress': start
+[22:43:56.575] [bmv2] [T] [thread 8384] [28.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:56.575] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Pipeline 'egress': end
+[22:43:56.575] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparser 'deparser': start
+[22:43:56.575] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:56.575] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:56.576] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:56.576] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparsing header 'address'
+[22:43:56.576] [bmv2] [D] [thread 8384] [28.0] [cxt 0] Deparser 'deparser': end
+[22:43:56.576] [bmv2] [D] [thread 8386] [28.0] [cxt 0] Transmitting packet of size 38 out of port 2
+[22:43:56.613] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Processing packet received on port 2
+[22:43:56.613] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser 'parser': start
+[22:43:56.613] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:56.614] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Extracting header 'ethernet'
+[22:43:56.614] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:56.614] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Bytes parsed: 14
+[22:43:56.614] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:56.615] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Extracting header 'flow_control'
+[22:43:56.615] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:56.615] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser state 'parse_omnixtend': key is 0405
+[22:43:56.615] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Bytes parsed: 30
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser 'parser' entering state 'parse_sink_data'
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Extracting header 'sink'
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Extracting header 'data'
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser state 'parse_sink_data' has no switch, going to default next state
+[22:43:56.616] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Bytes parsed: 102
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Parser 'parser': end
+[22:43:56.616] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Pipeline 'ingress': start
+[22:43:56.616] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:56.617] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 04
+* hdr.omnixtend.opcode : 05
+
+[22:43:56.617] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 2
+[22:43:56.617] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+[22:43:56.617] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Action entry is MyIngress.handle_grant - 
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Action MyIngress.handle_grant
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(267) Primitive (bit<32>)hdr.omnixtend.source
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(267) Primitive src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Read register 'MyIngress.src_reg' at index 3 read value 9
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(287) Primitive (bit<32>) meta.cache_index
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(287) Primitive (owner_t)hdr.omnixtend.source
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(287) Primitive owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Wrote register 'MyIngress.owner_reg' at index 9 with value 3
+[22:43:56.617] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Action entry is NoAction - 
+[22:43:56.618] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Action NoAction
+[22:43:56.618] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:56.618] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000333
+
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 2
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000333
+Action entry: MyIngress.mac_forward - 3,
+
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Action entry is MyIngress.mac_forward - 3,
+[22:43:56.618] [bmv2] [T] [thread 8381] [29.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:56.618] [bmv2] [T] [thread 8381] [29.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Pipeline 'ingress': end
+[22:43:56.618] [bmv2] [D] [thread 8381] [29.0] [cxt 0] Egress port is 3
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Pipeline 'egress': start
+[22:43:56.619] [bmv2] [T] [thread 8385] [29.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Pipeline 'egress': end
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparser 'deparser': start
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparsing header 'sink'
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparsing header 'data'
+[22:43:56.619] [bmv2] [D] [thread 8385] [29.0] [cxt 0] Deparser 'deparser': end
+[22:43:56.619] [bmv2] [D] [thread 8386] [29.0] [cxt 0] Transmitting packet of size 102 out of port 3
+[22:43:56.632] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Processing packet received on port 3
+[22:43:56.632] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser 'parser': start
+[22:43:56.632] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:43:56.632] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Extracting header 'ethernet'
+[22:43:56.633] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser state 'start': key is 0870
+[22:43:56.633] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Bytes parsed: 14
+[22:43:56.633] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:43:56.633] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Extracting header 'flow_control'
+[22:43:56.633] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Extracting header 'omnixtend'
+[22:43:56.633] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser state 'parse_omnixtend': key is 0500
+[22:43:56.633] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Bytes parsed: 30
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Parser 'parser': end
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Pipeline 'ingress': start
+[22:43:56.634] [bmv2] [T] [thread 8381] [30.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:43:56.634] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 05
+* hdr.omnixtend.opcode : 00
+
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Table 'MyIngress.omni_exact': miss
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Action entry is NoAction - 
+[22:43:56.634] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Action NoAction
+[22:43:56.634] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:43:56.634] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Action entry is NoAction - 
+[22:43:56.634] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Action NoAction
+[22:43:56.635] [bmv2] [T] [thread 8381] [30.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:43:56.635] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000222
+
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 1
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Action entry is MyIngress.mac_forward - 2,
+[22:43:56.635] [bmv2] [T] [thread 8381] [30.0] [cxt 0] Action MyIngress.mac_forward
+[22:43:56.635] [bmv2] [T] [thread 8381] [30.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Pipeline 'ingress': end
+[22:43:56.635] [bmv2] [D] [thread 8381] [30.0] [cxt 0] Egress port is 2
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Pipeline 'egress': start
+[22:43:56.636] [bmv2] [T] [thread 8384] [30.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Pipeline 'egress': end
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Deparser 'deparser': start
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Deparsing header 'ethernet'
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Deparsing header 'flow_control'
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Deparsing header 'omnixtend'
+[22:43:56.636] [bmv2] [D] [thread 8384] [30.0] [cxt 0] Deparser 'deparser': end
+[22:43:56.636] [bmv2] [D] [thread 8386] [30.0] [cxt 0] Transmitting packet of size 34 out of port 2
+[22:44:05.644] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Processing packet received on port 4
+[22:44:05.645] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser 'parser': start
+[22:44:05.645] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:05.645] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Extracting header 'ethernet'
+[22:44:05.645] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:05.645] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Bytes parsed: 14
+[22:44:05.646] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:05.646] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Extracting header 'flow_control'
+[22:44:05.646] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:05.646] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser state 'parse_omnixtend': key is 0106
+[22:44:05.646] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Bytes parsed: 30
+[22:44:05.647] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser 'parser' entering state 'parse_address'
+[22:44:05.647] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Extracting header 'address'
+[22:44:05.647] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser state 'parse_address' has no switch, going to default next state
+[22:44:05.647] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Bytes parsed: 38
+[22:44:05.647] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Parser 'parser': end
+[22:44:05.647] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Pipeline 'ingress': start
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:05.648] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 01
+* hdr.omnixtend.opcode : 06
+
+[22:44:05.648] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 1
+[22:44:05.648] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+[22:44:05.648] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Action entry is MyIngress.handle_acquire - 
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Action MyIngress.handle_acquire
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(259) Primitive hash(meta.cache_index, ...
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] hash(base=0, max=15) = 9
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(271) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:05.648] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(271) Primitive src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Wrote register 'MyIngress.src_reg' at index 4 with value 9
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(275) Primitive (bit<32>) meta.cache_index
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(275) Primitive valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Read register 'MyIngress.valid_reg' at index 9 read value 0
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(283) Primitive (bit<32>) meta.cache_index
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(283) Primitive owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Read register 'MyIngress.owner_reg' at index 9 read value 3
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:05.649] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0003
+
+[22:44:05.649] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Table 'MyIngress.owner_tbl': hit with handle 2
+[22:44:05.649] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Dumping entry 2
+Match key:
+* meta.cache_owner    : EXACT     0003
+Action entry: MyIngress.redirect - 80000000333,
+
+[22:44:05.649] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Action entry is MyIngress.redirect - 80000000333,
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Action MyIngress.redirect
+[22:44:05.649] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(242) Primitive hdr.ethernet.dstAddr = dst_mac
+[22:44:05.650] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:05.650] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000333
+
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 2
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000333
+Action entry: MyIngress.mac_forward - 3,
+
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Action entry is MyIngress.mac_forward - 3,
+[22:44:05.650] [bmv2] [T] [thread 8381] [31.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:05.650] [bmv2] [T] [thread 8381] [31.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Pipeline 'ingress': end
+[22:44:05.650] [bmv2] [D] [thread 8381] [31.0] [cxt 0] Egress port is 3
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Pipeline 'egress': start
+[22:44:05.651] [bmv2] [T] [thread 8385] [31.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Pipeline 'egress': end
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparser 'deparser': start
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparsing header 'address'
+[22:44:05.651] [bmv2] [D] [thread 8385] [31.0] [cxt 0] Deparser 'deparser': end
+[22:44:05.651] [bmv2] [D] [thread 8386] [31.0] [cxt 0] Transmitting packet of size 38 out of port 3
+[22:44:05.676] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Processing packet received on port 3
+[22:44:05.677] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser 'parser': start
+[22:44:05.677] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:05.677] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Extracting header 'ethernet'
+[22:44:05.677] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:05.678] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Bytes parsed: 14
+[22:44:05.678] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:05.678] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Extracting header 'flow_control'
+[22:44:05.678] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:05.679] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser state 'parse_omnixtend': key is 0405
+[22:44:05.679] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Bytes parsed: 30
+[22:44:05.679] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser 'parser' entering state 'parse_sink_data'
+[22:44:05.679] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Extracting header 'sink'
+[22:44:05.680] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Extracting header 'data'
+[22:44:05.680] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser state 'parse_sink_data' has no switch, going to default next state
+[22:44:05.680] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Bytes parsed: 102
+[22:44:05.680] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Parser 'parser': end
+[22:44:05.680] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Pipeline 'ingress': start
+[22:44:05.681] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:05.681] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:05.681] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 04
+* hdr.omnixtend.opcode : 05
+
+[22:44:05.681] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 2
+[22:44:05.681] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+[22:44:05.681] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Action entry is MyIngress.handle_grant - 
+[22:44:05.681] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Action MyIngress.handle_grant
+[22:44:05.681] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(267) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(267) Primitive src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Read register 'MyIngress.src_reg' at index 4 read value 9
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(287) Primitive (bit<32>) meta.cache_index
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(287) Primitive (owner_t)hdr.omnixtend.source
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(287) Primitive owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Wrote register 'MyIngress.owner_reg' at index 9 with value 4
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Action entry is NoAction - 
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Action NoAction
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000444
+
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 3
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Dumping entry 3
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000444
+Action entry: MyIngress.mac_forward - 4,
+
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Action entry is MyIngress.mac_forward - 4,
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:05.682] [bmv2] [T] [thread 8381] [32.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Pipeline 'ingress': end
+[22:44:05.682] [bmv2] [D] [thread 8381] [32.0] [cxt 0] Egress port is 4
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Pipeline 'egress': start
+[22:44:05.683] [bmv2] [T] [thread 8382] [32.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Pipeline 'egress': end
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparser 'deparser': start
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparsing header 'sink'
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparsing header 'data'
+[22:44:05.683] [bmv2] [D] [thread 8382] [32.0] [cxt 0] Deparser 'deparser': end
+[22:44:05.683] [bmv2] [D] [thread 8386] [32.0] [cxt 0] Transmitting packet of size 102 out of port 4
+[22:44:05.692] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Processing packet received on port 4
+[22:44:05.693] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser 'parser': start
+[22:44:05.693] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:05.693] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Extracting header 'ethernet'
+[22:44:05.693] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:05.694] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Bytes parsed: 14
+[22:44:05.694] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:05.694] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Extracting header 'flow_control'
+[22:44:05.694] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:05.694] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser state 'parse_omnixtend': key is 0500
+[22:44:05.695] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Bytes parsed: 30
+[22:44:05.695] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Parser 'parser': end
+[22:44:05.695] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Pipeline 'ingress': start
+[22:44:05.695] [bmv2] [T] [thread 8381] [33.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:05.695] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:05.695] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 05
+* hdr.omnixtend.opcode : 00
+
+[22:44:05.695] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Table 'MyIngress.omni_exact': miss
+[22:44:05.695] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Action entry is NoAction - 
+[22:44:05.696] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Action NoAction
+[22:44:05.696] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:05.696] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:44:05.696] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:44:05.696] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Action entry is NoAction - 
+[22:44:05.696] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Action NoAction
+[22:44:05.696] [bmv2] [T] [thread 8381] [33.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:05.696] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000333
+
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 2
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000333
+Action entry: MyIngress.mac_forward - 3,
+
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Action entry is MyIngress.mac_forward - 3,
+[22:44:05.697] [bmv2] [T] [thread 8381] [33.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:05.697] [bmv2] [T] [thread 8381] [33.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Pipeline 'ingress': end
+[22:44:05.697] [bmv2] [D] [thread 8381] [33.0] [cxt 0] Egress port is 3
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Pipeline 'egress': start
+[22:44:05.697] [bmv2] [T] [thread 8385] [33.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Pipeline 'egress': end
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Deparser 'deparser': start
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:05.697] [bmv2] [D] [thread 8385] [33.0] [cxt 0] Deparser 'deparser': end
+[22:44:05.697] [bmv2] [D] [thread 8386] [33.0] [cxt 0] Transmitting packet of size 34 out of port 3
+[22:44:11.696] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Processing packet received on port 2
+[22:44:11.696] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser 'parser': start
+[22:44:11.696] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:11.696] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Extracting header 'ethernet'
+[22:44:11.697] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:11.697] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Bytes parsed: 14
+[22:44:11.697] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:11.698] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Extracting header 'flow_control'
+[22:44:11.698] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:11.698] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser state 'parse_omnixtend': key is 0106
+[22:44:11.698] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Bytes parsed: 30
+[22:44:11.699] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser 'parser' entering state 'parse_address'
+[22:44:11.699] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Extracting header 'address'
+[22:44:11.699] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser state 'parse_address' has no switch, going to default next state
+[22:44:11.699] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Bytes parsed: 38
+[22:44:11.699] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Parser 'parser': end
+[22:44:11.700] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Pipeline 'ingress': start
+[22:44:11.700] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:11.700] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:11.700] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 01
+* hdr.omnixtend.opcode : 06
+
+[22:44:11.700] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 1
+[22:44:11.700] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+[22:44:11.700] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Action entry is MyIngress.handle_acquire - 
+[22:44:11.700] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Action MyIngress.handle_acquire
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(259) Primitive hash(meta.cache_index, ...
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] hash(base=0, max=15) = 9
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(271) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(271) Primitive src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Wrote register 'MyIngress.src_reg' at index 2 with value 9
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(275) Primitive (bit<32>) meta.cache_index
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(275) Primitive valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)
+[22:44:11.701] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Read register 'MyIngress.valid_reg' at index 9 read value 0
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(283) Primitive (bit<32>) meta.cache_index
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(283) Primitive owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Read register 'MyIngress.owner_reg' at index 9 read value 4
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:11.702] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0004
+
+[22:44:11.702] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Table 'MyIngress.owner_tbl': hit with handle 3
+[22:44:11.702] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Dumping entry 3
+Match key:
+* meta.cache_owner    : EXACT     0004
+Action entry: MyIngress.redirect - 80000000444,
+
+[22:44:11.702] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Action entry is MyIngress.redirect - 80000000444,
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Action MyIngress.redirect
+[22:44:11.702] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(242) Primitive hdr.ethernet.dstAddr = dst_mac
+[22:44:11.703] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:11.703] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000444
+
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 3
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Dumping entry 3
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000444
+Action entry: MyIngress.mac_forward - 4,
+
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Action entry is MyIngress.mac_forward - 4,
+[22:44:11.703] [bmv2] [T] [thread 8381] [34.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:11.703] [bmv2] [T] [thread 8381] [34.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Pipeline 'ingress': end
+[22:44:11.703] [bmv2] [D] [thread 8381] [34.0] [cxt 0] Egress port is 4
+[22:44:11.703] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Pipeline 'egress': start
+[22:44:11.704] [bmv2] [T] [thread 8382] [34.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Pipeline 'egress': end
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparser 'deparser': start
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparsing header 'address'
+[22:44:11.704] [bmv2] [D] [thread 8382] [34.0] [cxt 0] Deparser 'deparser': end
+[22:44:11.704] [bmv2] [D] [thread 8386] [34.0] [cxt 0] Transmitting packet of size 38 out of port 4
+[22:44:11.756] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Processing packet received on port 4
+[22:44:11.756] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser 'parser': start
+[22:44:11.757] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:11.757] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Extracting header 'ethernet'
+[22:44:11.757] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:11.757] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Bytes parsed: 14
+[22:44:11.757] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:11.757] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Extracting header 'flow_control'
+[22:44:11.758] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:11.758] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser state 'parse_omnixtend': key is 0405
+[22:44:11.758] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Bytes parsed: 30
+[22:44:11.758] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser 'parser' entering state 'parse_sink_data'
+[22:44:11.758] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Extracting header 'sink'
+[22:44:11.758] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Extracting header 'data'
+[22:44:11.759] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser state 'parse_sink_data' has no switch, going to default next state
+[22:44:11.759] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Bytes parsed: 102
+[22:44:11.759] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Parser 'parser': end
+[22:44:11.759] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Pipeline 'ingress': start
+[22:44:11.759] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:11.759] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:11.760] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 04
+* hdr.omnixtend.opcode : 05
+
+[22:44:11.760] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 2
+[22:44:11.760] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+[22:44:11.760] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Action entry is MyIngress.handle_grant - 
+[22:44:11.761] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Action MyIngress.handle_grant
+[22:44:11.761] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(267) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:11.761] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(267) Primitive src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)
+[22:44:11.761] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Read register 'MyIngress.src_reg' at index 2 read value 9
+[22:44:11.761] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(287) Primitive (bit<32>) meta.cache_index
+[22:44:11.762] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(287) Primitive (owner_t)hdr.omnixtend.source
+[22:44:11.762] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(287) Primitive owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)
+[22:44:11.762] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Wrote register 'MyIngress.owner_reg' at index 9 with value 2
+[22:44:11.762] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:11.762] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:44:11.763] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:44:11.763] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Action entry is NoAction - 
+[22:44:11.763] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Action NoAction
+[22:44:11.763] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:11.763] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:11.764] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000222
+
+[22:44:11.764] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 1
+[22:44:11.764] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+[22:44:11.764] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Action entry is MyIngress.mac_forward - 2,
+[22:44:11.764] [bmv2] [T] [thread 8381] [35.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:11.764] [bmv2] [T] [thread 8381] [35.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:11.765] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Pipeline 'ingress': end
+[22:44:11.765] [bmv2] [D] [thread 8381] [35.0] [cxt 0] Egress port is 2
+[22:44:11.765] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Pipeline 'egress': start
+[22:44:11.765] [bmv2] [T] [thread 8384] [35.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:11.765] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Pipeline 'egress': end
+[22:44:11.765] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparser 'deparser': start
+[22:44:11.765] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:11.765] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:11.766] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:11.766] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparsing header 'sink'
+[22:44:11.766] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparsing header 'data'
+[22:44:11.766] [bmv2] [D] [thread 8384] [35.0] [cxt 0] Deparser 'deparser': end
+[22:44:11.766] [bmv2] [D] [thread 8386] [35.0] [cxt 0] Transmitting packet of size 102 out of port 2
+[22:44:11.780] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Processing packet received on port 2
+[22:44:11.780] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser 'parser': start
+[22:44:11.780] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:11.780] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Extracting header 'ethernet'
+[22:44:11.781] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:11.781] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Bytes parsed: 14
+[22:44:11.781] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:11.781] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Extracting header 'flow_control'
+[22:44:11.781] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:11.782] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser state 'parse_omnixtend': key is 0500
+[22:44:11.782] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Bytes parsed: 30
+[22:44:11.782] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Parser 'parser': end
+[22:44:11.782] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Pipeline 'ingress': start
+[22:44:11.782] [bmv2] [T] [thread 8381] [36.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:11.783] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:11.783] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 05
+* hdr.omnixtend.opcode : 00
+
+[22:44:11.783] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Table 'MyIngress.omni_exact': miss
+[22:44:11.783] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Action entry is NoAction - 
+[22:44:11.783] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Action NoAction
+[22:44:11.783] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Action entry is NoAction - 
+[22:44:11.784] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Action NoAction
+[22:44:11.784] [bmv2] [T] [thread 8381] [36.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:11.784] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000444
+
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 3
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Dumping entry 3
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000444
+Action entry: MyIngress.mac_forward - 4,
+
+[22:44:11.784] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Action entry is MyIngress.mac_forward - 4,
+[22:44:11.785] [bmv2] [T] [thread 8381] [36.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:11.785] [bmv2] [T] [thread 8381] [36.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:11.785] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Pipeline 'ingress': end
+[22:44:11.785] [bmv2] [D] [thread 8381] [36.0] [cxt 0] Egress port is 4
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Pipeline 'egress': start
+[22:44:11.785] [bmv2] [T] [thread 8382] [36.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Pipeline 'egress': end
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Deparser 'deparser': start
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:11.785] [bmv2] [D] [thread 8382] [36.0] [cxt 0] Deparser 'deparser': end
+[22:44:11.785] [bmv2] [D] [thread 8386] [36.0] [cxt 0] Transmitting packet of size 34 out of port 4
+[22:44:15.500] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Processing packet received on port 3
+[22:44:15.500] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser 'parser': start
+[22:44:15.500] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:15.500] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Extracting header 'ethernet'
+[22:44:15.500] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:15.500] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Bytes parsed: 14
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Extracting header 'flow_control'
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser state 'parse_omnixtend': key is 0106
+[22:44:15.501] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Bytes parsed: 30
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser 'parser' entering state 'parse_address'
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Extracting header 'address'
+[22:44:15.501] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser state 'parse_address' has no switch, going to default next state
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Bytes parsed: 38
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Parser 'parser': end
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Pipeline 'ingress': start
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 01
+* hdr.omnixtend.opcode : 06
+
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 1
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.omnixtend.channel: EXACT     01
+* hdr.omnixtend.opcode : EXACT     06
+Action entry: MyIngress.handle_acquire - 
+
+[22:44:15.502] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Action entry is MyIngress.handle_acquire - 
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Action MyIngress.handle_acquire
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(259) Primitive hash(meta.cache_index, ...
+[22:44:15.502] [bmv2] [T] [thread 8381] [37.0] [cxt 0] hash(base=0, max=15) = 9
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(271) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(271) Primitive src_reg.write((bit<32>)hdr.omnixtend.source, meta.cache_index)
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Wrote register 'MyIngress.src_reg' at index 3 with value 9
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(275) Primitive (bit<32>) meta.cache_index
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(275) Primitive valid_reg.read(meta.cache_valid, (bit<32>) meta.cache_index)
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Read register 'MyIngress.valid_reg' at index 9 read value 0
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(283) Primitive (bit<32>) meta.cache_index
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(283) Primitive owner_reg.read(meta.cache_owner, (bit<32>) meta.cache_index)
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Read register 'MyIngress.owner_reg' at index 9 read value 2
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0002
+
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Table 'MyIngress.owner_tbl': hit with handle 1
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Dumping entry 1
+Match key:
+* meta.cache_owner    : EXACT     0002
+Action entry: MyIngress.redirect - 80000000222,
+
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Action entry is MyIngress.redirect - 80000000222,
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Action MyIngress.redirect
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(242) Primitive hdr.ethernet.dstAddr = dst_mac
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:15.503] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000222
+
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 1
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Dumping entry 1
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000222
+Action entry: MyIngress.mac_forward - 2,
+
+[22:44:15.503] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Action entry is MyIngress.mac_forward - 2,
+[22:44:15.504] [bmv2] [T] [thread 8381] [37.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:15.504] [bmv2] [T] [thread 8381] [37.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:15.504] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Pipeline 'ingress': end
+[22:44:15.504] [bmv2] [D] [thread 8381] [37.0] [cxt 0] Egress port is 2
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Pipeline 'egress': start
+[22:44:15.504] [bmv2] [T] [thread 8384] [37.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Pipeline 'egress': end
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparser 'deparser': start
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparsing header 'address'
+[22:44:15.504] [bmv2] [D] [thread 8384] [37.0] [cxt 0] Deparser 'deparser': end
+[22:44:15.504] [bmv2] [D] [thread 8386] [37.0] [cxt 0] Transmitting packet of size 38 out of port 2
+[22:44:15.520] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Processing packet received on port 2
+[22:44:15.520] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser 'parser': start
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser 'parser' entering state 'start'
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Extracting header 'ethernet'
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser state 'start': key is 0870
+[22:44:15.521] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Bytes parsed: 14
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser 'parser' entering state 'parse_omnixtend'
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Extracting header 'flow_control'
+[22:44:15.521] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Extracting header 'omnixtend'
+[22:44:15.522] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser state 'parse_omnixtend': key is 0405
+[22:44:15.522] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Bytes parsed: 30
+[22:44:15.522] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser 'parser' entering state 'parse_sink_data'
+[22:44:15.522] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Extracting header 'sink'
+[22:44:15.522] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Extracting header 'data'
+[22:44:15.522] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser state 'parse_sink_data' has no switch, going to default next state
+[22:44:15.523] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Bytes parsed: 102
+[22:44:15.523] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Parser 'parser': end
+[22:44:15.523] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Pipeline 'ingress': start
+[22:44:15.523] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(350) Condition "hdr.omnixtend.isValid()" (node_2) is true
+[22:44:15.523] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Applying table 'MyIngress.omni_exact'
+[22:44:15.523] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Looking up key:
+* hdr.omnixtend.channel: 04
+* hdr.omnixtend.opcode : 05
+
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Table 'MyIngress.omni_exact': hit with handle 2
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.omnixtend.channel: EXACT     04
+* hdr.omnixtend.opcode : EXACT     05
+Action entry: MyIngress.handle_grant - 
+
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Action entry is MyIngress.handle_grant - 
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Action MyIngress.handle_grant
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(267) Primitive (bit<32>)hdr.omnixtend.source
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(267) Primitive src_reg.read(meta.cache_index, (bit<32>)hdr.omnixtend.source)
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Read register 'MyIngress.src_reg' at index 3 read value 9
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(287) Primitive (bit<32>) meta.cache_index
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(287) Primitive (owner_t)hdr.omnixtend.source
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(287) Primitive owner_reg.write((bit<32>) meta.cache_index, (owner_t)hdr.omnixtend.source)
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Wrote register 'MyIngress.owner_reg' at index 9 with value 3
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Applying table 'MyIngress.owner_tbl'
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Looking up key:
+* meta.cache_owner    : 0000
+
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Table 'MyIngress.owner_tbl': miss
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Action entry is NoAction - 
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Action NoAction
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(354) Condition "hdr.ethernet.isValid()" (node_5) is true
+[22:44:15.524] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Applying table 'MyIngress.mac_lookup'
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Looking up key:
+* hdr.ethernet.dstAddr: 080000000333
+
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Table 'MyIngress.mac_lookup': hit with handle 2
+[22:44:15.524] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Dumping entry 2
+Match key:
+* hdr.ethernet.dstAddr: EXACT     080000000333
+Action entry: MyIngress.mac_forward - 3,
+
+[22:44:15.525] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Action entry is MyIngress.mac_forward - 3,
+[22:44:15.525] [bmv2] [T] [thread 8381] [38.0] [cxt 0] Action MyIngress.mac_forward
+[22:44:15.525] [bmv2] [T] [thread 8381] [38.0] [cxt 0] omnixtend.p4(238) Primitive standard_metadata.egress_spec = port
+[22:44:15.525] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Pipeline 'ingress': end
+[22:44:15.525] [bmv2] [D] [thread 8381] [38.0] [cxt 0] Egress port is 3
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Pipeline 'egress': start
+[22:44:15.525] [bmv2] [T] [thread 8385] [38.0] [cxt 0] omnixtend.p4(372) Condition "standard_metadata.egress_port == standard_metadata.ingress_port" (node_9) is false
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Pipeline 'egress': end
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparser 'deparser': start
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparsing header 'ethernet'
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparsing header 'flow_control'
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparsing header 'omnixtend'
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparsing header 'sink'
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparsing header 'data'
+[22:44:15.525] [bmv2] [D] [thread 8385] [38.0] [cxt 0] Deparser 'deparser': end
+[22:44:15.525] [bmv2] [D] [thread 8386] [38.0] [cxt 0] Transmitting packet of size 102 out of port 3
