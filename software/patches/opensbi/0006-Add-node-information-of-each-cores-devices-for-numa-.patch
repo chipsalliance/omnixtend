@@ -1,0 +1,231 @@
+From 846ff7def7a989967adf49f16b4f4adfaf432902 Mon Sep 17 00:00:00 2001
+From: Greentime Hu <greentime.hu@sifive.com>
+Date: Fri, 22 Nov 2019 16:19:10 +0800
+Subject: [PATCH 6/6] Add node information of each cores/devices for numa
+ support
+
+Signed-off-by: Greentime Hu <greentime.hu@sifive.com>
+---
+ platform/sifive/vcu118/hawksbill.dts | 59 ++++++++++++++++++++++++++++
+ 1 file changed, 59 insertions(+)
+
+diff --git a/platform/sifive/vcu118/hawksbill.dts b/platform/sifive/vcu118/hawksbill.dts
+index b4924cd5d2bd..dac2610e0e47 100644
+--- a/platform/sifive/vcu118/hawksbill.dts
++++ b/platform/sifive/vcu118/hawksbill.dts
+@@ -20,6 +20,37 @@
+ 		#size-cells = <0>;
+ 		timebase-frequency = <1000000>;
+ 
++		cpu-map {
++			cluster0 {
++				core0 {
++					cpu = <&cpu1>;
++				};
++				core1 {
++					cpu = <&cpu2>;
++				};
++				core2 {
++					cpu = <&cpu3>;
++				};
++				core3 {
++					cpu = <&cpu4>;
++				};
++			};
++
++			cluster1 {
++				core0 {
++					cpu = <&cpu9>;
++				};
++				core1 {
++					cpu = <&cpu10>;
++				};
++				core2 {
++					cpu = <&cpu11>;
++				};
++				core3 {
++					cpu = <&cpu12>;
++				};
++			};
++		};
+ 		cpu0: cpu@0 {
+ 			compatible = "sifive,e51", "sifive,rocket0", "riscv";
+ 			device_type = "cpu";
+@@ -29,6 +60,7 @@
+ 			reg = <0x0>;
+ 			riscv,isa = "rv64imac";
+ 			status = "disabled";
++			numa-node-id = <0>;
+ 
+ 			cpu0_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -55,6 +87,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <0>;
+ 
+ 			cpu1_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -82,6 +115,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <0>;
+ 
+ 			cpu2_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -109,6 +143,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <0>;
+ 
+ 			cpu3_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -136,6 +171,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <0>;
+ 
+ 			cpu4_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -154,6 +190,7 @@
+ 			reg = <0x8>;
+ 			riscv,isa = "rv64imac";
+ 			status = "disabled";
++			numa-node-id = <1>;
+ 
+ 			cpu8_intc:  interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -181,6 +218,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <1>;
+ 
+ 			cpu9_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -208,6 +246,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <1>;
+ 
+ 			cpu10_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -235,6 +274,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <1>;
+ 
+ 			cpu11_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -262,6 +302,7 @@
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+ 			tlb-split;
++			numa-node-id = <1>;
+ 
+ 			cpu12_intc: interrupt-controller {
+ 				#interrupt-cells = <0x1>;
+@@ -307,6 +348,7 @@
+ 			interrupts = <0x12 0x13 0x14 0x15>;
+ 			reg = <0x0 0x10060000 0x0 0x1000>;
+ 			reg-names = "control";
++			numa-node-id = <1>;
+ 		};
+ 
+ 		plic0: interrupt-controller@c000000 {
+@@ -322,6 +364,7 @@
+                                                &cpu4_intc 0xffffffff &cpu4_intc 0x9>;
+ 			reg-names = "control";
+ 			riscv,max-priority = <0x7>;
++			numa-node-id = <0>;
+ 		};
+ 
+ 		plic1: interrupt-controller@20c000000 {
+@@ -337,6 +380,7 @@
+                                                &cpu12_intc 0xffffffff &cpu12_intc 0x9>;
+ 			reg-names = "control";
+ 			riscv,max-priority = <0x7>;
++			numa-node-id = <1>;
+ 		};
+ 
+ 		pci@20000000 {
+@@ -357,6 +401,7 @@
+ 			ranges = <0x2000000 0x0 0x40000000 0x0 0x40000000 0x0 0x40000000>;
+ 			reg = <0x0 0x20000000 0x0 0x4000000>;
+ 			reg-names = "control";
++			numa-node-id = <0>;
+ 
+ 			pci_intc0: interrupt-controller {
+ 				#address-cells = <0x0>;
+@@ -383,6 +428,7 @@
+ 			ranges = <0x2000000 0x2 0x40000000 0x2 0x40000000 0x0 0x40000000>;
+ 			reg = <0x2 0x20000000 0x0 0x4000000>;
+ 			reg-names = "control";
++			numa-node-id = <1>;
+ 
+ 			pci_intc1: interrupt-controller {
+ 				#address-cells = <0x0>;
+@@ -398,6 +444,7 @@
+ 			clocks = <&tlclk0>;
+ 			status = "okay";
+ 			interrupts = <0xd>;
++			numa-node-id = <0>;
+ 		};
+ 
+ 		uart1: serial@210010000 {
+@@ -407,6 +454,7 @@
+ 			clocks = <&tlclk0>;
+ 			status = "okay";
+ 			interrupts = <0xd>;
++			numa-node-id = <1>;
+ 		};
+ 
+ 		spi@10050000 {
+@@ -417,6 +465,7 @@
+ 			clocks = <&tlclk0>;
+ 			#address-cells = <0x1>;
+ 			#size-cells = <0x0>;
++			numa-node-id = <0>;
+ 
+ 			mmc@0 {
+ 				compatible = "mmc-spi-slot";
+@@ -435,6 +484,7 @@
+ 			clocks = <&tlclk0>;
+ 			#address-cells = <0x1>;
+ 			#size-cells = <0x0>;
++			numa-node-id = <1>;
+ 
+ 			mmc@0 {
+ 				compatible = "mmc-spi-slot";
+@@ -449,13 +499,22 @@
+ 	mem0: memory@80000000 {
+ 		device_type = "memory";
+ 		reg = <0x0 0x80000000 0x0 0x80000000>;
++		numa-node-id = <0>;
+ 	};
+ 
+ 	mem1: memory@280000000 {
+ 		device_type = "memory";
+ 		reg = <0x2 0x80000000 0x0 0x80000000>;
++		numa-node-id = <1>;
+ 	};
+ 
++	distance-map {
++		compatible = "numa-distance-map-v1";
++		distance-matrix = <0 0 10>,
++				  <0 1 15>,
++				  <1 0 15>,
++				  <1 1 10>;
++	};
+ 	tlclk0: tlclk {
+ 		#clock-cells = <0>;
+ 		compatible = "fixed-clock";
+-- 
+2.24.0
+

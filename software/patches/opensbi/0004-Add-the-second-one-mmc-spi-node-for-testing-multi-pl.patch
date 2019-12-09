@@ -1,0 +1,50 @@
+From 1ea26752fac1ea0dcc037b6d5271986955a84756 Mon Sep 17 00:00:00 2001
+From: Greentime Hu <greentime.hu@sifive.com>
+Date: Wed, 25 Sep 2019 19:03:46 +0800
+Subject: [PATCH 4/6] Add the second one mmc-spi node for testing multi-plic.
+
+Signed-off-by: Greentime Hu <greentime.hu@sifive.com>
+---
+ platform/sifive/vcu118/hawksbill.dts | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/platform/sifive/vcu118/hawksbill.dts b/platform/sifive/vcu118/hawksbill.dts
+index 34cf9f6555f4..b4924cd5d2bd 100644
+--- a/platform/sifive/vcu118/hawksbill.dts
++++ b/platform/sifive/vcu118/hawksbill.dts
+@@ -8,6 +8,7 @@
+ 
+ 	aliases {
+ 		serial0 = &uart0;
++		serial1 = &uart1;
+ 	};
+ 
+ 	chosen {
+@@ -425,6 +426,24 @@
+ 				disable-wp;
+ 			};
+ 		};
++
++		spi@210050000 {
++			compatible = "sifive,fu540-c000-spi", "sifive,spi0";
++			reg = <0x2 0x10050000 0x0 0x1000>;
++			interrupt-parent = <&plic1>;
++			interrupts = <0xe>;
++			clocks = <&tlclk0>;
++			#address-cells = <0x1>;
++			#size-cells = <0x0>;
++
++			mmc@0 {
++				compatible = "mmc-spi-slot";
++				reg = <0x0>;
++				spi-max-frequency = <5000000>;
++				voltage-ranges = <0xce4 0xce4>;
++				disable-wp;
++			};
++		};
+ 	};
+ 
+ 	mem0: memory@80000000 {
+-- 
+2.24.0
+

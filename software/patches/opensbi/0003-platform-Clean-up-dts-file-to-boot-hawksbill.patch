@@ -1,0 +1,245 @@
+From 860b8cfd45fc68b23b3d9a677210903839e4bd48 Mon Sep 17 00:00:00 2001
+From: Greentime Hu <greentime.hu@sifive.com>
+Date: Fri, 20 Sep 2019 16:34:51 +0800
+Subject: [PATCH 3/6] platform: Clean up dts file to boot hawksbill.
+
+Remove some nodes that are not used actually.
+Remove l2_cache, debug-controller, dma, dtim0, error-device, err_dev, rom, stl0, teststatus
+Update uart1 base address, mmc config.
+
+Signed-off-by: Greentime Hu <greentime.hu@sifive.com>
+---
+ platform/sifive/vcu118/hawksbill.dts | 116 +++------------------------
+ 1 file changed, 9 insertions(+), 107 deletions(-)
+
+diff --git a/platform/sifive/vcu118/hawksbill.dts b/platform/sifive/vcu118/hawksbill.dts
+index 3e515ff995eb..34cf9f6555f4 100644
+--- a/platform/sifive/vcu118/hawksbill.dts
++++ b/platform/sifive/vcu118/hawksbill.dts
+@@ -25,7 +25,6 @@
+ 			i-cache-block-size = <0x40>;
+ 			i-cache-sets = <0x80>;
+ 			i-cache-size = <0x4000>;
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x0>;
+ 			riscv,isa = "rv64imac";
+ 			status = "disabled";
+@@ -51,7 +50,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x1>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -79,7 +77,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x2>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -107,7 +104,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x3>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -135,7 +131,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x4>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -155,7 +150,6 @@
+ 			i-cache-block-size = <0x40>;
+ 			i-cache-sets = <0x80>;
+ 			i-cache-size = <0x4000>;
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x8>;
+ 			riscv,isa = "rv64imac";
+ 			status = "disabled";
+@@ -182,7 +176,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0x9>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -210,7 +203,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0xa>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -238,7 +230,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0xb>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -266,7 +257,6 @@
+ 			i-tlb-sets = <0x1>;
+ 			i-tlb-size = <0x20>;
+ 			mmu-type = "riscv,sv39";
+-			next-level-cache = <&l2_cache>;
+ 			reg = <0xc>;
+ 			riscv,isa = "rv64imafdc";
+ 			status = "okay";
+@@ -286,22 +276,6 @@
+ 		compatible = "sifive,fu540-c000", "sifive,fu540", "freechips,rocketchip-unknown-soc", "simple-bus";
+ 		ranges;
+ 
+-		l2_cache: cache-controller@2010000 {
+-			cache-block-size = <0x40>;
+-			cache-level = <0x2>;
+-			cache-sets = <0x400>;
+-			cache-size = <0x100000>;
+-			cache-unified;
+-			compatible = "sifive,ccache0", "cache";
+-			interrupt-parent = <&plic0>;
+-			interrupts = <0x9 0xa 0xb 0xc>;
+-			next-level-cache = <&err_dev &mem0 &stl0 &mem1>;
+-			reg = <0x0 0x2010000 0x0 0x1000 0x0 0x8000000 0x0 0x100000>;
+-			reg-names = "control", "sideband";
+-			sifive,ecc-granularity = <0x8>;
+-			sifive,mshr-count = <0xa>;
+-		};
+-
+ 		clint@2000000 {
+ 			compatible = "riscv,clint0";
+ 			interrupts-extended = <&cpu1_intc 0x3 &cpu1_intc 0x7
+@@ -322,52 +296,6 @@
+ 			reg-names = "control";
+ 		};
+ 
+-		debug-controller@0 {
+-			compatible = "sifive,debug-013", "riscv,debug-013";
+-			interrupts-extended = <&cpu0_intc 0xffff
+-                                               &cpu1_intc 0xffff
+-                                               &cpu2_intc 0xffff
+-                                               &cpu3_intc 0xffff
+-                                               &cpu4_intc 0xffff>;
+-			reg = <0x0 0x0 0x0 0x1000>;
+-			reg-names = "control";
+-		};
+-
+-		dma@3000000 {
+-			#dma-cells = <0x1>;
+-			compatible = "riscv,dma0";
+-			dma-channels = <0x4>;
+-			dma-requests = <0x0>;
+-			interrupt-parent = <&plic0>;
+-			interrupts = <0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8>;
+-			reg = <0x0 0x3000000 0x0 0x100000>;
+-			reg-names = "control";
+-			riscv,dma-pools = <0x1>;
+-		};
+-
+-		dtim0: dtim@1000000 {
+-			compatible = "sifive,dtim0";
+-			reg = <0x0 0x1000000 0x0 0x2000>;
+-			reg-names = "mem";
+-		};
+-
+-		error-device@18000000 {
+-			compatible = "sifive,error0";
+-			reg = <0x0 0x2000 0x0 0x2000 0x0 0x5000 0x0 0xb000
+-                               0x0 0x18000 0x0 0xfe8000 0x0 0x1002000 0x0 0x7fe000
+-                               0x0 0x1804000 0x0 0x4000 0x0 0x1828000 0x0 0x7d8000
+-                               0x0 0x2011000 0x0 0xfef000 0x0 0x3100000 0x0 0x4f00000
+-                               0x0 0x8100000 0x0 0x3f00000 0x0 0x10000000 0x0 0x10000
+-                               0x0 0x10011000 0x0 0x3f000 0x0 0x10051000 0x0 0xf000
+-                               0x0 0x10061000 0x0 0xff9f000 0x0 0x24000000 0x0 0x1c000000
+-                               0x1 0x0 0x0 0x80000000>;
+-		};
+-
+-		err_dev: error-device@180000000 {
+-			compatible = "sifive,error0";
+-			reg = <0x1 0x80000000 0x0 0x80000000>;
+-		};
+-
+ 		gpio0: gpio@10060000 {
+ 			#gpio-cells = <0x2>;
+ 			#interrupt-cells = <0x2>;
+@@ -462,18 +390,6 @@
+ 			};
+ 		};
+ 
+-		rom@1000 {
+-			compatible = "sifive,modeselect0";
+-			reg = <0x0 0x1000 0x0 0x1000>;
+-			reg-names = "mem";
+-		};
+-
+-		rom@10000 {
+-			compatible = "sifive,maskrom0";
+-			reg = <0x0 0x10000 0x0 0x8000>;
+-			reg-names = "mem";
+-		};
+-
+ 		uart0: serial@10010000 {
+ 			compatible = "sifive,fu540-c000-uart", "sifive,uart0";
+ 			reg = <0x0 0x10010000 0x0 0x1000>;
+@@ -483,9 +399,9 @@
+ 			interrupts = <0xd>;
+ 		};
+ 
+-		uart1: serial@2010010000 {
++		uart1: serial@210010000 {
+ 			compatible = "sifive,fu540-c000-uart", "sifive,uart0";
+-			reg = <0x20 0x10010000 0x0 0x1000>;
++			reg = <0x2 0x10010000 0x0 0x1000>;
+ 			interrupt-parent = <&plic1>;
+ 			clocks = <&tlclk0>;
+ 			status = "okay";
+@@ -500,29 +416,15 @@
+ 			clocks = <&tlclk0>;
+ 			#address-cells = <0x1>;
+ 			#size-cells = <0x0>;
+-		};
+-
+-		mmc@0 {
+-			compatible = "mmc-spi-slot";
+-			reg = <0x0 0x0 0x0 0x0>;
+-			spi-max-frequency = <5000000>;
+-			voltage-ranges = <0xce4 0xce4>;
+-			disable-wp;
+-		};
+-
+-		stl0: stl@200000000 {
+-			#address-cells = <0x2>;
+-			#size-cells = <0x2>;
+-			compatible = "sifive,stl", "simple-bus";
+-			ranges = <0x2 0x0 0x2 0x0 0x0 0x80000000 0x3 0x0 0x3 0x0 0x0 0x80000000 0x2 0x80000000 0x2 0x80000000 0x0 0x80000000 0x3 0x80000000 0x3 0x80000000 0x0 0x80000000>;
+-		};
+ 
+-		teststatus@4000 {
+-			compatible = "sifive,test0";
+-			reg = <0x0 0x4000 0x0 0x1000>;
+-			reg-names = "control";
++			mmc@0 {
++				compatible = "mmc-spi-slot";
++				reg = <0x0>;
++				spi-max-frequency = <5000000>;
++				voltage-ranges = <0xce4 0xce4>;
++				disable-wp;
++			};
+ 		};
+-
+ 	};
+ 
+ 	mem0: memory@80000000 {
+-- 
+2.24.0
+
