@@ -2188,7 +2188,7 @@ BR2_PACKAGE_PROTOBUF_ARCH_SUPPORTS=y
 #
 # BR2_PACKAGE_AESPIPE is not set
 # BR2_PACKAGE_BC is not set
-
+BR2_PACKAGE_LATMEM=y
 #
 # clamav needs a toolchain w/ C++, threads, wchar
 #
