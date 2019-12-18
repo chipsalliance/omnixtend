@@ -1,4 +1,4 @@
-From 31e5e2bec81655ca65886a79728290d56b8bc840 Mon Sep 17 00:00:00 2001
+From e26cd2b9622acbe1bf6de3179bed6b82e7932662 Mon Sep 17 00:00:00 2001
 From: Tu Dang <tu.dang@wdc.com>
 Date: Mon, 16 Dec 2019 17:01:17 -0800
 Subject: [PATCH 2/2] Added latmem package
@@ -7,9 +7,9 @@ Subject: [PATCH 2/2] Added latmem package
  package/Config.in           |   1 +
  package/latmem/Config.in    |   4 ++
  package/latmem/latmem.mk    |  19 ++++++
- package/latmem/src/Makefile |  17 +++++
+ package/latmem/src/Makefile |  15 +++++
  package/latmem/src/latmem.c | 120 ++++++++++++++++++++++++++++++++++++
- 5 files changed, 161 insertions(+)
+ 5 files changed, 159 insertions(+)
  create mode 100644 package/latmem/Config.in
  create mode 100644 package/latmem/latmem.mk
  create mode 100644 package/latmem/src/Makefile
@@ -64,12 +64,10 @@ index 0000000000..1f3b44dbe5
 +$(eval $(generic-package))
 diff --git a/package/latmem/src/Makefile b/package/latmem/src/Makefile
 new file mode 100644
-index 0000000000..94ca525859
+index 0000000000..65ccf45c2c
 --- /dev/null
 +++ b/package/latmem/src/Makefile
-@@ -0,0 +1,17 @@
-+export PATH:=$(HOME)/Workspace/riscv64--glibc--bleeding-edge-2018.11-1/bin:$(PATH)
-+CC=riscv64-linux-
+@@ -0,0 +1,15 @@
 +CFLAGS=-Wall -O2 -DRUN_IN_USERSPACE
 +LDFLAGS=-lm
 +TARGET=latmem
