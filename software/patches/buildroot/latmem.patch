@@ -1,7 +1,7 @@
-From e26cd2b9622acbe1bf6de3179bed6b82e7932662 Mon Sep 17 00:00:00 2001
+From 84cdbd535018eda053cda899f254fe9209b19ae1 Mon Sep 17 00:00:00 2001
 From: Tu Dang <tu.dang@wdc.com>
 Date: Mon, 16 Dec 2019 17:01:17 -0800
-Subject: [PATCH 2/2] Added latmem package
+Subject: [PATCH] Added latmem package
 
 ---
  package/Config.in           |   1 +
@@ -16,17 +16,17 @@ Subject: [PATCH 2/2] Added latmem package
  create mode 100644 package/latmem/src/latmem.c
 
 diff --git a/package/Config.in b/package/Config.in
-index f72c77b416..e4a79ece5a 100644
+index f72c77b416..040f41c9cd 100644
 --- a/package/Config.in
 +++ b/package/Config.in
-@@ -1871,6 +1871,7 @@ menu "Miscellaneous"
- 	source "package/gr-osmosdr/Config.in"
- 	source "package/gsettings-desktop-schemas/Config.in"
- 	source "package/haveged/Config.in"
+@@ -106,6 +106,7 @@ menu "Debugging, profiling and benchmark"
+ 	source "package/kvm-unit-tests/Config.in"
+ 	source "package/kyua/Config.in"
+ 	source "package/latencytop/Config.in"
 +	source "package/latmem/Config.in"
- 	source "package/linux-syscall-support/Config.in"
- 	source "package/mcrypt/Config.in"
- 	source "package/mobile-broadband-provider-info/Config.in"
+ 	source "package/lmbench/Config.in"
+ 	source "package/lsof/Config.in"
+ 	source "package/ltp-testsuite/Config.in"
 diff --git a/package/latmem/Config.in b/package/latmem/Config.in
 new file mode 100644
 index 0000000000..6530b7ce3b
