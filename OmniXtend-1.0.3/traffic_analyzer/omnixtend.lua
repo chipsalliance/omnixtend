@@ -4,7 +4,7 @@ local header = require("header")
 local tilelink = require("tilelink")
 
 omnixtend_protocol = Proto("OmniXtend", "OmniXtend Protocol")
-local omnixtend_ethertype = 0x0000
+local omnixtend_ethertype = 0xaaaa
 
 local header_fields = header.get_fields()
 local tilelink_fields = tilelink.get_fields()
@@ -26,8 +26,10 @@ function omnixtend_protocol.dissector(buffer, pinfo, tree)
 
     local mesg_num = 1
     local offset = 8
-    -- Minus Ethernet, TLoE and TLoE Mask
-    while (offset < (length - 16)) do
+    -- pinfo.cols.info:append(string.format(" length %u ", length))
+
+    -- Minus TLoE Mask (8 bytes)
+    while (offset < (length - 8)) do
       -- pinfo.cols.info:append(string.format(" offset %u ", offset))
       local message_subtree = tree:add(omnixtend_protocol, buffer(), string.format("TileLink Message %u", mesg_num))
       mesg_num = mesg_num + 1
