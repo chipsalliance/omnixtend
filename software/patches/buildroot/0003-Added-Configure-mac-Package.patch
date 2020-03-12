@@ -1,0 +1,224 @@
+From 5a099ff5779946ab08b77f5b23593581e7dac3d5 Mon Sep 17 00:00:00 2001
+From: Tu Dang <tu.dang@wdc.com>
+Date: Thu, 12 Mar 2020 11:04:52 -0700
+Subject: [PATCH] Added Configure-mac Package
+
+---
+ package/Config.in                             |  1 +
+ package/configure-mac/Config.in               |  4 ++
+ package/configure-mac/configure-mac.mk        | 19 ++++++
+ package/configure-mac/configure_macaddress.sh | 58 +++++++++++++++++
+ package/configure-mac/src/Makefile            | 15 +++++
+ package/configure-mac/src/configure-mac.c     | 64 +++++++++++++++++++
+ 6 files changed, 161 insertions(+)
+ create mode 100644 package/configure-mac/Config.in
+ create mode 100644 package/configure-mac/configure-mac.mk
+ create mode 100644 package/configure-mac/configure_macaddress.sh
+ create mode 100644 package/configure-mac/src/Makefile
+ create mode 100644 package/configure-mac/src/configure-mac.c
+
+diff --git a/package/Config.in b/package/Config.in
+index 040f41c9cd..3e38de8c99 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -107,6 +107,7 @@ menu "Debugging, profiling and benchmark"
+ 	source "package/kyua/Config.in"
+ 	source "package/latencytop/Config.in"
+ 	source "package/latmem/Config.in"
++	source "package/configure-mac/Config.in"
+ 	source "package/lmbench/Config.in"
+ 	source "package/lsof/Config.in"
+ 	source "package/ltp-testsuite/Config.in"
+diff --git a/package/configure-mac/Config.in b/package/configure-mac/Config.in
+new file mode 100644
+index 0000000000..431e366dd9
+--- /dev/null
++++ b/package/configure-mac/Config.in
+@@ -0,0 +1,4 @@
++config BR2_PACKAGE_CONFIGURE_MAC
++	bool "configure-mac"
++	help
++		Configure MAC addresses
+diff --git a/package/configure-mac/configure-mac.mk b/package/configure-mac/configure-mac.mk
+new file mode 100644
+index 0000000000..8f129ac9a9
+--- /dev/null
++++ b/package/configure-mac/configure-mac.mk
+@@ -0,0 +1,19 @@
++################################################################################
++#
++# configure-mac
++#
++################################################################################
++
++CONFIGURE_MAC_VERSION = 1.0
++CONFIGURE_MAC_SITE = ./package/configure-mac/src
++CONFIGURE_MAC_SITE_METHOD = local
++
++define CONFIGURE_MAC_BUILD_CMDS
++    $(MAKE) CC="$(TARGET_CC)" LD="$(TARGET_LD)" -C $(@D)
++endef
++
++define CONFIGURE_MAC_INSTALL_TARGET_CMDS
++    $(INSTALL) -D -m 0755 $(@D)/configure-mac $(TARGET_DIR)/usr/bin
++endef
++
++$(eval $(generic-package))
+diff --git a/package/configure-mac/configure_macaddress.sh b/package/configure-mac/configure_macaddress.sh
+new file mode 100644
+index 0000000000..d08c49eeb6
+--- /dev/null
++++ b/package/configure-mac/configure_macaddress.sh
+@@ -0,0 +1,58 @@
++# Register map:
++#	chip0	chip1
++#RX:	0x30000	0x200030000 VC0
++#	0x30080 0x200030080 VC1
++#				0  = header strip size (14)	0xE
++#				8  = match mask        (14)	0x3FFF
++#				64 = header bytes
++#TX:	0x20000	0x200020000 VC0
++#	0x20080 0x200020080 VC1
++#				0  = header insert size (14)	0xE
++#				64 = header to add
++
++# Goal:
++# chip0 VC0 MAC = 68:05:CA:88:3D:01
++# chip0 VC1 MAC = 68:05:CA:88:3D:02
++# chip1 VC0 MAC = 68:05:CA:88:3D:03
++# chip1 VC1 MAC = 68:05:CA:88:3D:04
++# ethertype = AAAA
++
++# <6 bytes dest> <6 bytes source> <2 bytes type>
++# SSSS DDDD DDDD DDDD = 0568 0x3D 88CA 0568
++# 0000 EEEE SSSS SSSS = 0000 AAAA 0x3D 88CA
++
++# chip1vc0 (3) -> chip0vc0 (1)
++devmem     0x30008 64 0x00FF             # chip0vc0 RX: match only 1 bytes of dest MAC
++devmem 0x200020048 64 0x0000AAAA033D88CA # chip1vc0 TX: set ethertype + 4 bytes of source MAC
++devmem     0x30048 64 0x0000AAAA033D88CA # chip0vc0 RX: set ethertype + 4 bytes of source MAC
++devmem     0x30008 64 0x3F00             # chip0vc0 RX: match sender
++devmem 0x200020040 64 0x0568013D88CA0568 # chip1vc0 TX: set dest MAC + 2 bytes of source MAC
++devmem     0x30040 64 0x0568013D88CA0568 # chip0vc0 RX: set dest MAC + 2 bytes of source MAC
++devmem     0x30008 64 0x3FFF             # chip0vc0 RX: match sender+dest+ethertype
++
++# chip1vc1 (4) -> chip0vc1 (2)
++devmem     0x30088 64 0x00FF             # chip0vc1 RX: match only 1 bytes of dest MAC
++devmem 0x2000200C8 64 0x0000AAAA043D88CA # chip1vc1 TX: set ethertype + 4 bytes of source MAC
++devmem     0x300C8 64 0x0000AAAA043D88CA # chip0vc1 RX: set ethertype + 4 bytes of source MAC
++devmem     0x30088 64 0x3F00             # chip0vc1 RX: match sender
++devmem 0x2000200C0 64 0x0568023D88CA0568 # chip1vc1 TX: set dest MAC + 2 bytes of source MAC
++devmem     0x300C0 64 0x0568023D88CA0568 # chip0vc1 RX: set dest MAC + 2 bytes of source MAC
++devmem     0x30088 64 0x3FFF             # chip0vc1 RX: match sender+dest+ethertype
++
++# chip0vc0 (1) -> chip1vc0 (3)
++devmem 0x200030008 64 0x00FF             # chip1vc0 RX: match only 1 bytes of dest MAC
++devmem     0x20048 64 0x0000AAAA013D88CA # chip0vc0 TX: set ethertype + 4 bytes of source MAC
++devmem 0x200030048 64 0x0000AAAA013D88CA # chip1vc0 RX: set ethertype + 4 bytes of source MAC
++devmem 0x200030008 64 0x3F00             # chip1vc0 RX: match sender
++devmem     0x20040 64 0x0568033D88CA0568 # chip0vc0 TX: set dest MAC + 2 bytes of source MAC
++devmem 0x200030040 64 0x0568033D88CA0568 # chip1vc0 RX: set dest MAC + 2 bytes of source MAC
++devmem 0x200030008 64 0x3FFF             # chip1vc0 RX: match sender+dest+ethertype
++
++# chip0vc1 (2) -> chip1vc1 (4)
++devmem 0x200030088 64 0x00FF             # chip1vc1 RX: match only 1 bytes of dest MAC
++devmem     0x200C8 64 0x0000AAAA023D88CA # chip0vc1 TX: set ethertype + 4 bytes of source MAC
++devmem 0x2000300C8 64 0x0000AAAA023D88CA # chip1vc1 RX: set ethertype + 4 bytes of source MAC
++devmem 0x200030088 64 0x3F00             # chip1vc1 RX: match sender
++devmem     0x200C0 64 0x0568043D88CA0568 # chip0vc1 TX: set dest MAC + 2 bytes of source MAC
++devmem 0x2000300C0 64 0x0568043D88CA0568 # chip1vc1 RX: set dest MAC + 2 bytes of source MAC
++devmem 0x200030088 64 0x3FFF             # chip1vc1 RX: match sender+dest+ethertype
+diff --git a/package/configure-mac/src/Makefile b/package/configure-mac/src/Makefile
+new file mode 100644
+index 0000000000..2b7de7574a
+--- /dev/null
++++ b/package/configure-mac/src/Makefile
+@@ -0,0 +1,15 @@
++CFLAGS=-Wall -O2 -DRUN_IN_USERSPACE
++LDFLAGS=-lm
++TARGET=configure-mac
++
++all: $(TARGET)
++
++%.o: %.c
++	$(CC) $(CFLAGS) -c -o $@ $<
++
++configure-mac: configure-mac.o
++	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $<
++
++clean:
++	@echo $(PATH)
++	rm -rf *.o $(TARGET)
+diff --git a/package/configure-mac/src/configure-mac.c b/package/configure-mac/src/configure-mac.c
+new file mode 100644
+index 0000000000..397c74f510
+--- /dev/null
++++ b/package/configure-mac/src/configure-mac.c
+@@ -0,0 +1,64 @@
++#include <stdlib.h>
++
++int main(int argc, char** argv) {
++	// Register map:
++	//	chip0	chip1
++	//RX:	0x30000	0x200030000 VC0
++	//	0x30080 0x200030080 VC1
++	//				0  = header strip size (14)	0xE
++	//				8  = match mask        (14)	0x3FFF
++	//				64 = header bytes
++	//TX:	0x20000	0x200020000 VC0
++	//	0x20080 0x200020080 VC1
++	//				0  = header insert size (14)	0xE
++	//				64 = header to add
++
++	// Goal:
++	// chip0 VC0 MAC = 68:05:CA:88:3D:01
++	// chip0 VC1 MAC = 68:05:CA:88:3D:02
++	// chip1 VC0 MAC = 68:05:CA:88:3D:03
++	// chip1 VC1 MAC = 68:05:CA:88:3D:04
++	// ethertype = AAAA
++
++	// <6 bytes dest> <6 bytes source> <2 bytes type>
++	// SSSS DDDD DDDD DDDD = 0568 0x3D 88CA 0568
++	// 0000 EEEE SSSS SSSS = 0000 AAAA 0x3D 88CA
++
++	// chip1vc0 (3) -> chip0vc0 (1)
++	system("devmem     0x30008 64 0x00FF");             // chip0vc0 RX: match only 1 bytes of dest MAC
++	system("devmem 0x200020048 64 0x0000AAAA033D88CA"); // chip1vc0 TX: set ethertype + 4 bytes of source MAC
++	system("devmem     0x30048 64 0x0000AAAA033D88CA"); // chip0vc0 RX: set ethertype + 4 bytes of source MAC
++	system("devmem     0x30008 64 0x3F00");             // chip0vc0 RX: match sender
++	system("devmem 0x200020040 64 0x0568013D88CA0568"); // chip1vc0 TX: set dest MAC + 2 bytes of source MAC
++	system("devmem     0x30040 64 0x0568013D88CA0568"); // chip0vc0 RX: set dest MAC + 2 bytes of source MAC
++	system("devmem     0x30008 64 0x3FFF");             // chip0vc0 RX: match sender+dest+ethertype
++
++	// chip1vc1 (4) -> chip0vc1 (2)
++	system("devmem     0x30088 64 0x00FF");             // chip0vc1 RX: match only 1 bytes of dest MAC
++	system("devmem 0x2000200C8 64 0x0000AAAA043D88CA"); // chip1vc1 TX: set ethertype + 4 bytes of source MAC
++	system("devmem     0x300C8 64 0x0000AAAA043D88CA"); // chip0vc1 RX: set ethertype + 4 bytes of source MAC
++	system("devmem     0x30088 64 0x3F00");             // chip0vc1 RX: match sender
++	system("devmem 0x2000200C0 64 0x0568023D88CA0568"); // chip1vc1 TX: set dest MAC + 2 bytes of source MAC
++	system("devmem     0x300C0 64 0x0568023D88CA0568"); // chip0vc1 RX: set dest MAC + 2 bytes of source MAC
++	system("devmem     0x30088 64 0x3FFF");             // chip0vc1 RX: match sender+dest+ethertype
++
++	// chip0vc0 (1) -> chip1vc0 (3)
++	system("devmem 0x200030008 64 0x00FF");             // chip1vc0 RX: match only 1 bytes of dest MAC
++	system("devmem     0x20048 64 0x0000AAAA013D88CA"); // chip0vc0 TX: set ethertype + 4 bytes of source MAC
++	system("devmem 0x200030048 64 0x0000AAAA013D88CA"); // chip1vc0 RX: set ethertype + 4 bytes of source MAC
++	system("devmem 0x200030008 64 0x3F00");             // chip1vc0 RX: match sender
++	system("devmem     0x20040 64 0x0568033D88CA0568"); // chip0vc0 TX: set dest MAC + 2 bytes of source MAC
++	system("devmem 0x200030040 64 0x0568033D88CA0568"); // chip1vc0 RX: set dest MAC + 2 bytes of source MAC
++	system("devmem 0x200030008 64 0x3FFF");             // chip1vc0 RX: match sender+dest+ethertype
++
++	// chip0vc1 (2) -> chip1vc1 (4)
++	system("devmem 0x200030088 64 0x00FF");             // chip1vc1 RX: match only 1 bytes of dest MAC
++	system("devmem     0x200C8 64 0x0000AAAA023D88CA"); // chip0vc1 TX: set ethertype + 4 bytes of source MAC
++	system("devmem 0x2000300C8 64 0x0000AAAA023D88CA"); // chip1vc1 RX: set ethertype + 4 bytes of source MAC
++	system("devmem 0x200030088 64 0x3F00");             // chip1vc1 RX: match sender
++	system("devmem     0x200C0 64 0x0568043D88CA0568"); // chip0vc1 TX: set dest MAC + 2 bytes of source MAC
++	system("devmem 0x2000300C0 64 0x0568043D88CA0568"); // chip1vc1 RX: set dest MAC + 2 bytes of source MAC
++	system("devmem 0x200030088 64 0x3FFF");             // chip1vc1 RX: match sender+dest+ethertype
++
++	return 0;
++}
+-- 
+2.17.1
+
