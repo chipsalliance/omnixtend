@@ -36,3 +36,6 @@ The protocol specification is provided under Apache 2.0 license.
 
 The reference hardware implementations include a linux
 distribution provided under the GPL v2 license.
+
+The Initialization Protocol specification is provided under the
+Creative Commons Attribution 4.0 International License
