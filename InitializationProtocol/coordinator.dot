@@ -1,0 +1,46 @@
+// Copyright (c) 2020 SiFive Inc.
+// SPDX-License-Identifier: CC-BY-4.0
+
+digraph bootprotocol {
+        /* Node definitions */
+        readmac [label="Read MAC Address"];
+        configphy [label="Configure PHY"];
+        enablemac [label="Enable MAC"];
+
+        checkrecv [label="Check if all Partial DTBs Received"];
+        createfulldtb [label="Combine Partial DTBs into Full, Configured DTB"];
+
+        changehartid [label="Change Local Hart IDs"];
+        configlinks [label="Configure TLoE Links"];
+        mapaddrs [label="Config TLoE Address Maps"];
+        enablelinks [label="Enable TLoE Links"];
+
+        unicastfulldtb [label="Unicast Full DTB"];
+
+        /* PHY initialization */
+        subgraph phyinit {
+                readmac -> configphy;
+                configphy -> enablemac;
+                enablemac -> checkrecv;
+        }
+
+        /* Broadcast loop */
+        subgraph loop {
+                checkrecv -> checkrecv [label="Wait for Partial DTB"];
+        }
+
+        /* TLoE Configuration */
+        subgraph tloeinit {
+                checkrecv -> createfulldtb;
+                createfulldtb -> changehartid;
+                changehartid -> configlinks;
+                configlinks -> mapaddrs;
+                mapaddrs -> enablelinks;
+                enablelinks -> unicastfulldtb [label="Unicast to all MACs"];
+        }
+
+        /* Broadcast config */
+        subgraph broadcastconfig {
+                unicastfulldtb -> unicastfulldtb [label="Re-unicast upon receipt of Partial DTB"];
+        }
+}
