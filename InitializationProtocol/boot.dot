@@ -4,9 +4,13 @@
 digraph bootprotocol {
         /* Node definitions */
         readmac [label="Read MAC Address"];
-        configphy [label="Configure PHY"];
-        enablemac [label="Enable MAC"];
-        broadcastdtb [label="Broadcast Partial DTB"];
+        configphy [label="Configure Ethernet PHY"];
+        enablemac [label="Enable Ethernet PHY"];
+
+        broadcasthello [label="Broadcast Hello"];
+
+        sendsingledtb [label="Send Single-Node DTB"];
+        
         changehartid [label="Change Local Hart IDs"];
         configlinks [label="Configure TLoE Links"];
         mapaddrs [label="Config TLoE Address Maps"];
@@ -17,17 +21,25 @@ digraph bootprotocol {
         subgraph phyinit {
                 readmac -> configphy;
                 configphy -> enablemac;
-                enablemac -> broadcastdtb;
+                enablemac -> broadcasthello;
         }
 
         /* Broadcast loop */
-        subgraph loop {
-                broadcastdtb -> broadcastdtb [label="Wait for Full DTB"];
+        subgraph loop_hello {
+                broadcasthello -> broadcasthello [label="Wait for Hello ACK from Coordinator"];
         }
+
+        broadcasthello -> sendsingledtb [label="Recieve Hello ACK from Coordinator"];
+
+        /* DTB Exchange */
+        subgraph loop_dtb {
+                sendsingledtb -> sendsingledtb [label="Wait for Cluster DTB from Coordiantor"];
+        }
+
+        sendsingledtb -> changehartid [label="Receive Cluster DTB from Coordinator"];
 
         /* TLoE Configuration */
         subgraph tloeinit {
-                broadcastdtb -> changehartid [label="Recieve Unicast Full DTB"];
                 changehartid -> configlinks;
                 configlinks -> mapaddrs;
                 mapaddrs -> enablelinks;

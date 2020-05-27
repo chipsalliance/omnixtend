@@ -1,0 +1,135 @@
+OmniXtend Management Protocol Documentation
+===========================================
+:Author: Nathaniel Graff
+:Email: <nathaniel.graff@sifive.com>
+
+== Introduction
+
+The OmniXtend Management Protocol describes the process by which a cluster of
+OmniXtend Nodes is configured from cold boot by an OmniXtend Coordinator and
+transitioned to the next stage of the boot flow.
+
+=== Glossary
+
+OmniXtend Cluster::
+	A collection of machines, connected by Ethernet, which includes both OmniXtend Nodes, an OmniXtend Coordinator, and optionally network switches.
+OmniXtend Node::
+	One of several machines in an OmniXtend Cluster which implements the TileLink over Ethernet protocol (TLoE).
+OmniXtend Coordinator::
+	A single machine in the OmniXtend Cluster which performs the Coordinator role in the OmniXtend Management Protocol. The Coordinator may be any machine connected to the same Ethernet network capable of sending and receiving Ethernet packets so that the Coordinator role may be performed by any of a separate physical server, a programmable network switch, or an OmniXtend Node.
+TileLink over Ethernet::
+	The hardware implementation and Ethernet protocol by which Nodes in an OmniXtend cluster share a coherent TileLink Bus. The task of the OmniXtend Management Protocol is to bring up the TileLink over Ethernet hardware configuration of all OmniXtend nodes such that the TileLink over Ethernet Protocol allows the Cluster to execute the next stage of the boot flow without deadlocking.
+TLoE::
+	An Acronym for TileLink over Ethernet
+TileLink::
+	A coherent chip-scale interconnect designed for use in a System-on-Chip to connect general-purpose multiprocessors, co-processors, accelerators, DMA engines, and other devices.
+Devicetree::
+	A markup specification for describing the hardware resources of a computer.
+Devictree Binary::
+	A particular encoding of Devicetree markup designed for machine consumption.
+Single-Node DTB::
+	A Devicetree in Devicetree Binary format which describes the hardware resources of an individual OmniXtend Node
+Cluster DTB::
+	A Devicetree in Devicetree Binary format which describes the hardware resources of the OmniXtend Cluster and contains all of the information necessary for all OmniXtend Nodes to configure and bring-up their TLoE hardware interfaces.
+
+== Management Protocol
+
+This section describes the protocol by which OmniXtend Nodes communicate over Ethernet with an OmniXtend Coordinator to:
+
+. Discover the Ethernet MAC address of the OmniXtend Coordinator and announce their presence to the Coordinator
+. Transmit the Node's Single-Node DTB to the Coordinator
+. Receive the Cluster DTB from the Coordinator
+. Configure the TLoE hardware interface
+. Transfer control to the next stage of the boot flow
+
+=== Protocol Diagram
+
+[graphviz]
+....
+digraph bootprotocol {
+        /* Node definitions */
+        readmac [label="Read MAC Address"];
+        configphy [label="Configure Ethernet PHY"];
+        enablemac [label="Enable Ethernet PHY"];
+
+        broadcasthello [label="Broadcast Hello"];
+
+        sendsingledtb [label="Send Single-Node DTB"];
+
+        changehartid [label="Change Local Hart IDs"];
+        configlinks [label="Configure TLoE Links"];
+        mapaddrs [label="Config TLoE Address Maps"];
+        enablelinks [label="Enable TLoE Links"];
+        payload [label="Branch to Payload"];
+
+        /* PHY initialization */
+        subgraph phyinit {
+                readmac -> configphy;
+                configphy -> enablemac;
+                enablemac -> broadcasthello;
+        }
+
+        /* Broadcast loop */
+        subgraph loop_hello {
+                broadcasthello -> broadcasthello [label="Wait for Hello ACK from Coordinator"];
+        }
+
+        broadcasthello -> sendsingledtb [label="Receive Hello ACK from Coordinator"];
+
+        /* DTB Exchange */
+        subgraph loop_dtb {
+                sendsingledtb -> sendsingledtb [label="Wait for Cluster DTB from Coordinator"];
+        }
+
+        sendsingledtb -> changehartid [label="Receive Cluster DTB from Coordinator"];
+
+        /* TLoE Configuration */
+        subgraph tloeinit {
+                changehartid -> configlinks;
+                configlinks -> mapaddrs;
+                mapaddrs -> enablelinks;
+                enablelinks -> payload;
+        }
+}
+....
+
+This diagram shows the OmniXtend Management Protocol from the perspective of an OmniXtend Node.
+
+=== Protocol Description
+
+==== PHY Initialization
+
+When an OmniXtend Node is brought up from cold boot, its first task in the Management Protocol is to initialize its Ethernet PHY to allow the transmission and receipt of packets between itself and the rest of the OmniXtend Cluster.
+
+The OmniXtend Node starts this process by reading from some configuration (DIP switch, hard-coded value in ROM, NVRAM, etc.) the MAC address for the Ethernet PHY connected to the OmniXtend Cluster. The Node then configures and enables the Ethernet PHY, setting the MAC address of the PHY to the correct value. When the PHY is configured, the Node will transition to the next phase of the Management Protocol.
+
+==== Hello Handshake
+
+Once connected to the Ethernet network, the OmniXtend node must announce its presence by broadcasting a Hello packet. The purpose of this broadcast is two-fold:
+
+. At this point in the protocol, the OmniXtend Node does not know the MAC address of the Coordinator. The Hello ACK it receives from the Coordinator identifies the MAC address of the Coordinator.
+. By broadcasting a small Hello packet instead of the Single-Node DTB, the overhead of repeated broadcasts is reduced.
+
+*TODO* Describe the retransmission policy for the Hello handshake.
+
+==== DTB Exchange
+
+After receiving a Hello ACK from the Coordinator, the OmniXtend Node will unicast its Single-Node DTB to the Coordinator until it receives the Cluster DTB from the coordinator.
+
+The OmniXtend Coordinator will not send the Cluster DTB until it has received all of the Single-Node DTBs from all of the Nodes in the Cluster.
+
+*TODO* Describe the packet format and retransmission policy for the DTB exchange, especially since each DTB will need multiple packets to be sent and reconstructed.
+
+==== TLoE Configuration
+
+Once a Node has received the Cluster DTB, it may proceed to configure the TLoE hardware interface using the OmniXtend configuration content in the Cluster DTB.
+
+Care must be taken during this step to ensure that all OmniXtend Nodes are given a strict order of TLoE links to enable and that this order of TLoE links is selected to avoid deadlock.
+
+== Single-Node DTB Contents
+
+*TODO*
+
+== Cluster DTB Contents
+
+*TODO*
