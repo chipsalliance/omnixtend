@@ -1,5 +1,8 @@
-OmniXtend version 1.0.3 released!
-================================
+> [!NOTE]
+> This project has been archived and is no longer actively maintained. For questions about this project, please email operations@chipsalliance.org.
+
+OmniXtend
+=========
 
 OmniXtend is a fully open networking protocol for exchanging
 coherence messages directly with processor caches, memory
